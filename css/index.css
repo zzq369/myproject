@@ -1,0 +1,110 @@
+.slideBox{
+  width: 100%;
+  height: 408px;
+}
+.slideBox{
+  background: url(../images/index_bg1.jpg) center no-repeat;
+  height: 408px;
+}
+.advantage dl{
+	padding: 20px 0;
+	width: 100%;
+	height: 150px;
+	background-color: #fff;
+	text-align: center;
+}
+.advantage dt,.advantage dd{
+	float: left;
+	position: relative;
+}
+.advantage dt{
+	margin-right: 30px;
+	padding: 20px 30px;
+	width: 300px;
+	height: 110px;
+	border-right: 1px solid #e3e2e2;
+	text-align: right;
+}
+.advantage dt .icon{
+	position: absolute;
+	left: 20px;
+	top: 0;
+	width: 120px;
+	height: 110px;
+	background-position: 0 -50px;
+}
+.advantage dt h2{
+	margin: 0;
+	font-size: 24px;
+	line-height: 36px;
+	color: #555;
+}
+.advantage dt h2 span{
+	font-weight: bold;
+	color: #e65a46;
+}
+.advantage dd{
+	padding: 32px 0 30px 100px;
+	width: 280px;
+	text-align: left;
+   -webkit-transition: all 0.4s ease-in-out;
+   -moz-transition: all 0.4s ease-in-out;
+   -o-transition: all 0.4s ease-in-out;
+   -ms-transition: all 0.4s ease-in-out;
+   transition: all 0.4s ease-in-out;
+}
+.advantage dd:hover{
+	-webkit-transform: translateY(-5px);
+	-ms-transform: translateY(-5px);
+	-o-transform: translateY(-5px);
+	transform: translateY(-5px);
+}
+.advantage dd h4{
+	margin: 0 0 10px;
+	font-size: 18px;
+	color: #555;
+}
+.advantage dd p{
+	font-size: 14px;
+	color: #999;
+}
+.advantage dd span{
+	position: absolute;
+	left: 0;
+	top: 10px;
+	width: 58px;
+	height: 58px;
+}
+.advantage dd .icon{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -14px 0 0 -13px;
+	width: 58px;
+	height: 58px;
+}
+.advantage .item1 .icon{
+	background-position:-129px -92px;
+}
+.advantage .item2 .icon{
+	background-position: -197px -92px;
+}
+.advantage .item3 .icon{
+	background-position: -265px -92px;
+}
+
+.advantageMain { position:relative; height:150px; overflow:hidden;}
+.advantageItem { position:absolute; left:0; top:0; width:100%; height:100%;}
+.advantageItem01 { z-index:2; opacity:1;}
+.advantageMain_btn { position:absolute; z-index:9; right:28px; top:15px; font-size:0;}
+.advantageMain_btn li { display:inline-block; margin-left:5px;}
+.advantageMain_btn li a { display:block; width:20px; height:3px; background-color:#bbbbbb;}
+.advantageMain_btn .active a { background-color:#5d8ecf;}
+.advantageFm { position:absolute; left:20px; top:0;}
+.advantage .dd02 { width:280px; height:100%; padding-left:0;}
+.advantage .dd02 a { width:210px; height:100%;}
+.advantage .dd02_ittle { display:table-cell; width:20%; font-size:34px; color:#bbbbbb; vertical-align:middle; -webkit-transition: all 0.4s ease-in-out; -moz-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out;}
+.advantage .dd02_content { display:table-cell; width:80%; padding:0 10px; vertical-align:middle;}
+.advantage .dd02_content_t { font-size:18px; color:#555;}
+.advantage .dd02_content_b { font-size:14px; color:#f76f1d; margin-top:6px;}
+.advantage .dd02 a:hover .dd02_ittle { color:#666;}
