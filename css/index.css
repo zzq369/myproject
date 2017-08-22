@@ -108,3 +108,221 @@
 .advantage .dd02_content_t { font-size:18px; color:#555;}
 .advantage .dd02_content_b { font-size:14px; color:#f76f1d; margin-top:6px;}
 .advantage .dd02 a:hover .dd02_ittle { color:#666;}
+
+.forum_list{
+	width: 960px;
+	float: left;
+}
+.forum_list ul {
+	margin-top: 5px
+}
+.forum_list li {
+	border: 1px solid #fff;
+	margin-bottom: 10px;
+	padding: 15px 15px 10px;
+	box-shadow: #e7e7e7 0 0 5px;
+	background: #fff;
+	display: block;
+	transition: opacity .3s ease-in-out:
+}
+
+.forum_list li.stick {
+	background: #fffdea
+}
+
+.forum_list li:hover {
+	border: 1px solid #ffc7b4;
+	box-shadow: #ffac7f 0 0 5px
+}
+.forum_list .avatar {
+    margin-right: 15px;
+    float: left;
+}
+.forum_list .avatar img {
+    width: 50px;
+    max-height: 50px;
+    border-radius: 25px;
+}
+.forum_list .common {
+    width: 860px;
+    display: inline-block;
+}
+.forum_list .userinfo {
+    width: 210px;
+    margin-top: 5px;
+    float: right;
+    text-align: right;
+}
+.forum_list .userinfo a {
+    color: #999;
+    float: right;
+}
+.forum_list .userinfo a i {
+    margin-left: 5px;
+    color: #5b9ad9;
+}
+.forum_list .subject {
+    width: 650px;
+    margin: 0 0 5px;
+    text-indent: -8px;
+    display: inline-block;
+}
+.forum_list .subject a:visited {
+    color: #999;
+}
+.y {
+    float: right;
+}
+.xst {
+    font-size: 16px;
+    font-family: microsoft yahei;
+}
+.forum_list .subject a:visited {
+    color: #999;
+}
+.forum_list .showhide {
+    margin: 5px 0 0;
+}
+.showhide {
+    width: 12px;
+    height: 12px;
+    background: url(http://www.bdwork.com/static/image/common/close.gif) no-repeat 0 0;
+    text-indent: -999em;
+    cursor: pointer;
+    overflow: hidden;
+    margin: 5px 5px 0px 5px;
+}
+.forum_list .common span.dateline {
+    margin-top: 5px;
+    float: right;
+    color: #999;
+}
+.orderby {
+    display: inline-block;
+}
+.orderby a:first-child {
+    border-radius: 3px 0 0 0;
+}
+.orderby a:nth-child(n+2) {
+    margin-left: -1px;
+}
+.orderby a {
+    padding: 0 20px;
+    float: left;
+    border: 1px solid #e7e7e7;
+    background: #fff;
+    color: #666;
+    line-height: 35px;
+    display: inline-block;
+}
+.orderby a.current {
+    border: 1px solid #e85220;
+    background: #e85220;
+    color: #fff;
+}
+.orderby .showmenu {
+    margin: 5px;
+    padding: 0 10px;
+    float: left;
+    background: none;
+    color: #a9a9a9;
+    line-height: 25px;
+    display: inline-block;
+}
+.orderby .showmenu b {
+    float: left;
+    font-weight: normal;
+}
+
+
+style_2_common.css?cLo:1
+.orderby .showmenu a.xw1 {
+    border: 1px solid #ff835f;
+    background: #ff835f;
+    color: #fff;
+    font-weight: normal;
+}
+.orderby .showmenu a {
+    padding: 0 10px;
+    text-align: center;
+    line-height: 25px;
+}
+.orderby a:nth-child(n+2) {
+    margin-left: -1px;
+}
+#autopbn {
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid rgb(194,213,227);
+    border-radius: 3px;
+    text-align: center;
+}
+#autopbn {
+    margin-bottom: 0;
+    border-radius: 0;
+    border: 1px solid #fff;
+    box-shadow: #e7e7e7 0 0 5px;
+    background: #fff;
+    line-height: 60px;
+    font-size: 14px;
+}
+.pgs {
+    margin: 10px 0;
+    font-size: 14px;
+}
+#threadlist .pgs {
+    margin: 0;
+    padding: 15px;
+}
+.cl {
+    zoom: 1;
+}
+.bw0 {
+    background: transparent;
+}
+.pg, .pgb {
+    line-height: 26px;
+}
+.pg strong {
+    background-color: #e85220;
+    border-color: #e85220;
+}
+.pg a, .pg strong, .pgb a, .pg label {
+    float: left;
+    display: inline;
+    margin-left: 4px;
+    padding: 0 8px;
+    height: 26px;
+    border: 1px solid;
+    border-color: #C2D5E3;
+    background-color: #FFF;
+    background-repeat: no-repeat;
+    color: #333;
+    overflow: hidden;
+    text-decoration: none;
+}
+.bmn, .pg a, .pgb a {
+    border-color: #e7e7e7;
+}
+.pg a, .pg strong, .pgb a, .pg label, .pgb a {
+    padding: 4px 12px;
+    color: #666;
+}
+.pg a.nxt {
+    padding: 4px 20px 4px 10px;
+}
+.pg a.nxt {
+    padding-right: 25px;
+    background-image: url(http://www.bdwork.com/static/image/common/arw_r.gif);
+    background-position: 90% 50%;
+}
+
+
+
+
+
+
+
+
+
+
