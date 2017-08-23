@@ -1,0 +1,117 @@
+/*
+ * å¹³å°ç™»å½•æ³¨å†Œæ”¹ç‰ˆï¼Œæ–°å¢žå¾®ä¿¡ç™»å½•æµç¨‹
+ * Author:Angelna
+ * Time:2017/06/08
+ */
+
+body{font-family: 'webfont', Microsoft Yahei, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+color: #bbb; font-family: 'webfont', Microsoft Yahei, "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: 300;} 
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+color: #bbb; font-family: 'webfont', Microsoft Yahei, "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: 300;} 
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+color: #bbb; font-family: 'webfont', Microsoft Yahei, "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: 300;} 
+:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+color: #bbb; font-family: 'webfont', Microsoft Yahei, "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: 300;} 
+
+.blueBtn,.grayBtn{display:inline-block;border-radius: 3px;color: #fff;font-size: 14px;line-height: 150%;text-align: center;background:#3974c4;transition:all 0.3s ease;}
+.blueBtn:hover,.grayBtn:hover{color: #fff;background:#407CCB;transition:all 0.3s ease;}
+.grayBtn{background:#ccc;}
+.grayBtn:hover{background:#ccc;}
+.icon{font-size: 0;line-height: 0;background: url("../img/icon.png") no-repeat;vertical-align: middle;}
+.icon-erro{width: 16px;height: 16px;background-position:-104px 0;}
+.icon-user,.icon-lock,.icon-safe,.icon-invited{width: 18px;height: 18px;background-position:0 -115px;}
+.icon-lock{background-position:-23px -115px;}
+.icon-safe{background-position:-45px -115px;}
+.icon-invited{background-position:-69px -115px;}
+.icon-sina{width: 24px;height: 24px;background-position:0 -141px;}
+.icon-wei{width: 25px;height: 24px;background-position:-30px -141px;}
+.icon-tj{width: 9px;height: 5px;background-position:-162px -1px;}
+.i-check-box{width:12px;height:12px;background-position:-126px -1px;}
+.on .i-check-box{background-position:-142px -1px;}
+
+.mainBox{height:690px;}
+.mainBox .vessel{height:100%;}
+.partBox{position: absolute;top:50%;right: 135px;width: 380px;box-shadow:0 9px 24px rgba(0,0,0,0.05);background: #fff;overflow: hidden;}
+.partTitle{margin: 0;font-size: 20px;line-height: 58px;text-align: center;border-bottom: #ecebeb 1px solid;}
+
+.checkWarp{cursor: pointer;}
+.checkWarp .i-check-box{position: relative;top:-1px;margin-right:5px;}
+.checkbox{ visibility: hidden;width:0;height:0; }
+.login{margin-top:-197px\0;*+margin-top:-187px;transform:translateY(-50%);transform:translateY(0)\0;}
+.loginTab{font-size: 0;border-bottom: #ecebeb 1px solid;}
+.loginTab li{position: relative;display: inline-block;*display: inline;zoom: 1;width:50%;font-size: 20px;line-height: 58px;text-align: center;}
+.loginTab .line{position: absolute;top: 19px;right: 0;display: block;width: 1px;height: 20px;background: #ecebeb;}
+.loginTab a{display: block;color: #333;}
+.loginTab .active a{color: #3974c4;font-weight: 700; }
+.partCon{position: relative;padding: 20px 30px 30px 30px;/* height:380px; */overflow: hidden;}
+.tabContent{position: absolute;top: 0;left: 380px;width: 100%;height: 100%;}
+
+/*è¡¨å•æ ·å¼*/
+.myform{position: relative;font-size: 14px;}
+.myform ul{font-size: 0;line-height: 0;}
+.myform li{position: relative;margin-top:20px;width: 100%;font-size: 14px;line-height: 1.4;}
+
+.formTip{position: absolute;top: -28px;font-size: 12px;color: #e65a46;}
+.formTip .icon-erro{position: relative;top: -2px;}
+
+.formInput{position: relative;display: block;padding: 8px 5px 8px 30px;border: #DAD8D8 1px solid;text-align: left ;}
+.formInput .icon{position: absolute;top: 10px;left: 5px;}
+.formInput input{width: 100%;height: 24px;border: 0;font-size: 14px;line-height: 24px;vertical-align: middle;outline: none;background: none;}&.erro{border: #e65a46 1px solid;}
+
+.yzmInput{width: 210px;*+width:173px;}
+.yzmInput .yzm{display: block;position: absolute;top:-1px;right: -110px;width:100px;height: 42px;line-height:42px;}
+.yzmInput .yzmImg{border: #DAD8D8 1px solid;line-height: 0;font-size: 0;}
+.yzmInput img{width: 100%;height: 100%;}
+.yzmInput .blueBtn{line-height: 42px;}
+.yzmInput .grayBtn{display: none;}
+
+.formBtn_box{position: relative;margin-top: 40px;}
+.formTerm{position: absolute;top:-30px;width: 100%;height: 20px;font-size:12px}
+.formTerm a{color:#3974c4;}
+.formTerm .forget{position: absolute;right: 0;color:#999;}
+.formBtn{display: block;width: 100%;border: 0;border-radius: 3px;text-align: center;font-size: 14px;line-height:42px;font-family: 'webfont', Microsoft Yahei;color: #fff;background: #3974c4;outline: none;transition:all 0.3s ease;}
+.formBtn:hover{color: #fff;background:#407CCB;transition:all 0.3s ease;}
+
+.formOther{position: relative;padding-top: 15px;line-height: 24px;}
+.formOther i{margin-right: 3px;}
+.formOther a{margin-right: 10px;}
+.formOther .right{position: absolute;right: 0;}
+.formOther .right a{margin:0 0 0 10px;}
+
+/*åŸŽå¸‚åˆ—è¡¨*/
+.cityChoice{position: absolute;top:0;right:0;padding: 0 18px 0 8px;width: 100px;height:40px;line-height: 40px;font-size:14px;border: #DAD8D8 1px solid;background: #F6F6F6;cursor: pointer;z-index: 3;box-sizing:content-box;}
+.cityChoice .icon-tj{position: absolute;right: 5px;top: 50%;margin-top: -3px;}
+.cityChoice .cityInfo{font-size: 0;}
+.cityChoice .city-name{display: inline-block;width: 50%;line-height: 1;font-size: 14px;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;vertical-align: middle;}
+.cityChoice .city-num{line-height: 1;display: inline-block;width: 50%;font-size: 14px;/* text-align: right; */vertical-align: middle;}
+.cityList{display: none;position:absolute;top:40px;left:-1px;width:126px;max-height: 300px;box-sizing:content-box;border: #DAD8D8 1px solid;border-top: #F6F6F6 1px solid;background: #F6F6F6;overflow-y:auto; z-index: 3;}
+.cityList li{margin: 0;font-size:0;line-height:0;}
+.cityList a{display: block;padding:0 10px;font-size:14px;line-height: 40px;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;}
+.cityList a:hover,.cityList .on a{background: #DEECF9;}
+
+
+/*ç™»å½•*/
+.wei_Box{text-align: center;}
+.wei_Box p{padding-bottom: 6px;font-size: 18px;color: #999;}
+.wei_Box .aHelp{font-size: 12px;}
+.wei_code{margin: 35px auto 10px auto;width: 185px;height: 185px;font-size: 0;line-height: 0;border: #DAD8D8 1px solid;overflow: hidden;}
+
+/*æ³¨å†Œ*/
+/* .registerCon{position: relative;padding: 0 30px;height:480px;overflow: hidden;} */
+.register {margin-top:-270px;height:540px;}
+.registerVer{display:none;}
+.registerVer .formTerm{font-size: 12px;}
+
+/*å¾®ä¿¡ç™»å½•æ³¨å†Œç»‘å®šè´¦å·æµç¨‹*/
+.mainWarp{margin:76px auto;width: 1170px;min-height:546px;border:#D8D8D8 1px solid;border-radius: 10px;}
+.h2_title{margin: 30px 0 20px 0;padding-left: 10px;line-height: 1;font-size: 24px;font-weight: 700;color: #3974c4;border-left: #3974c4 4px solid;}
+.userType{width:776px;margin:0 auto;padding:60px 0;font-size:0;}
+.userType_iterm{display:inline-block;*display:inline;zoom:1;width:380px;font-size:14px;text-align:center;}
+.userType_iterm.first{border-right:#D8D8D8 1px solid;}
+.userType_iterm p{padding:15px 0;color:#999;}
+.userType_iterm .blueBtn{width:220px;height:42px;line-height:42px;}
+.icon-user-new,.icon-user-old{width:124px;height:123px;background:url("../images/wei-user.png") 1px 0 no-repeat;}
+.icon-user-old{background-position:-126px 0;}
+
+.accountCon{margin:0 auto;padding:18px 0 60px 0;width:320px;}
