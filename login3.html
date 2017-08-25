@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <!-- 全局页面公共css与js文件 -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <script type="text/javascript" src="./js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="./js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="./js/commonMain.js"></script>
+    <link rel="stylesheet" href="./css/common.css">
+    <!-- 当前页面单独css与js文件 -->
+    <link rel="stylesheet" href="./css/login.css">
+  </head>
+  <body>
+    <header id="header" class="header">
+        <div class="container-inner">
+          	<div class="yusi-logo" style="text-align:left;">
+          		<a href="" title="">
+            		<h1 style="padding: 0;">
+              		<img src="http://opp2.com/guanggao/logo.png" style="max-height:90px;">
+              		<!--<span class="yusi-bloger" style="">移动运营推广第一平台！</span>-->
+            		</h1>
+          		</a>
+          	</div>
+        </div>
+        <div class="navbar" id="nav-header">
+          <ul class="nav">
+          	<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-2278">
+              <a href="#">首页</a>
+            </li>
+          	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">商家互推</a>
+          	</li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">免费生成H5推广页</a>
+          	</li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">商家入住</a>
+          	</li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">商家活动区</a>
+          	</li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">运营推广知识</a>
+          	</li>
+          </ul>
+        </div>
+    </header>
+    <section>
+      <div class="mainer">
+        <div class="mainBox" style="background:url(images/banner_login3.jpg) no-repeat center;">
+          <div class="vessel">
+            <div class="partBox login">
+              <ul class="loginTab JS-tab">
+                <li class="active"><a href="#">账号登录</a><i class="line"></i></li>
+                <li class=""><a href="#">微信登录</a></li>
+              </ul>
+              <div class="partCon">
+                <div class="tabContent myform" style="visibility: visible; left: 0px;">
+                  <p class="formTip" style="display:none;">
+                    <i class="icon icon-erro"></i><span class="login_error"></span>
+                  </p>
+                  <ul>
+                    <li>
+                    <label class="formInput erro">
+                    <i class="icon icon-user"></i>
+                    <input type="text" class="login-input phone" name="phone" placeholder="请输入邮箱名/手机号码">
+                    </label>
+                    </li>
+                    <li>
+                    <label class="formInput">
+                    <i class="icon icon-lock"></i>
+                    <input type="password" class="login-input passwd" name="passwd" placeholder="请输入您的密码">
+                    </label>
+                    </li>
+                    <li style="display:none;" class="captcha">
+                    <label class="formInput yzmInput">
+                    <i class="icon icon-safe"></i>
+                    <input type="text" name="captcha" data-captcha="" class="login-input input-captcha" placeholder="输入验证码">
+                    <a class="yzm yzmImg"><img src="/captcha/phone-login-form?t=1503380408" onclick="this.src='/captcha/phone-login-form?t=' + new Date().getTime()"></a>
+                    </label>
+                    </li>
+                  </ul>
+                  <div class="formBtn_box">
+                    <div class="load" style="display:none;text-align:center;">
+                      <img src="/img/load.gif" style="width:30px;height:30px;vertical-align:middle;">
+                    </div>
+                    <div class="formTerm">
+                      <a href="#" target="_blank" style="cursor:pointer;" class="forget">忘记密码？</a>
+                    </div>
+                    <a class="formBtn do_login" style="cursor:pointer;">登录</a>
+                  </div>
+                  <div class="formOther">
+                    <a href="#"><i class="icon icon-sina"></i> 微博</a>
+                    <span class="right">
+                    <a href="#">免费注册 &gt;</a>
+                    </span>
+                  </div>
+                </div>
+                <div class="tabContent wei_Box" style="visibility: visible; left: 380px;">
+                  <div class="wei_code">
+                    <iframe src="https://open.weixin.qq.com/connect/qrconnect?appid=wx6c4297da30213810&amp;redirect_uri=https%3A%2F%2Fwww.jrq.com%2Fsns%2Fwxcallback&amp;response_type=code&amp;scope=snsapi_login&amp;state=a1b541c79c6d72cfc8c91e64c1d24786&amp;href=https://login.jrq.com/cn/css/code.css" class="img01" name="_login_frame_wechat_" id="_login_frame_wechat_" frameborder="no" scrolling="no" style="width:100%; height:215px;">
+                    </iframe>
+                    <img src="/images/wei-help.png" class="img02" style="display:none;">
+                  </div>
+                  <p>
+                    微信扫一扫　快速登录
+                  </p>
+                  <p class="aHelp">
+                    <a href="#" class="JS-help">使用帮助</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+    <footer>
+      <div class="foot">
+        <div class="vessel">
+            <div class="row">
+              <div class="column-2">
+                <div class="nav-head">
+                  暂留位置
+                </div>
+                <ul class="nav-bar">
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                </ul>
+              </div>
+              <div class="column-2">
+                <div class="nav-head">
+                  暂留位置
+                </div>
+                <ul class="nav-bar">
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                </ul>
+              </div>
+              <div class="column-2">
+                <div class="nav-head">
+                  暂留位置
+                </div>
+                <ul class="nav-bar">
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                </ul>
+              </div>
+              <div class="column-3">
+              	<div class="nav-head">
+              		联系我们
+              	</div>
+              	<ul class="nav-bar">
+              		<li>
+                    <i class="icon-phone"></i>
+                    400-0833-328
+                  </li>
+              		<li>
+                    <i class="icon-mail"></i>
+                    support@jrq.com
+              		</li>
+              		<!-- 网站底部客服,如果美洽聊天已上线 -->
+              		<li id="footer-qq">
+                    <i class="icon-service"></i>
+                    在线咨询：
+                    <a class="mq_chat" link="https://eco-api.meiqia.com/dist/standalone.html?eid=1984&amp;groupid=06e68f4b98312c623d40a6efe8799afa" data-ref="fx" href="javascript:;">外汇</a>
+                    <span class="norm">|</span>
+                    <a class="mq_chat" link="https://eco-api.meiqia.com/dist/standalone.html?eid=1984&amp;groupid=06e68f4b98312c623d40a6efe8799afa" data-ref="wealth" href="javascript:;">理财</a>
+                    <span class="norm">|</span><a class="mq_chat" link="https://eco-api.meiqia.com/dist/standalone.html?eid=1984&amp;groupid=06e68f4b98312c623d40a6efe8799afa" data-ref="fund" href="javascript:;">股票</a>
+                  </li>
+              		<li>
+                    <i class="icon-wechat"></i>
+              		  <a class="wechat-txt">微信
+                		</a>
+                    <i class="icon-weibo"></i>
+                    <a target="_blank" href="http://weibo.com/formaxjrq">微博</a>
+                    <i class="icon-linkedin"></i>
+                    <a target="_blank" href="https://www.linkedin.com/company/formax-group-limited">Linkedin</a>
+              		</li>
+              	</ul>
+              </div>
+            </div>
+            <div class="footerCopy">
+              <div class="footerCopy—left">
+                <br>
+                <a href="#" target="_blank">免责声明</a>
+                <span class="norm">|</span><a href="#" target="_blank">隐私条款</a>
+                <span class="norm">|</span><a href="#" target="_blank">用户协议</a>
+              </div>
+              <div class="footlink">
+                <span class="copyright">
+                              增值电信业务经营许可证：
+                <a href="#" target="_blank">粤B2-20160205</a>
+                              &nbsp;&nbsp;&nbsp;
+                <a href="#" target="_blank">粤ICP备14057196号</a>
+                              &nbsp;&nbsp;&nbsp;
+                              金融圈 版权所有 隶属于Formax Group Limited
+                <br>
+                              注册号 ：OS-283263 Copyright © 2017 jrq.com. All rights reserved
+                </span>
+                <a href="#" target="_blank" class="footlink-img">
+                <img src="https://www.jrq.com/v2.0/common/images/footlink04.png?v=1.0.1">
+                </a>
+                <a href="#" target="_blank" class="footlink-img">
+                <img src="https://www.jrq.com/v2.0/common/images/getgeotrustsslseal.gif?v=1.0">
+                </a>
+                <a href="#" target="_blank" class="footlink-img">
+                <img src="https://www.jrq.com/v2.0/common/images/footlink03.png">
+                </a>
+                <a href="#" target="_blank" class="footlink-img">
+                <img src="https://www.jrq.com/v2.0/common/images/footlink02.png">
+                </a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </footer>
+    <!-- sidebar start-->
+  	<div class="footsidebar">
+  		<div class="sidebar">
+  			<div class="sidebar-content">
+  				<ul class="sidbar-link clearfix">
+  					<li class="title sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="title_i"></i>
+  							<span class="sidbar-link-span">会员</span>
+  						</a>
+  					</li>
+  					<li class="sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="foot_qq_i"></i>
+  							<span class="sidbar-link-span">QQ</span>
+  						</a>
+  					</li>
+  					<li  class="footphone_a sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="foot_qq_phone"></i>
+  							<span class="sidbar-link-span">电话</span>
+  							<div class="footfunva">
+  								<dl class="footfunva-dl">
+  									<dt></dt>
+  									<dd>
+  										<p>全国客服热线</p>
+  										<em>400-660-2522</em>
+  									</dd>
+  								</dl>
+  							</div>
+  						</a>
+  					</li>
+  					<li class="sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="footmobe"></i>
+  							<span class="sidbar-link-span">充值</span>
+  						</a>
+  					</li>
+  					<li class="sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="foottabe"></i>
+  							<span class="sidbar-link-span">工单</span>
+  						</a>
+  					</li>
+  					<li class="sidbar-link-li sidbar-help"><a href="" class="sidbar-link-li-a"><p class="pfoote">帮助中心</p></a></li>
+  				</ul>
+  			</div>
+  		</div>
+  		<ul class="sidebar-ul-tit">
+  			<li class="sidebar-ul-tit-li top">
+  				<i></i>
+  				<p>Top</p>
+  			</li>
+  			<li class="sidebar-ul-tit-li2" id="sidebar-ul-tit-li2">
+  				<i></i>
+  			</li>
+  		</ul>
+  	</div>
+  </body>
+</html>

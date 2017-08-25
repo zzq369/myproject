@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <!-- 全局页面公共css与js文件 -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <script type="text/javascript" src="./js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="./js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="./js/commonMain.js"></script>
+    <link rel="stylesheet" href="./css/common.css">
+    <!-- 当前页面单独css与js文件 -->
+    <link rel="stylesheet" href="./css/login.css">
+  </head>
+  <body>
+    <header id="header" class="header">
+        <div class="container-inner">
+          	<div class="yusi-logo" style="text-align:left;">
+          		<a href="" title="">
+            		<h1 style="padding: 0;">
+              		<img src="http://opp2.com/guanggao/logo.png" style="max-height:90px;">
+              		<!--<span class="yusi-bloger" style="">移动运营推广第一平台！</span>-->
+            		</h1>
+          		</a>
+          	</div>
+        </div>
+        <div class="navbar" id="nav-header">
+          <ul class="nav">
+          	<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-2278">
+              <a href="#">首页</a>
+            </li>
+          	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">商家互推</a>
+          	</li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">免费生成H5推广页</a>
+          	</li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">商家入住</a>
+          	</li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">商家活动区</a>
+          	</li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-373">
+              <a target="_blank" href="#">运营推广知识</a>
+          	</li>
+          </ul>
+        </div>
+    </header>
+    <section>
+      <div class="mainer">
+        <div class="mainBox" style="background:url(images/banner_login3.jpg) no-repeat center;">
+          <div class="vessel">
+            <div class="partBox register">
+                 <h3 class="partTitle">注册新账号</h3>
+                 <div class="partCon">
+                     <div class="myform registerForm step_1">
+                 <p class="formTip" style="display:none;"><i class="icon icon-erro"></i><span class="error_tip"></span></p>
+                 <ul>
+                             <li>
+                                 <label class="formInput">
+                                     <i class="icon icon-user"></i>
+                                     <input class="reg-input" type="text" value="" name="phone" placeholder="请输入手机号码" autocomplete="off">
+                                 </label>
+                             </li>
+                             <li>
+                                 <label class="formInput erro">
+                                     <i class="icon icon-lock"></i>
+                                     <input class="reg-input" type="password" value="" name="passwd" placeholder="请输入您的密码" autocomplete="off">
+                                 </label>
+                             </li>
+                             <li>
+                                 <label class="formInput">
+                                     <i class="icon icon-lock"></i>
+                                     <input class="reg-input" type="password" value="" name="repasswd" placeholder="请再次输入密码" autocomplete="off">
+                                 </label>
+                             </li>
+                             <li>
+                                 <label class="formInput">
+                                     <i class="icon icon-invited"></i>
+                                     <input class="reg-input" type="text" name="invite_code" placeholder="邀请码 (可以不填)" autocomplete="off">
+                                 </label>
+                             </li>
+                             <li>
+                                 <label class="formInput yzmInput">
+                                     <i class="icon icon-safe"></i>
+                                     <input class="reg-input" type="text" name="captcha" placeholder="请输入验证码">
+                                     <a class="yzm yzmImg captcha"><img src="https://www.jrq.com/captcha/registerForm?t=1503650199" onclick="this.src='/captcha/registerForm?t=' + new Date().getTime()"></a>
+                                 </label>
+                             </li>
+                         </ul>
+                         <div class="formBtn_box">
+                            <div class="formTerm"><label class="checkWarp on" for="term"><i class="icon i-check-box"></i><input name="term" id="term" type="checkbox" checked="checked" class="checkbox">我接受</label> <a href="https://www.jrq.com/agreement">金融圈网站服务协议</a></div>
+                            <a href="javascript:void(0);" class="formBtn next_step">下一步</a>
+                         </div>
+
+                         <div class="formOther">
+                             <span class="right">
+                                 <a href="https://login.jrq.com/">直接登录 &gt;</a>
+                             </span>
+                         </div>
+                     </div>
+                     <div class="myform registerVer step_2">
+                        <p class="formTip" style="display:none;"><i class="icon icon-erro"></i><span class="error_tip"></span></p>
+                        <ul>
+                             <li>我们已向您的手机号 <span class="red step_2_phone"></span> 发送了一条短信验证码，请查看并填写到下列输入框。</li>
+                             <li>
+                                 <label class="formInput yzmInput">
+                                     <i class="icon icon-safe"></i>
+                                     <input type="text" name="sms" value="" placeholder="请输入验证码">
+                                     <a href="javascript:;" class="yzm blueBtn JS-send send_sms">发送验证码</a>
+                                     <a href="javascript:;" class="yzm grayBtn JS-gray send_sms">重新发送</a>
+                                 </label>
+
+                             </li>
+                         </ul>
+                         <div class="formBtn_box">
+                            <div class="formTerm">手机号码输入错误？<a href="javascript:;" class="JS-rewrite">返回重新输入</a></div>
+                            <a href="javascript:void(0);" class="formBtn go_registe">立即注册</a>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+          </div>
+        </div>
+      </div>
+      </section>
+    <footer>
+      <div class="foot">
+        <div class="vessel">
+            <div class="row">
+              <div class="column-2">
+                <div class="nav-head">
+                  暂留位置
+                </div>
+                <ul class="nav-bar">
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                </ul>
+              </div>
+              <div class="column-2">
+                <div class="nav-head">
+                  暂留位置
+                </div>
+                <ul class="nav-bar">
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                </ul>
+              </div>
+              <div class="column-2">
+                <div class="nav-head">
+                  暂留位置
+                </div>
+                <ul class="nav-bar">
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                  <li><a href="#" target="_blank">暂留位置</a></li>
+                </ul>
+              </div>
+              <div class="column-3">
+              	<div class="nav-head">
+              		联系我们
+              	</div>
+              	<ul class="nav-bar">
+              		<li>
+                    <i class="icon-phone"></i>
+                    400-0833-328
+                  </li>
+              		<li>
+                    <i class="icon-mail"></i>
+                    support@jrq.com
+              		</li>
+              		<!-- 网站底部客服,如果美洽聊天已上线 -->
+              		<li id="footer-qq">
+                    <i class="icon-service"></i>
+                    在线咨询：
+                    <a class="mq_chat" link="https://eco-api.meiqia.com/dist/standalone.html?eid=1984&amp;groupid=06e68f4b98312c623d40a6efe8799afa" data-ref="fx" href="javascript:;">外汇</a>
+                    <span class="norm">|</span>
+                    <a class="mq_chat" link="https://eco-api.meiqia.com/dist/standalone.html?eid=1984&amp;groupid=06e68f4b98312c623d40a6efe8799afa" data-ref="wealth" href="javascript:;">理财</a>
+                    <span class="norm">|</span><a class="mq_chat" link="https://eco-api.meiqia.com/dist/standalone.html?eid=1984&amp;groupid=06e68f4b98312c623d40a6efe8799afa" data-ref="fund" href="javascript:;">股票</a>
+                  </li>
+              		<li>
+                    <i class="icon-wechat"></i>
+              		  <a class="wechat-txt">微信
+                		</a>
+                    <i class="icon-weibo"></i>
+                    <a target="_blank" href="http://weibo.com/formaxjrq">微博</a>
+                    <i class="icon-linkedin"></i>
+                    <a target="_blank" href="https://www.linkedin.com/company/formax-group-limited">Linkedin</a>
+              		</li>
+              	</ul>
+              </div>
+            </div>
+            <div class="footerCopy">
+              <div class="footerCopy—left">
+                <br>
+                <a href="#" target="_blank">免责声明</a>
+                <span class="norm">|</span><a href="#" target="_blank">隐私条款</a>
+                <span class="norm">|</span><a href="#" target="_blank">用户协议</a>
+              </div>
+              <div class="footlink">
+                <span class="copyright">
+                              增值电信业务经营许可证：
+                <a href="#" target="_blank">粤B2-20160205</a>
+                              &nbsp;&nbsp;&nbsp;
+                <a href="#" target="_blank">粤ICP备14057196号</a>
+                              &nbsp;&nbsp;&nbsp;
+                              金融圈 版权所有 隶属于Formax Group Limited
+                <br>
+                              注册号 ：OS-283263 Copyright © 2017 jrq.com. All rights reserved
+                </span>
+                <a href="#" target="_blank" class="footlink-img">
+                <img src="https://www.jrq.com/v2.0/common/images/footlink04.png?v=1.0.1">
+                </a>
+                <a href="#" target="_blank" class="footlink-img">
+                <img src="https://www.jrq.com/v2.0/common/images/getgeotrustsslseal.gif?v=1.0">
+                </a>
+                <a href="#" target="_blank" class="footlink-img">
+                <img src="https://www.jrq.com/v2.0/common/images/footlink03.png">
+                </a>
+                <a href="#" target="_blank" class="footlink-img">
+                <img src="https://www.jrq.com/v2.0/common/images/footlink02.png">
+                </a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </footer>
+    <!-- sidebar start-->
+  	<div class="footsidebar">
+  		<div class="sidebar">
+  			<div class="sidebar-content">
+  				<ul class="sidbar-link clearfix">
+  					<li class="title sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="title_i"></i>
+  							<span class="sidbar-link-span">会员</span>
+  						</a>
+  					</li>
+  					<li class="sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="foot_qq_i"></i>
+  							<span class="sidbar-link-span">QQ</span>
+  						</a>
+  					</li>
+  					<li  class="footphone_a sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="foot_qq_phone"></i>
+  							<span class="sidbar-link-span">电话</span>
+  							<div class="footfunva">
+  								<dl class="footfunva-dl">
+  									<dt></dt>
+  									<dd>
+  										<p>全国客服热线</p>
+  										<em>400-660-2522</em>
+  									</dd>
+  								</dl>
+  							</div>
+  						</a>
+  					</li>
+  					<li class="sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="footmobe"></i>
+  							<span class="sidbar-link-span">充值</span>
+  						</a>
+  					</li>
+  					<li class="sidbar-link-li">
+  						<a href="" class="sidbar-link-li-a">
+  							<i class="foottabe"></i>
+  							<span class="sidbar-link-span">工单</span>
+  						</a>
+  					</li>
+  					<li class="sidbar-link-li sidbar-help"><a href="" class="sidbar-link-li-a"><p class="pfoote">帮助中心</p></a></li>
+  				</ul>
+  			</div>
+  		</div>
+  		<ul class="sidebar-ul-tit">
+  			<li class="sidebar-ul-tit-li top">
+  				<i></i>
+  				<p>Top</p>
+  			</li>
+  			<li class="sidebar-ul-tit-li2" id="sidebar-ul-tit-li2">
+  				<i></i>
+  			</li>
+  		</ul>
+  	</div>
+  </body>
+</html>
