@@ -6,6 +6,7 @@ namespace app\grab\controller;
 
 use cmf\controller\BaseController;
 use think\Db;
+use Curl\Curl;
 
 class IndexController extends BaseController
 {
