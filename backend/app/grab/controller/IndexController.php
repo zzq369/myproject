@@ -4,6 +4,7 @@
  */
 namespace app\grab\controller;
 
+use app\grab\model\PushModel;
 use cmf\controller\BaseController;
 use think\Db;
 
@@ -51,6 +52,9 @@ class IndexController extends BaseController
         $title = $html->find("#thread_subject", 1);
         $title = $title->plaintext;
         $title = iconv("UTF-8", "GB2312//IGNORE", $title) ;
+        $pushModel = new PushModel();
+        $pushModel->addPush(array('title'=>$title));
+        die;
         $info['title'] = $title;
         $param = $html->find('.sort_thread dl');
         foreach($param as $key=>$val){
@@ -59,6 +63,7 @@ class IndexController extends BaseController
             $dd = $val->find('dd', 0);
             $dd_title = iconv("UTF-8", "GB2312//IGNORE", $dd->plaintext) ;
             echo $dd_title;
+
         }
         die;
     }

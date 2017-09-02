@@ -1746,3 +1746,12 @@ function cmf_is_open_registration()
 
     return empty($cmfSettings['open_registration']) ? false : true;
 }
+
+/**
+ * 获取当前时间
+ * @return false|int
+ */
+function now_time(){
+    $time = date("Y-m-d H:i:s");
+    return $time;
+}

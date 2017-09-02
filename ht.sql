@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-08-31 20:58:41
+Date: 2017-09-02 16:55:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,13 +20,13 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `ht_activity`;
 CREATE TABLE `ht_activity` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='商家活动';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商家活动';
 
 -- ----------------------------
 -- Records of ht_activity
@@ -220,7 +220,7 @@ INSERT INTO `ht_admin_menu` VALUES ('156', '155', '2', '0', '10000', 'user', 'Ad
 -- ----------------------------
 DROP TABLE IF EXISTS `ht_article`;
 CREATE TABLE `ht_article` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -229,7 +229,7 @@ CREATE TABLE `ht_article` (
   `content` text,
   `thumb` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
 
 -- ----------------------------
 -- Records of ht_article
@@ -240,14 +240,14 @@ CREATE TABLE `ht_article` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ht_article_category`;
 CREATE TABLE `ht_article_category` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `sort` tinyint(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='文章分类';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章分类';
 
 -- ----------------------------
 -- Records of ht_article_category
@@ -272,7 +272,7 @@ CREATE TABLE `ht_asset` (
   `suffix` varchar(10) NOT NULL DEFAULT '' COMMENT '文件后缀名,不包括点',
   `more` text COMMENT '其它详细信息,JSON格式',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
 
 -- ----------------------------
 -- Records of ht_asset
@@ -566,7 +566,7 @@ CREATE TABLE `ht_hook_plugin` (
   `hook` varchar(30) NOT NULL DEFAULT '' COMMENT '钩子名',
   `plugin` varchar(30) NOT NULL DEFAULT '' COMMENT '插件',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='系统钩子插件表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统钩子插件表';
 
 -- ----------------------------
 -- Records of ht_hook_plugin
@@ -606,7 +606,7 @@ CREATE TABLE `ht_nav` (
   `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导航位置名称',
   `remark` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='前台导航位置表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='前台导航位置表';
 
 -- ----------------------------
 -- Records of ht_nav
@@ -630,7 +630,7 @@ CREATE TABLE `ht_nav_menu` (
   `icon` varchar(20) NOT NULL DEFAULT '' COMMENT '图标',
   `path` varchar(255) NOT NULL DEFAULT '' COMMENT '层级关系',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COMMENT='前台导航菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='前台导航菜单表';
 
 -- ----------------------------
 -- Records of ht_nav_menu
@@ -675,7 +675,7 @@ CREATE TABLE `ht_plugin` (
   `description` varchar(255) NOT NULL COMMENT '插件描述',
   `config` text COMMENT '插件配置',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='插件表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='插件表';
 
 -- ----------------------------
 -- Records of ht_plugin
@@ -702,7 +702,7 @@ CREATE TABLE `ht_portal_category` (
   `one_tpl` varchar(50) NOT NULL DEFAULT '' COMMENT '分类文章页模板',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章分类表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章分类表';
 
 -- ----------------------------
 -- Records of ht_portal_category
@@ -720,7 +720,7 @@ CREATE TABLE `ht_portal_category_post` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:发布;0:不发布',
   PRIMARY KEY (`id`),
   KEY `term_taxonomy_id` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8 COMMENT='portal应用 分类文章对应表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='portal应用 分类文章对应表';
 
 -- ----------------------------
 -- Records of ht_portal_category_post
@@ -759,7 +759,7 @@ CREATE TABLE `ht_portal_post` (
   KEY `post_parent` (`parent_id`),
   KEY `post_author` (`user_id`),
   KEY `post_date` (`create_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='portal应用 文章表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='portal应用 文章表';
 
 -- ----------------------------
 -- Records of ht_portal_post
@@ -776,7 +776,7 @@ CREATE TABLE `ht_portal_tag` (
   `post_count` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '标签文章数',
   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章标签表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章标签表';
 
 -- ----------------------------
 -- Records of ht_portal_tag
@@ -804,9 +804,9 @@ CREATE TABLE `ht_portal_tag_post` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ht_push`;
 CREATE TABLE `ht_push` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
-  `title` varchar(100) NOT NULL COMMENT '标题',
+  `title` varchar(200) NOT NULL COMMENT '标题',
   `create_time` datetime NOT NULL,
   `start_time` datetime DEFAULT NULL COMMENT '开始时间',
   `end_time` datetime DEFAULT NULL,
@@ -819,7 +819,7 @@ CREATE TABLE `ht_push` (
   `business_offer` text NOT NULL COMMENT '商家提供',
   `support` text NOT NULL COMMENT '支持',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='商家互推表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商家互推表';
 
 -- ----------------------------
 -- Records of ht_push
@@ -830,12 +830,12 @@ CREATE TABLE `ht_push` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ht_push_category`;
 CREATE TABLE `ht_push_category` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='商家互推类型';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商家互推类型';
 
 -- ----------------------------
 -- Records of ht_push_category
@@ -846,13 +846,13 @@ CREATE TABLE `ht_push_category` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ht_push_tags`;
 CREATE TABLE `ht_push_tags` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `push_id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='商家互推标签';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商家互推标签';
 
 -- ----------------------------
 -- Records of ht_push_tags
@@ -869,7 +869,7 @@ CREATE TABLE `ht_recycle_bin` (
   `table_name` varchar(60) DEFAULT '' COMMENT '删除内容所在表名',
   `name` varchar(255) DEFAULT '' COMMENT '删除内容名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COMMENT=' 回收站';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=' 回收站';
 
 -- ----------------------------
 -- Records of ht_recycle_bin
@@ -910,7 +910,7 @@ CREATE TABLE `ht_role_user` (
   PRIMARY KEY (`id`),
   KEY `group_id` (`role_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='用户角色对应表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色对应表';
 
 -- ----------------------------
 -- Records of ht_role_user
@@ -928,7 +928,7 @@ CREATE TABLE `ht_route` (
   `full_url` varchar(255) NOT NULL DEFAULT '' COMMENT '完整url',
   `url` varchar(255) NOT NULL DEFAULT '' COMMENT '实际显示的url',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='url路由表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='url路由表';
 
 -- ----------------------------
 -- Records of ht_route
@@ -1088,7 +1088,7 @@ CREATE TABLE `ht_user` (
   PRIMARY KEY (`id`),
   KEY `user_login_key` (`user_login`),
   KEY `user_nicename` (`user_nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of ht_user
@@ -1132,7 +1132,7 @@ CREATE TABLE `ht_user_action_log` (
   PRIMARY KEY (`id`),
   KEY `user_object_action` (`user_id`,`object`,`action`),
   KEY `user_object_action_ip` (`user_id`,`object`,`action`,`ip`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='访问记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='访问记录表';
 
 -- ----------------------------
 -- Records of ht_user_action_log
@@ -1153,7 +1153,7 @@ CREATE TABLE `ht_user_favorite` (
   `create_time` int(10) unsigned DEFAULT '0' COMMENT '收藏时间',
   PRIMARY KEY (`id`),
   KEY `uid` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='用户收藏表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户收藏表';
 
 -- ----------------------------
 -- Records of ht_user_favorite
@@ -1164,7 +1164,7 @@ CREATE TABLE `ht_user_favorite` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ht_user_info`;
 CREATE TABLE `ht_user_info` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL DEFAULT '0',
   `industry_id` int(10) NOT NULL DEFAULT '0' COMMENT '行业',
   `provice_id` int(11) NOT NULL DEFAULT '0' COMMENT '省',
@@ -1176,7 +1176,7 @@ CREATE TABLE `ht_user_info` (
   `scale` varchar(100) DEFAULT NULL COMMENT '规模',
   `wechat_public` varchar(100) DEFAULT NULL COMMENT '微信公众号',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='商家详细信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商家详细信息表';
 
 -- ----------------------------
 -- Records of ht_user_info
@@ -1223,13 +1223,13 @@ CREATE TABLE `ht_user_score_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ht_user_tags`;
 CREATE TABLE `ht_user_tags` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL COMMENT '标签名称',
   `user_id` bigint(20) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='用户标签表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户标签表';
 
 -- ----------------------------
 -- Records of ht_user_tags
@@ -1247,7 +1247,7 @@ CREATE TABLE `ht_user_token` (
   `token` varchar(64) NOT NULL DEFAULT '' COMMENT 'token',
   `device_type` varchar(10) NOT NULL DEFAULT '' COMMENT '设备类型;mobile,android,iphone,ipad,web,pc,mac,wxapp',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户客户端登录 token 表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户客户端登录 token 表';
 
 -- ----------------------------
 -- Records of ht_user_token
@@ -1265,7 +1265,7 @@ CREATE TABLE `ht_verification_code` (
   `code` varchar(8) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '最后发送成功的验证码',
   `account` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '手机号或者邮箱',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='手机邮箱数字验证码表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='手机邮箱数字验证码表';
 
 -- ----------------------------
 -- Records of ht_verification_code
