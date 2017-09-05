@@ -25,24 +25,15 @@ class PushModel extends Model
         $pushQuery->insertGetId($saveData);
         return true;
     }
+
     /**
-     * 用户密码修改
-     * @param $user
-     * @return int
+     * title获取互推详情
+     * @param $title
+     * @return array|false|\PDOStatement|string|Model
      */
-    public function editPassword($user)
-    {
-        $userId    = cmf_get_current_user_id();
-        $userQuery = Db::name("user");
-        if ($user['password'] != $user['repassword']) {
-            return 1;
-        }
-        $pass = $userQuery->where('id', $userId)->find();
-        if (!cmf_compare_password($user['old_password'], $pass['user_pass'])) {
-            return 2;
-        }
-        $data['user_pass'] = cmf_password($user['password']);
-        $userQuery->where('id', $userId)->update($data);
-        return 0;
+    public function getInfoByTitle($title){
+        $pushQuery = Db::name("push");
+        $info = $pushQuery->where('title', $title)->find();
+        return $info;
     }
 }

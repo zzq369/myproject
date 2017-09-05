@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-09-03 20:24:44
+Date: 2017-09-05 22:58:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,6 +38,8 @@ CREATE TABLE `ht_push` (
   `tel` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `type` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COMMENT='商家互推表';
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`) USING BTREE,
+  KEY `title` (`title`(191))
+) ENGINE=InnoDB AUTO_INCREMENT=568 DEFAULT CHARSET=utf8mb4 COMMENT='商家互推表';
 SET FOREIGN_KEY_CHECKS=1;

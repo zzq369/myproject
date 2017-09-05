@@ -19,9 +19,21 @@ class AdController extends BaseController
      */
     public function run(){
         set_time_limit(0);
+        ini_set('memory_limit', '500M');
+        ini_set('display_errors','on');
+        error_reporting(E_ALL);
+        $cate = $_GET['cate'];
+        if(!$cate){
+            echo "请输入类型";
+            die;
+        }
+        $cate_list = array(
+            1=>4,2=>5,3=>2,4=>3,5=>1,6=>10,7=>6,8=>7,9=>8,10=>9
+        );
+        $category_id = $cate_list[$cate];
         ini_set("memory_limit", '128M');
         for($p = 1; $p<=70; $p++){
-            $url = 'http://www.admaimai.com/shop/l5a0c0kp'.$p.'.html';
+            $url = 'http://www.admaimai.com/shop/l'.$cate.'a0c0kp'.$p.'.html';
             if(empty($url)){
                 echo "请输入URL";
                 die;
@@ -30,38 +42,46 @@ class AdController extends BaseController
             ob_flush();
             flush();
             vendor('simple_html_dom');
-            $html = file_get_html($url);
-            $comList = $html->find(".sh16_wid02 .sh16_m02_1");
-            foreach($comList as $key=>$dom){
-                echo "run compan list ----" . $key .'<br>';
-                ob_flush();
-                flush();
-                $href_list = $dom->find(".sh16_m02_2 .sh16_lf a", 0)->href;
-                $this->runList($href_list);
-                unset($href_list);
+            try {
+                $html = file_get_html($url);
+                $comList = $html->find(".sh16_wid02 .sh16_m02_1");
+                foreach ($comList as $key => $dom) {
+                    echo "run compan list ----" . $key . '<br>';
+                    ob_flush();
+                    flush();
+                    $href_list = $dom->find(".sh16_m02_2 .sh16_lf a", 0)->href;
+                    $this->runList($href_list, $category_id);
+                    unset($href_list);
+                }
+                unset($comList, $html, $url);
+            }catch (Exception $e){
+                continue;
             }
-            unset($comList,$html,$url);
         }
     }
 
-    public function runList($url){
+    public function runList($url,$category_id){
         $url = 'http://www.admaimai.com'.$url;
         echo "run company info----" . $url .'<br>';
         ob_flush();
         flush();
-        $html = file_get_html($url);
-        $adList = $html->find(".zxt_04f2");
-        foreach($adList as $key=>$dom){
-            //判断是否可抓取内容
-            echo "run ad list----" . $key .'<br>';
-            ob_flush();
-            flush();
-            $href_ad = $dom->find(".z_zy_v3 .z_f3", 0)->href;
-            echo "run ad href----" . $href_ad .'<br>';
-            $this->adInfo($href_ad);
-            unset($href_ad, $dom);
+        try {
+            $html = file_get_html($url);
+            $adList = $html->find(".zxt_04f2");
+            foreach ($adList as $key => $dom) {
+                //判断是否可抓取内容
+                echo "run ad list----" . $key . '<br>';
+                ob_flush();
+                flush();
+                $href_ad = $dom->find(".z_zy_v3 .z_f3", 0)->href;
+                echo "run ad href----" . $href_ad . '<br>';
+                $this->adInfo($href_ad, $category_id);
+                unset($href_ad, $dom);
+            }
+            unset($adList, $html, $url);
+        }catch (Exception $e){
+            return true;
         }
-        unset($adList, $html, $url);
     }
 
     public function runCategory(){
@@ -78,7 +98,7 @@ class AdController extends BaseController
         $adcModel->insertAll($data);
     }
 
-    public function adInfo($url){
+    public function adInfo($url,$category_id){
         try {
             $url = 'http://www.admaimai.com' . $url;
             echo "----" . $url . '<br>';
@@ -100,6 +120,12 @@ class AdController extends BaseController
             if (empty($title)) {
                 return false;
             }
+            //判断title是否已存在
+            $pushModel = new PushModel();
+            $pushInfo = $pushModel->getInfoByTitle($title);
+            if($pushInfo){
+                return false;
+            }
             //地区
             $provice = $html->find(".t_lf .z_f3", 0);
             $provice = $provice->plaintext;
@@ -109,6 +135,12 @@ class AdController extends BaseController
 
             //类型
             $type_tr = $html->find(".z_h_12b1 tr", 1);
+            if(empty($type_tr)){
+                $type_tr = $html->find(".z_h_12b1_xmt tr", 1);
+            }
+            if(empty($type_tr)){
+                return true;
+            }
             $type_list = $type_tr->find(".z_f3");
             $type = [];
             foreach ($type_list as $val) {
@@ -131,8 +163,7 @@ class AdController extends BaseController
             $data['tel'] = $tel;
             $data['address'] = $address;
             $data['business_offer'] = $content;
-            $data['category_id'] = 1;
-            $pushModel = new PushModel();
+            $data['category_id'] = $category_id;
             $pushModel->insertGetId($data);
             unset($html, $title, $company_name, $type, $tel, $address, $content);
             return true;
