@@ -22,6 +22,7 @@ class AdController extends BaseController
         ini_set('memory_limit', '500M');
         ini_set('display_errors','on');
         error_reporting(E_ALL);
+        header("Content-type: text/html; charset=utf-8");
         $cate = $_GET['cate'];
         if(!$cate){
             echo "请输入类型";
@@ -162,7 +163,7 @@ class AdController extends BaseController
             $data['type'] = $type;
             $data['tel'] = $tel;
             $data['address'] = $address;
-            $data['business_offer'] = $content;
+            $data['business_offer'] =  iconv("gb2312","utf-8",$content);
             $data['category_id'] = $category_id;
             $pushModel->insertGetId($data);
             unset($html, $title, $company_name, $type, $tel, $address, $content);
