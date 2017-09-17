@@ -32,7 +32,6 @@ class AdController extends BaseController
             1=>4,2=>5,3=>2,4=>3,5=>1,6=>10,7=>6,8=>7,9=>8,10=>9
         );
         $category_id = $cate_list[$cate];
-        ini_set("memory_limit", '128M');
         for($p = 1; $p<=70; $p++){
             $url = 'http://www.admaimai.com/shop/l'.$cate.'a0c0kp'.$p.'.html';
             if(empty($url)){
