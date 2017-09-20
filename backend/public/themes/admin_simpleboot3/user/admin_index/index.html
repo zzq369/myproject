@@ -3,7 +3,7 @@
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
-        <li class="active"><a>{:lang('USER_INDEXADMIN_INDEX')}</a></li>
+        <li class="active"><a>{:lang('USER_MEMBER_INDEX')}</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('user/adminIndex/index')}">
         用户ID：
@@ -51,6 +51,7 @@
                     <td>{$user_statuses[$vo['user_status']]}</td>
                     <td>
                         <neq name="vo.id" value="1">
+                            <a href="{:url('adminIndex/member_edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
                             <empty name="vo.user_status">
                                 <a href="{:url('adminIndex/cancelban',array('id'=>$vo['id']))}"
                                    class="js-ajax-dialog-btn"

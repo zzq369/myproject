@@ -1,0 +1,18 @@
+/*20170914*/
+ALTER TABLE `ht_push` ADD COLUMN `resource_type`  tinyint(2) UNSIGNED NULL DEFAULT 0 COMMENT '资源类型';
+/*20170918*/
+CREATE TABLE `ht_push_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `push_id` int(11) DEFAULT '0' COMMENT '商家互推表id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='商家互推媒体类型';
+ALTER TABLE `ht_push`
+ADD COLUMN `province`  int(11) NULL DEFAULT 0 COMMENT '省份id' AFTER `resource_type`,
+ADD COLUMN `city`  int(11) NULL DEFAULT 0 COMMENT '城市id' AFTER `province`,
+ADD COLUMN `area`  int(11) NULL DEFAULT 0 COMMENT '区县id' AFTER `city`,
+/*20170920*/
+ADD COLUMN `is_process`  tinyint(1) NULL DEFAULT 0 COMMENT '采集的数据是否已处理 1是，0否，后台添加默认为是' AFTER `area`;
+

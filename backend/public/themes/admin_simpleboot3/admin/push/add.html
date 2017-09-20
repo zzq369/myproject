@@ -1,0 +1,295 @@
+<include file="public@header"/>
+<link rel="stylesheet" href="__STATIC__/js/elem-ui/lib-1.4.4/index.css" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('push/index')}">商家互推列表</a></li>
+        <li class="active" ><a href="{:url('push/add')}">添加商家互推</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('push/add')}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>标题名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="title" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>公司名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="company_name" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>资源类型:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="radio" class="" id="resource_type_1" name="resource_type" value="1" checked="checked">线上
+                <input type="radio" class="" id="resource_type_2" name="resource_type" value="2" >线下
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>互推分类:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="category_id" class="form-control">
+                    <option value="">请选择</option>
+                    <volist name="$categoryList" id="category">
+                        <option value='{$category.id}'>{$category.name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group type-box">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>媒体类型:</label>
+            <div class="col-md-6 col-sm-10">
+                <input id="new_type_name" type="hidden" class="form-control" name="new_type_name" v-model="newTypes">
+                <el-tag
+                        :key="type"
+                        v-for="type in currentTypes"
+                        :closable="true"
+                        :close-transition="false"
+                        @close="handleClose(type)"
+                >
+                    {{type}}
+                </el-tag>
+                <el-input
+                        class="input-new-tag"
+                        v-if="inputVisible"
+                        v-model="inputValue"
+                        ref="saveTagInput"
+                        size="mini"
+                        @keyup.enter.native="handleInputConfirm"
+                        @blur="handleInputConfirm"
+                >
+                </el-input>
+                <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+                <p class="help-block">商家互推媒体类型，一次添加一个，可添加多个类型</p>
+            </div>
+        </div>
+        <div class="form-group tag-box">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>自定义标签:</label>
+            <div class="col-md-6 col-sm-10">
+                <input id="new_tag_name" type="hidden" class="form-control" name="new_tag_name" v-model="newTags">
+                <el-tag
+                        :key="tag"
+                        v-for="tag in currentTags"
+                        :closable="true"
+                        :close-transition="false"
+                        @close="handleClose(tag)"
+                >
+                    {{tag}}
+                </el-tag>
+                <el-input
+                        class="input-new-tag"
+                        v-if="inputVisible"
+                        v-model="inputValue"
+                        ref="saveTagInput"
+                        size="mini"
+                        @keyup.enter.native="handleInputConfirm"
+                        @blur="handleInputConfirm"
+                >
+                </el-input>
+                <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+                <p class="help-block">商家互推标签,一次添加一个，可添加多个标签</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>收费类型:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="radio" class="" id="charge_1" name="charge" value="1">免费
+                <input type="radio" class="" id="charge_2" name="charge" value="2">收费
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>活动时间:</label>
+            <div class="col-md-6 col-sm-10">
+
+                <input class="form-control js-bootstrap-datetime" type="text" name="start_time"
+                       value="{:date('Y-m-d H:i:s',time())}" style="width:200px;">-
+                <input class="form-control js-bootstrap-datetime" type="text" name="end_time"
+                       value="{:date('Y-m-d H:i:s',time())}" style="width:200px;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>联系方式:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="tel" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>地区:</label>
+            <div class="col-md-6 col-sm-10">
+                {:widget('region/region_select')}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>详细地址:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="address" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>我方提供:</label>
+            <div class="col-md-6 col-sm-10">
+                <script type="text/plain" id="business_offer" name="business_offer"></script>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>对方提供:</label>
+            <div class="col-md-6 col-sm-10">
+                <script type="text/plain" id="support" name="support"></script>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>是否置顶:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="is_top" class="form-control">
+                    <option value="1" >是</option>
+                    <option value="0" >否</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>是否加急:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="is_anxious" class="form-control">
+                    <option value="1" >是</option>
+                    <option value="0" >否</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>阅读量:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="read_count" value="0">
+            </div>
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+            <a class="btn btn-default" href="{:url('push/index')}">返回</a>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/elem-ui/vue-2.4.4.js"></script>
+<script type="text/javascript" src="__STATIC__/js/elem-ui/lib-1.4.4/index.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        var editor_support = new baidu.editor.ui.Editor();
+        editor_support.render('support');
+        try {
+            editor_support.sync();
+        } catch (err) {
+        }
+        var editor_business_offer = new baidu.editor.ui.Editor();
+        editor_business_offer.render('business_offer');
+        try {
+            editor_business_offer.sync();
+        } catch (err) {
+        }
+        new Vue({
+            el: '.type-box',
+            data: function () {
+                return {
+                    currentTypeIds: [],
+                    delTypeIds: [],
+                    currentTypes: [],
+                    newTypes: [],
+                    inputVisible: false,
+                    inputValue: ''
+                }
+            },
+            mounted: function () {
+
+            },
+            methods:{
+                handleClose:function(type) {
+                    var index = this.currentTypes.indexOf(type);
+                    var deleteTypeName = this.currentTypes[index];
+                    if($.inArray(deleteTypeName, this.newTypes) > -1){
+                        this.newTypes.splice($.inArray(deleteTypeName,this.newTypes),1);
+                    }
+                    this.currentTypes.splice(index, 1);
+                },
+                showInput:function() {
+                    this.inputVisible = true;
+                    this.$nextTick(_ => {
+                        this.$refs.saveTagInput.$refs.input.focus();
+                });
+                },
+                handleInputConfirm:function() {
+                    let inputValue = this.inputValue;
+                    if (inputValue) {
+                        if($.inArray(inputValue,this.currentTypes)<0){
+                            this.currentTypes.push(inputValue);
+                            this.newTypes.push(inputValue);
+                        }else{
+                            alert('请不要添加重复的类型');
+                            return false;
+                        }
+                    }
+                    this.inputVisible = false;
+                    this.inputValue = '';
+                }
+            }
+        });
+
+        new Vue({
+            el: '.tag-box',
+            data: function () {
+                return {
+                    currentTagIds: [],
+                    delTagIds: [],
+                    currentTags: [],
+                    newTags: [],
+                    inputVisible: false,
+                    inputValue: ''
+                }
+            },
+            mounted: function () {
+
+            },
+            methods:{
+                handleClose:function(tag) {
+                    var index = this.currentTags.indexOf(tag);
+                    var deleteTagName = this.currentTags[index];
+                    if($.inArray(deleteTagName, this.newTags) > -1){
+                        this.newTags.splice($.inArray(deleteTagName,this.newTags),1);
+                    }
+                    this.currentTags.splice(index, 1);
+                },
+                showInput:function() {
+                    this.inputVisible = true;
+                    this.$nextTick(_ => {
+                        this.$refs.saveTagInput.$refs.input.focus();
+                });
+                },
+                handleInputConfirm:function() {
+                    let inputValue = this.inputValue;
+                    if (inputValue) {
+                        if($.inArray(inputValue,this.currentTags)<0){
+                            this.currentTags.push(inputValue);
+                            this.newTags.push(inputValue);
+                        }else{
+                            alert('请不要添加重复的标签');
+                            return false;
+                        }
+                    }
+                    this.inputVisible = false;
+                    this.inputValue = '';
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

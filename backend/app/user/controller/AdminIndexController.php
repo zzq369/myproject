@@ -13,6 +13,7 @@ namespace app\user\controller;
 
 use cmf\controller\AdminBaseController;
 use think\Db;
+use think\Request;
 
 /**
  * Class AdminIndexController
@@ -56,7 +57,8 @@ class AdminIndexController extends AdminBaseController
      */
     public function index()
     {
-        $where   = [];
+        //个人会员和企业会员
+        $where   = ['user_type' => ['IN', [1, 2, 3]]];
         $request = input('request.');
 
         if (!empty($request['uid'])) {
@@ -132,4 +134,33 @@ class AdminIndexController extends AdminBaseController
             $this->error('数据传入失败！');
         }
     }
+
+    /**
+     * 会员资料编辑页
+     * @author xy
+     * @since 2017/09/05 20:30
+     */
+    public function member_edit(){
+        $id = input('param.id', 0, 'intval');
+        if ($id) {
+            if (Request::instance()->isAjax()) {
+
+            } else {
+                $userInfo = Db::name('user')->alias('u')
+                    ->join('__USER_INFO__ ui', 'ui.user_id = u.id', 'LEFT')
+                    ->where(['u.id' => $id])
+                    ->find();
+
+                if (empty($userInfo)) {
+                    $this->error('未找到用户id为' . $id . '的会员');
+                } else {
+                    $this->assign('userInfo', $userInfo);
+                    return $this->fetch();
+                }
+            }
+        } else {
+            $this->error('id参数不能为空');
+        }
+    }
+
 }

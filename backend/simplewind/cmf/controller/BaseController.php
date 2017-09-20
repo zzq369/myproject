@@ -81,5 +81,16 @@ class BaseController extends Controller
         return true;
     }
 
-
+    /**
+     * 获取get，post等方法提交的参数
+     * @author xy
+     * @since 2017/09/05 22:35
+     * @param string $name 参数名称
+     * @param null $default 默认值
+     * @param string|array $filter 过滤方法
+     * @return mixed
+     */
+    public function getParam($name = '', $default = NULL, $filter){
+        return $this->request->param($name, $default, $filter);
+    }
 }

@@ -1,0 +1,46 @@
+{$html}
+<script>
+    $(function(){
+        var provinceObj = $('#province');
+        var cityObj = $('#city');
+        var areaObj = $('#area');
+        var province = provinceObj.val();
+        var city = cityObj.val();
+
+        provinceObj.change(function () {
+            var province = $(this).val();
+            ajaxGetCity(province);
+        });
+        cityObj.change(function () {
+            var city = $(this).val();
+            ajaxGetArea(city);
+        });
+
+        function ajaxGetArea(city) {
+            $.ajax({
+                type:'POST',
+                url: "{:url('region/get_area')}",
+                data: {city: city},
+                dataType: 'json',
+                success: function(result){
+                    $('#area').remove();
+                    cityObj.after(result);
+                }
+            });
+        }
+
+        function ajaxGetCity(province) {
+            $.ajax({
+                type:'POST',
+                url: "{:url('region/get_city')}",
+                data: {province: province},
+                dataType: 'json',
+                success: function(result){
+                    areaObj.remove();
+                    cityObj.empty().html(result);
+                }
+            });
+
+        }
+    });
+</script>

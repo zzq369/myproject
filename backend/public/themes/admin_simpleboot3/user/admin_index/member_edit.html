@@ -1,0 +1,155 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>{:lang('USER_MEMBER_INDEX')}</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('adminIndex/member_edit')}">
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">会员类型<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="radio" class="form-control" id="user_type_2" name="user_type" value="2" <eq name="userInfo.user_type" value="2">checked="checked"</eq>>个人用户
+                <input type="radio" class="form-control" id="user_type_3" name="user_type" value="3" <eq name="userInfo.user_type" value="3">checked="checked"</eq>>企业用户
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">用户状态<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control" name="user_stauts" id="input-user_stauts">
+                    <option value="0" <eq name="userInfo.user_status" value="0">selected="selected"</eq>>禁用</option>
+                    <option value="1" <eq name="userInfo.user_status" value="1">selected="selected"</eq>>正常</option>
+                    <option value="2" <eq name="userInfo.user_status" value="2">selected="selected"</eq>>未激活</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">用户名<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-user_login" name="user_login" value="{$userInfo.user_login}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">手机<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-mobile" name="mobile" value="{$userInfo.mobile}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">邮箱<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-user_email" name="user_email" value="{$userInfo.user_email}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">所属行业<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-industry_id" name="industry_id" value="{$userInfo.industry_id}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">地区<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-provice_id" name="provice_id" value="{$userInfo.provice_id}">
+                <input type="text" class="form-control" id="input-city_id" name="city_id" value="{$userInfo.city_id}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">详细地址<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-address" name="address" value="{$userInfo.address}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_nickname" class="col-sm-2 control-label">昵称<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-user_nickname" name="user_nickname" value="{$userInfo.user_nickname}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-avatar" class="col-sm-2 control-label">用户头像</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-avatar" name="avatar" value="{$userInfo.avatar}">
+                <a href="javascript:uploadOneImage('图片上传','#input-link_image');">上传图片</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-sex" class="col-sm-2 control-label">性别</label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control" name="sex" id="input-sex">
+                    <option value="1" <eq name="userInfo.sex" value="1">selected="selected"</eq>>男</option>
+                    <option value="2" <eq name="userInfo.sex" value="2">selected="selected"</eq>>女</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">生日<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="birthday" name="user_type" value="{$userInfo.birthday|date='Y-m-d',###}">
+            </div>
+        </div>
+        <eq name="userInfo.user_type" value="3">
+            <div class="form-group">
+                <label for="input-user_login" class="col-sm-2 control-label">公司规模<span class="form-required">*</span></label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="scale" name="scale" value="{$userInfo.scale}">
+                </div>
+            </div>
+        </eq>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">微信<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="wechat" name="wechat" value="{$userInfo.wechat}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">QQ<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="qq" name="qq" value="{$userInfo.qq}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">公众号<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="wechat_public" name="wechat_public" value="{$userInfo.wechat_public}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">用户积分<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="score" name="score" value="{$userInfo.score}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user_login" class="col-sm-2 control-label">用户金币<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="coin" name="coin" value="{$userInfo.coin}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-signature" class="col-sm-2 control-label">个性签名</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" name="signature"
+                          id="input-signature">{$userInfo.signature}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-signature" class="col-sm-2 control-label">个性网站</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="user_url" name="user_url" value="{$userInfo.user_url}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$userInfo.id}">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="{:url('adminIndex/index')}">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

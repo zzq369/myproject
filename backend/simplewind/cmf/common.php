@@ -1755,3 +1755,37 @@ function now_time(){
     $time = date("Y-m-d H:i:s");
     return $time;
 }
+
+/**
+ * 采集的商家互推地区数据处理
+ * @author xy
+ * @since 2017/09/21 1:37
+ * @param $address
+ * @return array
+ */
+function process_pick_region_data($address){
+    //获取最后一个字符
+    $lastChar = mb_substr($address, -1);
+    if(in_array($lastChar, array('省','市','区','县'))){
+        $address = mb_substr($address, 0, -1);
+    }
+    $region = Db::name('region')->alias('r')
+        ->field('r.*, pr.pid as pid_1, ppr.pid as pid_2, pppr.pid as pid_3')
+        ->join('__REGION__ pr', 'pr.Id = r.pid', 'LEFT')
+        ->join('__REGION__ ppr', 'ppr.Id = pr.pid', 'LEFT')
+        ->join('__REGION__ pppr', 'pppr.Id = ppr.pid', 'LEFT')
+        ->where(['r.name' => ['like', $address.'%']])
+        ->find();
+
+    if(!empty($region['Id'])){
+        if($region['pid'] === 0){
+            return ['province' => $region['Id']];
+        } elseif ($region['pid'] !== 0 && $region['pid_1'] === 0){
+            return ['city' => $region['Id']];
+        } elseif($region['pid'] !== 0 && $region['pid_1'] !== 0 && ($region['pid_2'] === 0 || $region['pid_2'] !== 0)){
+            return ['area' => $region['Id']];
+        }
+    }
+
+
+}
