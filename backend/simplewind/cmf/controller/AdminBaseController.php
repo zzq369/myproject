@@ -103,4 +103,25 @@ class AdminBaseController extends BaseController
         }
     }
 
+    /**
+     * 以json格式返回结果
+     * @author xy
+     * @since 2017/09/19 21:25
+     * @param bool $error 是否有错误
+     * @param string $code 代码
+     * @param string $detail 提现信息
+     * @param null $data 数据
+     */
+    public function outputJSON($error = true, $code, $detail, $data = null)
+    {
+        $JsonData = array();
+        $JsonData['error'] = $error;
+        $JsonData['code'] = $code;
+        $JsonData['detail'] = $detail;
+        if($data || $data=='0'){
+            $JsonData['data'] = $data;
+        }
+        echo json_encode($JsonData);
+    }
+
 }

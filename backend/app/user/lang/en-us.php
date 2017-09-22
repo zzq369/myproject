@@ -44,5 +44,6 @@ return [
     "LAST_LOGIN_IP"                 => 'Last Login IP',
     "LOGIN_TIMES"                   => 'Login Times',
     "STATUS"                        => 'Status',
-    "ACTIONS"                       => "Actions"
+    "ACTIONS"                       => "Actions",
+    'USER_MEMBER_INDEX'             => 'Member List',
 ];
