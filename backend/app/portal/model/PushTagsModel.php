@@ -6,20 +6,23 @@
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
-// | Author: 老猫 <thinkcmf@126.com>
+// | Author: Powerless < wzxaini9@gmail.com>
 // +----------------------------------------------------------------------
-namespace app\portal\controller;
+namespace app\portal\model;
 
-use app\portal\service\IndexService;
-use cmf\controller\HomeBaseController;
+use think\Db;
+use think\Model;
 
-class IndexController extends HomeBaseController
+class PushTagsModel extends Model
 {
-    public function index()
-    {
-        $indexService = new IndexService();
-        $topPushList = $indexService->getTopPush();
-        $this->assign('topPushList', $topPushList);
-        return $this->fetch(':index');
+    /**
+     * 根据条件获取列表
+     * @param $params
+     */
+    public function getListBy($params){
+        $pushQuery = Db::name("push_tags");
+        $list = $pushQuery->alias("a")->where($params)->order("id desc")->select();
+        return $list;
     }
 }
+

@@ -1,34 +1,30 @@
-<br>
-<!-- Footer ================================================== -->
-<hr>
-<div id="footer">
-    <hook name="footer_start"/>
-    <div class="links">
-        <links>
-            <a href="{$vo.url|default=''}" target="{$vo.target|default=''}">{$vo.name|default=''}</a>&nbsp;
-        </links>
-
+<div id="footerbox"><!-- footerbox start -->
+    <div class="footconbox">
+        <div class="footleftcon">
+            <ul>
+                <li>
+                    <h1>商务合作</h1>
+                    <p><a href="#" title="">需求置顶</a></p>
+                    <p><a href="#" title="">需求刷新</a></p>
+                    <p><a href="#" title="">广告投放</a></p>
+                    <p><a href="#" title="">成为会员</a></p>
+                </li>
+                <li>
+                    <h1>联系我们</h1>
+                    <p>服务时间：周一至周日 9:00-22:00</p>
+                    <p>0592-2222222</p>
+                    <p>111222333</p>
+                    <p>111222333</p>
+                </li>
+            </ul>
+        </div>
+        <div class="footrightcon">
+            <h1>关注我们</h1>
+            <div class="footma"><img src="images/erweima.jpg" alt=""></div>
+            <p>关注开放平台生活号</p>
+        </div>
+        <div class="clears"></div>
+        <div class="copyright">Copyright @ 2017 xxx.com | ICP证浙B2-20160559 </div>
     </div>
-    <p>
-        Made by <a href="http://www.thinkcmf.com" target="_blank">ThinkCMF</a>
-        Code licensed under the
-        <a href="http://www.apache.org/licenses/LICENSE-2.0" rel="nofollow" target="_blank">Apache License v2.0</a>.
-        <br/>
-        Based on
-        <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>.
-        Icons from
-        <a href="http://fortawesome.github.com/Font-Awesome/" target="_blank">Font Awesome</a>
-        <br>
-        备案号:
-        <notempty name="site_info.site_icp">
-            <a href="http://www.miitbeian.gov.cn/" target="_blank">{$site_info.site_icp}</a>
-            <else/>
-            请在后台设置"网站信息"设置"备案信息"
-        </notempty>
-
-
-    </p>
-</div>
-<div id="backtotop">
-    <i class="fa fa-arrow-circle-up"></i>
-</div>
+</div><!-- footerbox over -->
+<script src="__TMPL__/public/home/js/style.js"></script>
