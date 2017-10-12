@@ -20,4 +20,13 @@ ADD COLUMN `province`  int(11) NULL DEFAULT 0 COMMENT '省份id',
 ADD COLUMN `city`  int(11) NULL DEFAULT 0 COMMENT '城市id',
 ADD COLUMN `area`  int(11) NULL DEFAULT 0 COMMENT '区县id',
 ADD COLUMN `is_process`  tinyint(1) NULL DEFAULT 0 COMMENT '采集的数据是否已处理 1是，0否，后台添加默认为是' AFTER `area`;
+CREATE TABLE `ht_wechat_tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `wechat_id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='微信公众号标签';
+
 
