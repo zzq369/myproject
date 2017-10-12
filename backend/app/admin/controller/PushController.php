@@ -235,6 +235,7 @@ class PushController extends AdminBaseController
             $insertData = $this->request->post();
             //默认已处理
             $insertData['is_process'] = 1;
+            $insertData['create_time'] = date('Y-m-d H:i:s');
             $pushTypeStr = trim($insertData['new_type_name']);
             $pushTagStr = trim($insertData['new_tag_name']);
             unset($insertData['new_type_name'],$insertData['new_tag_name']);

@@ -1,0 +1,198 @@
+<include file="public@header"/>
+<link rel="stylesheet" href="__STATIC__/js/elem-ui/lib-1.4.4/index.css" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('wechat/index')}">微信公众号列表</a></li>
+        <li><a href="{:url('wechat/add')}">添加微信公众号</a></li>
+        <li class="active" ><a>编辑微信公众号</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('wechat/edit')}">
+        <input type="hidden" class="form-control" name="id" value="{$wechat.id}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>微信名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="wechat_name" value="{$wechat.wechat_name}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>微信账号:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="wechat_account" value="{$wechat.wechat_account}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>微信分类:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="wechat_category" class="form-control">
+                    <option value="0">顶级分类</option>
+                    {$option}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group tag-box">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>自定义标签:</label>
+            <div class="col-md-6 col-sm-10">
+                <input id="new_tag_name" type="hidden" class="form-control" name="new_tag_name" v-model="newTags">
+                <input id="del_tag_id" type="hidden" class="form-control" name="del_tag_id" v-model="delTagIds">
+                <el-tag
+                        :key="tag"
+                        v-for="tag in currentTags"
+                        :closable="true"
+                        :close-transition="false"
+                        @close="handleClose(tag)"
+                >
+                    {{tag}}
+                </el-tag>
+                <el-input
+                        class="input-new-tag"
+                        v-if="inputVisible"
+                        v-model="inputValue"
+                        ref="saveTagInput"
+                        size="mini"
+                        @keyup.enter.native="handleInputConfirm"
+                        @blur="handleInputConfirm"
+                >
+                </el-input>
+                <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+                <p class="help-block">微信标签,一次添加一个，可添加多个标签</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>点赞数:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="like" value="{$wechat.like}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>关注度:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="fans" value="{$wechat.fans}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>客服QQ:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="qq" value="{$wechat.qq}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>地区:</label>
+            <div class="col-md-6 col-sm-10">
+
+                {:widget('region/region_select', ['province' => $wechat['province'], 'city' => $wechat['city'], 'area' => $wechat['area']])}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>详细地址:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="address" value="{$wechat.address}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>是否认证:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="is_v" class="form-control">
+                    <option value="1" <eq name="wechat.is_v" value="1">selected="selected"</eq>>是</option>
+                    <option value="0" <eq name="wechat.is_v" value="0">selected="selected"</eq>>否</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>公众号描述:</label>
+            <div class="col-md-6 col-sm-10">
+                <script type="text/plain" id="describe" name="describe">{$wechat.describe|htmlspecialchars_decode}</script>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+            <a class="btn btn-default" href="{:url('wechat/index')}">返回</a>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/elem-ui/vue-2.4.4.js"></script>
+<script type="text/javascript" src="__STATIC__/js/elem-ui/lib-1.4.4/index.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        var editor_describe = new baidu.editor.ui.Editor();
+        editor_describe.render('describe');
+        try {
+            editor_describe.sync();
+        } catch (err) {
+        }
+
+        new Vue({
+            el: '.tag-box',
+            data: function () {
+                return {
+                    currentTagIds: [],
+                    delTagIds: [],
+                    currentTags: [],
+                    newTags: [],
+                    inputVisible: false,
+                    inputValue: ''
+                }
+            },
+            mounted: function () {
+                var tag_id_str = '{$wechat.tag_ids}';
+                if(tag_id_str != ''){
+                    this.currentTagIds = tag_id_str.split(',');
+                }
+                var tag_str = '{$wechat.tags}';
+                if(tag_str != ''){
+                    this.currentTags = tag_str.split(',');
+                }
+                console.log(this.currentTags);
+            },
+            methods:{
+                handleClose:function(tag) {
+                    var index = this.currentTags.indexOf(tag);
+                    var deleteTagName = this.currentTags[index];
+                    if($.inArray(deleteTagName, this.newTags) > -1){
+                        this.newTags.splice($.inArray(deleteTagName,this.newTags),1);
+                    }
+                    if(typeof (this.currentTagIds[index]) !== 'undefined'){
+                        this.delTagIds.push(this.currentTagIds[index]);
+                    }
+                    this.currentTags.splice(index, 1);
+                    this.currentTagIds.splice(index, 1);
+                },
+                showInput:function() {
+                    this.inputVisible = true;
+                    this.$nextTick(_ => {
+                        this.$refs.saveTagInput.$refs.input.focus();
+                    });
+                },
+                handleInputConfirm:function() {
+                    let inputValue = this.inputValue;
+                    if (inputValue) {
+                        if($.inArray(inputValue,this.currentTags)<0){
+                            this.currentTags.push(inputValue);
+                            this.newTags.push(inputValue);
+                        }else{
+                            alert('请不要添加重复的标签');
+                            return false;
+                        }
+                    }
+                    this.inputVisible = false;
+                    this.inputValue = '';
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -13,6 +13,11 @@ ALTER TABLE `ht_push`
 ADD COLUMN `province`  int(11) NULL DEFAULT 0 COMMENT '省份id' AFTER `resource_type`,
 ADD COLUMN `city`  int(11) NULL DEFAULT 0 COMMENT '城市id' AFTER `province`,
 ADD COLUMN `area`  int(11) NULL DEFAULT 0 COMMENT '区县id' AFTER `city`,
-/*20170920*/
+ADD COLUMN `is_process`  tinyint(1) NULL DEFAULT 0 COMMENT '采集的数据是否已处理 1是，0否，后台添加默认为是' AFTER `area`;
+/*20171012*/
+ALTER TABLE `ht_wechat`
+ADD COLUMN `province`  int(11) NULL DEFAULT 0 COMMENT '省份id',
+ADD COLUMN `city`  int(11) NULL DEFAULT 0 COMMENT '城市id',
+ADD COLUMN `area`  int(11) NULL DEFAULT 0 COMMENT '区县id',
 ADD COLUMN `is_process`  tinyint(1) NULL DEFAULT 0 COMMENT '采集的数据是否已处理 1是，0否，后台添加默认为是' AFTER `area`;
 

@@ -1789,3 +1789,81 @@ function process_pick_region_data($address){
 
 
 }
+
+/**
+ * 递归获取无极限分类数组
+ * @author xy
+ * @since 2017/10/11 21:26
+ * @param array $data 原数组
+ * @param integer $parentId 父级id
+ * @param integer $currentLevel 当前层级
+ * @param integer $levelLimit 限制层级
+ * @param string $levelField 层级的数组键值
+ * @param string $idField id字段的名称
+ * @param string $parentField 父级id字段的名称
+ * @param string $childField 保存子类的数组键值
+ * @return array|string
+ */
+function get_tree_recursive(array $data, $parentId = 0, $currentLevel, $levelLimit = 3, $levelField = 'level', $idField = 'id', $parentField = 'parent_id', $childField = 'children')
+{
+    if(empty($data)){
+        return false;
+    }
+    $tree = array();
+
+    foreach($data as $k => $v)
+    {
+        if($v[$parentField] == $parentId)
+        {
+            //父亲找到儿子
+            if(($currentLevel <= $levelLimit)){
+                $v[$childField] = get_tree_recursive($data, $v[$idField], $currentLevel+1, $levelLimit, $levelField = 'level', $idField = 'id', $parentField = 'parent_id', $childField = 'children');
+                $v[$levelField] = $currentLevel;
+                $tree[] = $v;
+            }
+        }
+
+    }
+    return $tree;
+}
+
+/**
+ * 生成option
+ * @author xy
+ * @since 2017/10/11 23:17
+ * @param array $data 数据数组
+ * @param string $idField 数组中的id字段的键名
+ * @param string $nameField 数据组中名称字段
+ * @param string $children 数组中子类数组键名
+ * @param string $level 数组中层级名称字段
+ * @param mixed $defaultVal 默认选中的值
+ * @param string $symbol 符号
+ * @return string
+ */
+function generate_type_option(array $data, $idField = 'id', $nameField = 'name', $children = 'children', $level = 'level', $defaultVal = '', $symbol = ''){
+    $html = '';
+    if(!empty($data)){
+        $tempSymbol = $symbol;
+        if(empty($symbol)){
+            $symbol .= '|';
+        }
+        $symbol .= '__';
+        foreach ($data as $key=>$value){
+            $dataLevel = '';
+            if(isset($value[$level])){
+                $dataLevel = 'data-level="'.$value[$level].'"';
+            }
+            $selectVal = '';
+            if(!empty($defaultVal) && $defaultVal == $value[$idField]){
+                $selectVal = 'selected="selected"';
+            }
+            $html .='<option value="'.$value[$idField].'" '.$dataLevel.' '.$selectVal.'>'.$tempSymbol.$value[$nameField].'</option>';
+
+            if(!empty($value[$children])>0){
+                $html .= generate_type_option($value[$children], $idField = 'id', $nameField = 'name', $children = 'children', $level = 'level', $defaultVal, $symbol);
+            }
+        }
+    }
+    return $html;
+}
+

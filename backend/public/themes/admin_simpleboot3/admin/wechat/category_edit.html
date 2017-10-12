@@ -1,0 +1,45 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('wechat/category_index')}">公众号分类列表</a></li>
+        <li><a href="{:url('wechat/category_add')}">添加公众号分类</a></li>
+        <li class="active" ><a>编辑公众号分类</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('wechat/category_edit')}">
+        <input type="hidden" class="form-control" name="id" value="{$category.id}">
+        <input type="hidden" name="level" id="level" value="{$category.level}"/>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>父类:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="parent_id" class="form-control" id="parent_id">
+                    <option value="0" data-level="1">作为顶级</option>
+                    {$option}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="name" value="{$category.name}">
+            </div>
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+            <a class="btn btn-default" href="{:url('push/category_index')}">返回</a>
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    $(function () {
+        $('#parent_id').change(function () {
+            var level = $(this).find('option:selected').data('level');
+            $('#level').val(level);
+        });
+    })
+</script>
+</body>
+</html>

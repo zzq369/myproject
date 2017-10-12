@@ -1,0 +1,50 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('wechat/tag_index')}">微信标签列表</a></li>
+        <li><a href="{:url('wechat/tag_add')}">添加微信标签</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('admin/wechat/tag_index')}">
+        标签名称：
+        <input class="form-control" type="text" name="name" style="width: 200px;" value="{:input('request.name')}" placeholder="请输入标签名称">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('admin/wechat/tag_index')}">清空</a>
+    </form>
+    <table class="table table-hover table-bordered margin-top-20">
+        <thead>
+        <tr>
+            <th width="50">ID</th>
+            <th>微信名称</th>
+            <th>标签名称</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th width="160">{:lang('ACTIONS')}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <php>
+
+        </php>
+        <volist name='list' id='vo'>
+        <tr>
+            <td>{$vo.id}</td>
+            <td><a href="{:url('admin/wechat/edit', array('id' => $vo['push_id']))}">{$vo.wechat_name}</a></td>
+            <td>{$vo.name}</td>
+            <td>{$vo.create_time}</td>
+            <td>{$vo.update_time}</td>
+            <td>
+                <a href="{:url('wechat/tag_edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a> |
+                <a href="{:url('wechat/tag_delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:lang('DELETE')}</a>
+            </td>
+        </tr>
+        </volist>
+        </tbody>
+        <div class="pagination">{$page}</div>
+    </table>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
