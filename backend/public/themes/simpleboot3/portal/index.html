@@ -5,185 +5,173 @@
     <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
     <include file="public@head"/>
-    <link href="__TMPL__/public/assets/css/slippry/slippry.css" rel="stylesheet">
-    <style>
-        .caption-wraper {
-            position: absolute;
-            left: 50%;
-            bottom: 2em;
-        }
-
-        .caption-wraper .caption {
-            position: relative;
-            left: -50%;
-            background-color: rgba(0, 0, 0, 0.54);
-            padding: 0.4em 1em;
-            color: #fff;
-            -webkit-border-radius: 1.2em;
-            -moz-border-radius: 1.2em;
-            -ms-border-radius: 1.2em;
-            -o-border-radius: 1.2em;
-            border-radius: 1.2em;
-        }
-
-        .tc-gridbox {
-            margin: 0;
-        }
-
-        @media (max-width: 767px) {
-            .sy-box {
-                margin: 12px -20px 0 -20px;
-            }
-
-            .caption-wraper {
-                left: 0;
-                bottom: 0.4em;
-            }
-
-            .caption-wraper .caption {
-                left: 0;
-                padding: 0.2em 0.4em;
-                font-size: 0.92em;
-                -webkit-border-radius: 0;
-                -moz-border-radius: 0;
-                -ms-border-radius: 0;
-                -o-border-radius: 0;
-                border-radius: 0;
-            }
-        }
-
-    </style>
     <hook name="before_head_end"/>
 </head>
-<body class="body-white">
+<body>
 <include file="public@nav"/>
-
-<ul id="home-slider" class="list-unstyled">
-    <php>
-        $top_slide_id=empty($theme_vars['top_slide'])?1:$theme_vars['top_slide'];
-    </php>
-    <slides id="$top_slide_id">
-        <li>
-            <div class="caption-wraper">
-                <div class="caption">{$vo.title|default=''}</div>
-            </div>
-            <a href="{$vo.url|default=''}"><img src="{:cmf_get_image_url($vo.image)}" alt=""></a>
-        </li>
-    </slides>
-    <noslides id="$top_slide_id">
-        <li>
-            <div class="caption-wraper">
-                <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
-            </div>
-            <a href=""><img src="__TMPL__/public/assets/images/demo/1.jpg" alt=""></a>
-        </li>
-        <li>
-            <div class="caption-wraper">
-                <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
-            </div>
-            <a href=""><img src="__TMPL__/public/assets/images/demo/2.jpg" alt=""></a>
-        </li>
-        <li>
-            <div class="caption-wraper">
-                <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
-            </div>
-            <a href=""><img src="__TMPL__/public/assets/images/demo/3.jpg" alt=""></a>
-        </li>
-    </noslides>
-</ul>
-
-<div class="container">
-    <widget name="features">
-        <div>
-            <h1 class="text-center">{$widget.title}</h1>
-            <h3 class="text-center">{$widget.vars.sub_title}</h3>
-        </div>
-        <php>
-            $features_count = count($widget['vars']['features']);
-            $rows = ceil($features_count/3);
-        </php>
-        <for start="1" end="$rows" comparison="elt" step="1" name="row">
-            <php>
-                $first_row = ($row-1)*3;
-                $features = array_slice($widget['vars']['features'],$first_row,3);
-            </php>
-            <div class="row">
-                <foreach name="features" item="vo">
-                    <div class="col-md-4">
-                        <h2 class="font-large nospace"><i class="fa fa-{$vo.icon}"></i> {$vo.title}</h2>
-                        <p>{$vo.content}</p>
-                    </div>
-                </foreach>
-            </div>
-        </for>
-
-    </widget>
-
-    <widget name="last_news">
-        <div>
-            <h1 class="text-center">{$widget.title}</h1>
-        </div>
-
-        <div class="row">
-            <?php  $widget["vars"]["last_news_category_id"] = empty($widget["vars"]["last_news_category_id"])?1:$widget["vars"]["last_news_category_id"];?>
-            <portal:articles limit="4" order="post.published_time DESC"
-                             categoryIds="$widget.vars.last_news_category_id">
-                <div class="col-md-3">
-                    <div class="tc-gridbox">
-                        <div class="header">
-                            <div class="item-image">
-                                <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}">
-                                    <present name="vo.more.thumbnail">
-                                        <empty name="vo.more.thumbnail">
-                                            <img src="__TMPL__/public/assets/images/default-thumbnail.png"
-                                                 class="img-responsive"
-                                                 alt="">
-                                            <else/>
-                                            <img src="{:cmf_get_image_url($vo.more.thumbnail)}"
-                                                 class="img-responsive"
-                                                 alt="">
-                                        </empty>
-                                        <else/>
-                                        <img src="__TMPL__/public/assets/images/default-thumbnail.png"
-                                             class="img-responsive"
-                                             alt="">
-                                    </present>
-                                </a>
-                            </div>
-                            <h3>
-                                <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}">{$vo.post_title}</a>
-                            </h3>
-                            <hr>
-                        </div>
-                        <div class="body">
-                            <p>
-                                <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}">...</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </portal:articles>
-        </div>
-    </widget>
-    <include file="public@footer"/>
+<div class="swiper-container" id="swiper1">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" ><img src="__TMPL__/public/home/images/banner01.jpg"></div>
+        <div class="swiper-slide"><img src="__TMPL__/public/home/images/banner02.jpg"></div>
+        <div class="swiper-slide" ><img src="__TMPL__/public/home/images/banner03.jpg"></div>
+    </div>
+    <div class="swiper-pagination" id="pag1"></div>
 </div>
+<div class="clears"></div>
+<div class="contentbox"><!-- contentbox start -->
+    <div class="maincontent">
+        <div class="indleftbox">
+            <h1>最新互推资源</h1>
+            <p class="titleline" style="margin-top: 25px;"></p>
+            <ul class="hutuibox" style="margin-top: 20px;">
+                <volist name="topPushList" id="vo">
+                <li>
+                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                    <div class="hutui_right">
+                        <h2><a href="#" title="">{$vo.title}</a>
+                            <if condition="$vo.is_top eq 1">
+                            <span class="colorbg1"><a href="#">顶</a></span>
+                            </if>
+                            <if condition="$vo.is_anxious eq 1">
+                            <span class="colorbg2"><a href="#">急</a></span>
+                            </if>
+                        </h2>
+                        <div class="clears"></div>
+                        <div class="tui_txt1">
+                            <span>合作中</span>
+                            <span>所属行业：{$vo.cate_name}</span>
+                            <span>合作地区：{$vo.address}</span>
+                            <span>阅读数：{$vo.read_count}</span>
+                            <span>{$vo.create_time}</span>
+                        </div>
+                        <div class="tui_txt1">
+                            <notempty name="vo.tags">
+                            <volist name="vo.tags" id="tag">
+                            <span>{$tag.name}</span>
+                            </volist>
+                            </notempty>
+                        </div>
+                    </div>
+                    <div class="clears"></div>
+                </li>
+                </volist>
+                <li>
+                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                    <div class="hutui_right">
+                        <h2><a href="#" title="">这里是商家合作资源标题</a><span class="colorbg1"><a href="#">顶</a></span><span class="colorbg2"><a href="#">急</a></span><span class="colorbg3"><a  href="#">V2</a></span></h2>
+                        <div class="clears"></div>
+                        <div class="tui_txt1"><span>合作中</span><span>所属行业：IT/互联网</span><span>合作地区：全国</span><span>阅读数：1000</span><span>2017-8-10 19:20:10</span></div>
+                        <div class="tui_txt1"><span>食物赞助</span><span>实物广告</span><span>现金支持</span><span>场地提供</span></div>
+                    </div>
+                    <div class="clears"></div>
+                </li>
+                <li>
+                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                    <div class="hutui_right">
+                        <h2><a href="#" title="">这里是商家合作资源标题</a><span class="colorbg1"><a href="#">顶</a></span><span class="colorbg2"><a href="#">急</a></span><span class="colorbg3"><a  href="#">V2</a></span></h2>
+                        <div class="clears"></div>
+                        <div class="tui_txt1"><span>合作中</span><span>所属行业：IT/互联网</span><span>合作地区：全国</span><span>阅读数：1000</span><span>2017-8-10 19:20:10</span></div>
+                        <div class="tui_txt1"><span>食物赞助</span><span>实物广告</span><span>现金支持</span><span>场地提供</span></div>
+                    </div>
+                    <div class="clears"></div>
+                </li>
+                <li>
+                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                    <div class="hutui_right">
+                        <h2><a href="#" title="">这里是商家合作资源标题</a><span class="colorbg1"><a href="#">顶</a></span><span class="colorbg2"><a href="#">急</a></span><span class="colorbg3"><a  href="#">V2</a></span></h2>
+                        <div class="clears"></div>
+                        <div class="tui_txt1"><span>合作中</span><span>所属行业：IT/互联网</span><span>合作地区：全国</span><span>阅读数：1000</span><span>2017-8-10 19:20:10</span></div>
+                        <div class="tui_txt1"><span>食物赞助</span><span>实物广告</span><span>现金支持</span><span>场地提供</span></div>
+                    </div>
+                    <div class="clears"></div>
+                </li>
+                <li>
+                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                    <div class="hutui_right">
+                        <h2><a href="#" title="">这里是商家合作资源标题</a><span class="colorbg1"><a href="#">顶</a></span><span class="colorbg2"><a href="#">急</a></span><span class="colorbg3"><a  href="#">V2</a></span></h2>
+                        <div class="clears"></div>
+                        <div class="tui_txt1"><span>合作中</span><span>所属行业：IT/互联网</span><span>合作地区：全国</span><span>阅读数：1000</span><span>2017-8-10 19:20:10</span></div>
+                        <div class="tui_txt1"><span>食物赞助</span><span>实物广告</span><span>现金支持</span><span>场地提供</span></div>
+                    </div>
+                    <div class="clears"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="indrightbox">
+            <h1 id="ind_title">推广小知识</h1>
+            <p class="titleline"></p>
+            <div class="indr_siderbox" style="margin-top: 18px;">
+                <ul>
+                    <li>
+                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="clears"></div>
+
+    </div>
+
+
+</div><!-- contentbox over -->
+<div class="clears"></div>
+<include file="public@footer"/>
 <!-- /container -->
 <include file="public@scripts"/>
-<script src="__TMPL__/public/assets/js/slippry.min.js"></script>
-<script>
-    $(function () {
-        $("#home-slider").slippry({
-            transition: 'fade',
-            useCSS: true,
-            captions: false,
-            speed: 1000,
-            pause: 3000,
-            auto: true,
-            preload: 'visible'
-        });
-        $("#home-slider").show();
-    });
-</script>
 <hook name="before_body_end"/>
 </body>
 </html>
