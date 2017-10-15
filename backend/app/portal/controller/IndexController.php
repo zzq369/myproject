@@ -19,7 +19,14 @@ class IndexController extends HomeBaseController
     {
         $indexService = new IndexService();
         $topPushList = $indexService->getTopPush();
+        //文章列表
+        $portalList = $indexService->getRecommendPortal();
+        //首页banner
+        $bannerList = $indexService->getBanner();
+
         $this->assign('topPushList', $topPushList);
+        $this->assign('portalList', $portalList);
+        $this->assign('bannerList', $bannerList);
         return $this->fetch(':index');
     }
 }

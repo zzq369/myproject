@@ -11,9 +11,9 @@
 <include file="public@nav"/>
 <div class="swiper-container" id="swiper1">
     <div class="swiper-wrapper">
-        <div class="swiper-slide" ><img src="__TMPL__/public/home/images/banner01.jpg"></div>
-        <div class="swiper-slide"><img src="__TMPL__/public/home/images/banner02.jpg"></div>
-        <div class="swiper-slide" ><img src="__TMPL__/public/home/images/banner03.jpg"></div>
+        <volist name="bannerList" id="vo">
+        <div class="swiper-slide" ><a href="{$vo.url}" target="_blank"><img src="{:cmf_get_image_preview_url($vo['image'])}"></a></div>
+        </volist>
     </div>
     <div class="swiper-pagination" id="pag1"></div>
 </div>
@@ -55,46 +55,6 @@
                     <div class="clears"></div>
                 </li>
                 </volist>
-                <li>
-                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
-                    <div class="hutui_right">
-                        <h2><a href="#" title="">这里是商家合作资源标题</a><span class="colorbg1"><a href="#">顶</a></span><span class="colorbg2"><a href="#">急</a></span><span class="colorbg3"><a  href="#">V2</a></span></h2>
-                        <div class="clears"></div>
-                        <div class="tui_txt1"><span>合作中</span><span>所属行业：IT/互联网</span><span>合作地区：全国</span><span>阅读数：1000</span><span>2017-8-10 19:20:10</span></div>
-                        <div class="tui_txt1"><span>食物赞助</span><span>实物广告</span><span>现金支持</span><span>场地提供</span></div>
-                    </div>
-                    <div class="clears"></div>
-                </li>
-                <li>
-                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
-                    <div class="hutui_right">
-                        <h2><a href="#" title="">这里是商家合作资源标题</a><span class="colorbg1"><a href="#">顶</a></span><span class="colorbg2"><a href="#">急</a></span><span class="colorbg3"><a  href="#">V2</a></span></h2>
-                        <div class="clears"></div>
-                        <div class="tui_txt1"><span>合作中</span><span>所属行业：IT/互联网</span><span>合作地区：全国</span><span>阅读数：1000</span><span>2017-8-10 19:20:10</span></div>
-                        <div class="tui_txt1"><span>食物赞助</span><span>实物广告</span><span>现金支持</span><span>场地提供</span></div>
-                    </div>
-                    <div class="clears"></div>
-                </li>
-                <li>
-                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
-                    <div class="hutui_right">
-                        <h2><a href="#" title="">这里是商家合作资源标题</a><span class="colorbg1"><a href="#">顶</a></span><span class="colorbg2"><a href="#">急</a></span><span class="colorbg3"><a  href="#">V2</a></span></h2>
-                        <div class="clears"></div>
-                        <div class="tui_txt1"><span>合作中</span><span>所属行业：IT/互联网</span><span>合作地区：全国</span><span>阅读数：1000</span><span>2017-8-10 19:20:10</span></div>
-                        <div class="tui_txt1"><span>食物赞助</span><span>实物广告</span><span>现金支持</span><span>场地提供</span></div>
-                    </div>
-                    <div class="clears"></div>
-                </li>
-                <li>
-                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
-                    <div class="hutui_right">
-                        <h2><a href="#" title="">这里是商家合作资源标题</a><span class="colorbg1"><a href="#">顶</a></span><span class="colorbg2"><a href="#">急</a></span><span class="colorbg3"><a  href="#">V2</a></span></h2>
-                        <div class="clears"></div>
-                        <div class="tui_txt1"><span>合作中</span><span>所属行业：IT/互联网</span><span>合作地区：全国</span><span>阅读数：1000</span><span>2017-8-10 19:20:10</span></div>
-                        <div class="tui_txt1"><span>食物赞助</span><span>实物广告</span><span>现金支持</span><span>场地提供</span></div>
-                    </div>
-                    <div class="clears"></div>
-                </li>
             </ul>
         </div>
         <div class="indrightbox">
@@ -102,63 +62,20 @@
             <p class="titleline"></p>
             <div class="indr_siderbox" style="margin-top: 18px;">
                 <ul>
+                    <volist name="portalList" id="vo">
                     <li>
-                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
+                        <div class="indr_sider_img">
+                            <notempty name="vo.pic">
+                            <img src="{:cmf_get_image_preview_url($vo['pic'])}" alt="" width="94px" height="78px">
+                            </notempty>
+                        </div>
                         <div class="indr_sider_con">
-                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
-                            <p>2017-08-03</p>
+                            <h2><a href="#" title="">{$vo.post_title}</a></h2>
+                            <p>{:date('Y-m-d',$vo['update_time'])}</p>
                         </div>
                         <div class="clears"></div>
                     </li>
-                    <li>
-                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
-                        <div class="indr_sider_con">
-                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
-                            <p>2017-08-03</p>
-                        </div>
-                        <div class="clears"></div>
-                    </li>
-                    <li>
-                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
-                        <div class="indr_sider_con">
-                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
-                            <p>2017-08-03</p>
-                        </div>
-                        <div class="clears"></div>
-                    </li>
-                    <li>
-                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
-                        <div class="indr_sider_con">
-                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
-                            <p>2017-08-03</p>
-                        </div>
-                        <div class="clears"></div>
-                    </li>
-                    <li>
-                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
-                        <div class="indr_sider_con">
-                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
-                            <p>2017-08-03</p>
-                        </div>
-                        <div class="clears"></div>
-                    </li>
-                    <li>
-                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
-                        <div class="indr_sider_con">
-                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
-                            <p>2017-08-03</p>
-                        </div>
-                        <div class="clears"></div>
-                    </li>
-                    <li>
-                        <div class="indr_sider_img"><img src="images/img1.png" alt=""></div>
-                        <div class="indr_sider_con">
-                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
-                            <p>2017-08-03</p>
-                        </div>
-                        <div class="clears"></div>
-                    </li>
-
+                    </volist>
                 </ul>
             </div>
         </div>

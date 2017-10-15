@@ -351,4 +351,18 @@ class PortalPostModel extends Model
         return $this;
     }
 
+    /**
+     * 根据条件获取
+     * @param $params
+     * @param string $field
+     * @param int $limit
+     * @return false|\PDOStatement|string|\think\Collection
+     */
+    public function getListBy($params, $field = "*", $limit = 5){
+        $pushQuery = Db::name("PortalPost");
+        $list = $pushQuery->field($field)
+            ->where($params)->limit($limit)->order("id desc")->select();
+        return $list;
+    }
+
 }

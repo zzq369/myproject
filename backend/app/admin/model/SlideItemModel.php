@@ -14,5 +14,9 @@ use think\Model;
 
 class SlideItemModel extends Model
 {
-
+    public function getListBy($params){
+        $list = $this->field('id,title,image,url,target')
+            ->where($params)->order("list_order asc")->select();
+        return $list;
+    }
 }

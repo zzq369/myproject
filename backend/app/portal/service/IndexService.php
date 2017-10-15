@@ -10,8 +10,11 @@
 // +----------------------------------------------------------------------
 namespace app\portal\service;
 
+use app\admin\model\SlideItemModel;
 use app\grab\model\PushModel;
 use app\portal\model\PushTagsModel;
+use app\portal\model\PortalPostModel;
+
 
 class IndexService
 {
@@ -36,6 +39,42 @@ class IndexService
                 $list[$key] = $val;
             }
         }
+        return $list;
+    }
+
+    //获取首页推荐文章
+    public function getRecommendPortal(){
+        $portalModel = new PortalPostModel();
+        $params = array(
+            'post_type' => 1,
+            'post_format' => 1,
+            'post_status' => 1,
+            'recommended' => 1
+        );
+        $field = 'id,post_title,update_time,more';
+        $list = $portalModel->getListBy($params, $field, 10);
+        if($list) {
+            foreach ($list as $key=>&$val) {
+                if(empty($val['more'])) continue;
+                $more = json_decode($val['more'], true);
+                if(isset($more['photos'])){
+                    $val['pic'] = $more['photos'][0]['url'];
+                }
+                $list[$key] = $val;
+            }
+        }
+        return $list;
+
+    }
+
+    //首页banner
+    public function getBanner(){
+        $slideModel = new SlideItemModel();
+        $params = array(
+            'slide_id' => 1,
+            'status' => 1
+        );
+        $list = $slideModel->getListBy($params);
         return $list;
     }
 
