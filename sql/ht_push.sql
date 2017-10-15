@@ -32,7 +32,7 @@ CREATE TABLE `ht_push` (
   `is_top` tinyint(1) DEFAULT '0' COMMENT '是否置顶  0 否 1是',
   `is_anxious` tinyint(1) DEFAULT '0' COMMENT ' 是否急 0否  1 是',
   `category_id` int(11) DEFAULT NULL COMMENT '资源类型',
-  `charge` varchar(50) DEFAULT NULL COMMENT '收费方式',
+  `charge` tinyint(1) DEFAULT '0' COMMENT '收费方式 1 收费 0不收费',
   `business_offer` text COMMENT '商家提供',
   `support` text COMMENT '支持',
   `tel` varchar(100) DEFAULT NULL,
@@ -41,5 +41,4 @@ CREATE TABLE `ht_push` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `title` (`title`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=568 DEFAULT CHARSET=utf8mb4 COMMENT='商家互推表';
-SET FOREIGN_KEY_CHECKS=1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='商家互推表';

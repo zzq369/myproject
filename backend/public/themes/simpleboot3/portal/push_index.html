@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>首页 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+    <hook name="before_head_end"/>
+</head>
+<body>
+<include file="public@nav"/>
+<div class="clears"></div>
+<div class="contentbox" style="padding-top: 30px;"><!-- contentbox start -->
+
+    <div class="width1170 search_listbox">
+        <ul>
+            <li><span>资源类型：</span>
+                <a href="#">不限</a>
+                <volist name="categoryList" id="vo">
+                    <a href="#">{$vo.name}</a>
+                </volist>
+            </li>
+            <li><span>收费方式： </span>
+                <a href="#">不限</a>
+                <a href="#">免费</a>
+                <a href="#">收费</a>
+            </li>
+            <li><span>发  布  人： </span>
+                <a href="#">不限</a>
+                <a href="#">人</a>
+                <a href="#">企业</a>
+            </li>
+            <li><span>所属行业： </span>
+                <a href="#">不限</a>
+                <volist name="industryList" id="vo">
+                <a href="#">{$vo.name}</a>
+                </volist>
+            </li>
+            <li><span>所属地区： </span>
+                <a href="#">不限</a>
+                <a href="#">北京</a>
+            </li>
+        </ul>
+    </div>
+    <div class="maincontent">
+        <div class="indleftbox">
+            <ul class="hutuibox">
+                <volist name="pushList" id="vo">
+                <li>
+                    <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                    <div class="hutui_right">
+                        <h2><a href="#" title="">{$vo.title}</a>
+                            <if condition="$vo.is_top eq 1">
+                            <span class="colorbg1"><a href="#">顶</a></span>
+                            </if>
+                            <if condition="$vo.is_anxious eq 1">
+                            <span class="colorbg2"><a href="#">急</a></span>
+                            </if>
+                        </h2>
+                        <div class="clears"></div>
+                        <div class="tui_txt1">
+                            <span>合作中</span>
+                            <span>所属行业：{$vo.cate_name}</span>
+                            <span>合作地区：{$vo.address}</span>
+                            <span>阅读数：{$vo.read_count}</span>
+                            <span>{$vo.create_time}</span>
+                        </div>
+                        <div class="tui_txt1">
+                            <notempty name="vo.tags">
+                                <volist name="vo.tags" id="tag">
+                                    <span>{$tag.name}</span>
+                                </volist>
+                            </notempty>
+                        </div>
+                    </div>
+                    <div class="clears"></div>
+                </li>
+                </volist>
+            </ul>
+        </div>
+        <div class="indrightbox">
+            <h1>热门互推商家</h1>
+            <p class="titleline"></p>
+            <div class="indr_siderbox">
+                <ul>
+                    <li>
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li id="noline">
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="clears"></div>
+
+    </div>
+
+
+</div><!-- contentbox over -->
+<div class="clears"></div>
+<include file="public@footer"/>
+<!-- /container -->
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+</body>
+</html>
