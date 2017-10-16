@@ -46,7 +46,7 @@ class PushModel extends Model
         $join = "left join ht_push_category as b on a.category_id = b.id";
         $list = $pushQuery->alias("a")->field($field)
             ->join("__PUSH_CATEGORY__ b","a.category_id = b.id","LEFT")
-            ->where($params)->limit($limit)->order("id desc")->select();
+            ->where($params)->limit($limit)->order("id desc")->paginate(10);
         return $list;
     }
 }

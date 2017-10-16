@@ -38,7 +38,9 @@
             </li>
             <li><span>所属地区： </span>
                 <a href="#">不限</a>
-                <a href="#">北京</a>
+                <volist name="provinceList" id="vo">
+                <a href="#">{$vo.name}</a>
+                </volist>
             </li>
         </ul>
     </div>

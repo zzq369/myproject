@@ -15,10 +15,13 @@ class PushController extends HomeBaseController
         $categoryList = $service->getPushCategory();
         $pushList = $service->getPush();
         $industryList = $service->getIndustry();
+        $provinceList = $service->getProvinceList();
 
         $this->assign('categoryList', $categoryList);
-        $this->assign('pushList', $pushList);
+        $this->assign('pushList', $pushList['list']);
+        $this->assign('page', $pushList['page']);
         $this->assign("industryList", $industryList);
+        $this->assign("provinceList", $provinceList);
         return $this->fetch(':push_index');
     }
 }

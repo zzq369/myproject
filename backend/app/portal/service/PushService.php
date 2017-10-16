@@ -6,6 +6,7 @@
 namespace app\portal\service;
 
 
+use app\portal\model\ProvinceModel;
 use app\portal\model\PushCategoryModel;
 use app\grab\model\PushModel;
 use app\portal\model\PushTagsModel;
@@ -29,7 +30,8 @@ class PushService
         $params = array(
         );
         $field = "a.id,a.title,a.create_time,a.is_top,a.is_anxious,a.read_count,a.address,b.name as cate_name";
-        $list = $pushModel->getListBy($params,$field, 10);
+        $result = $pushModel->getListBy($params,$field, 10);
+        $list = $result->items();
         if($list){
             $tagsModel = new PushTagsModel();
             foreach($list as $key=>&$val){
@@ -42,7 +44,7 @@ class PushService
                 $list[$key] = $val;
             }
         }
-        return $list;
+        return array("list" => $list, "page" => $result->render());
     }
 
     /**
@@ -55,6 +57,16 @@ class PushService
             'status' => 1
         );
         $list = $industryModel->getList($params);
+        return $list;
+    }
+
+    /**
+     * 获取省份
+     * @return false|\PDOStatement|string|\think\Collection
+     */
+    public function getProvinceList(){
+        $provinceModel = new ProvinceModel();
+        $list = $provinceModel->getList();
         return $list;
     }
 }
