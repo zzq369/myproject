@@ -9,8 +9,10 @@ namespace app\portal\service;
 use app\portal\model\ProvinceModel;
 use app\portal\model\PushCategoryModel;
 use app\grab\model\PushModel;
+use app\portal\model\PushCommentsModel;
 use app\portal\model\PushTagsModel;
 use app\portal\model\UserIndustryModel;
+use app\user\model\UserModel;
 
 class PushService
 {
@@ -67,6 +69,40 @@ class PushService
     public function getProvinceList(){
         $provinceModel = new ProvinceModel();
         $list = $provinceModel->getList();
+        return $list;
+    }
+
+    /**
+     * 根据ID获取详情
+     * @param $id
+     * @return array|false|\PDOStatement|string|\think\Model
+     */
+    public function getPushInfo($id){
+        $pushModel = new PushModel();
+        $info = $pushModel->getInfoById($id);
+        return $info;
+    }
+
+    /**
+     * 获取商家详情
+     * @param $user_id
+     * @return array|false|\PDOStatement|string|\think\Model
+     */
+    public function getUserInfo($user_id){
+        $userModel = new UserModel();
+        $info = $userModel->getInfoById($user_id);
+        return $info;
+    }
+
+    /**
+     * 根据pushId获取评论
+     * @param $push_id
+     * @return \think\Paginator
+     */
+    public function getPushComments($pushId){
+        $commentModel = new PushCommentsModel();
+        $params = array('a.push_id'=>$pushId);
+        $list = $commentModel->getListBy($params);
         return $list;
     }
 }

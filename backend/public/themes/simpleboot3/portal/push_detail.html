@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商家互推 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+    <hook name="before_head_end"/>
+</head>
+<body>
+<include file="public@nav"/>
+<div class="clears"></div>
+<div class="contentbox" style="padding-top: 30px;"><!-- contentbox start -->
+    <div class="width1170 shop_listbox">
+        <div class="shopleftbox"><img src="images/shopimg.jpg" alt=""></div>
+        <div class="shopcontent">
+            <h3>{$pushInfo.title}</h3>
+            <div class="shop_list">
+                <ul>
+                    <li><span>所属行业:</span>{$userInfo.industry_name}</li>
+                    <li><span>所属地区:</span>福建省-厦门市</li>
+                    <li><span>联系电话:</span>{$userInfo.mobile} &nbsp;&nbsp;&nbsp;<a href="#">点击查看</a></li>
+                    <li><span>卖家标签:</span>
+                        <span class="shoptxt1">资源置换</span>
+                        <span class="shoptxt2">费用支持</span>
+                        <span class="shoptxt3">实物赞助</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="shoprightbox">
+            <div class="shopmatxt">扫一扫加关注</div>
+            <div class="shopma"><img src="images/shopimg.jpg" alt=""></div>
+        </div>
+        <div class="clears"></div>
+    </div>
+    <div class="maincontent">
+        <div class="shop_leftbox">
+            <div class="shop_pushbox">
+                <h3>商家提供</h3>
+                <p>
+                    {$pushInfo.business_offer}
+                </p>
+                <h3>希望给予的支持</h3>
+                <p>{$pushInfo.support}</p>
+            </div>
+            <div class="shop_biao">
+                <ul>
+                    <li>
+                        <div class="shop_biao_leftbox"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                        <div class="shop_biao_rightbox">
+                            <h4>商家的名称<span>发布于2017-09-21 10:2110</span></h4>
+                            <p>很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！</p>
+                            <div class="hfbtn"><a href="#">回复</a></div>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="shop_biao_leftbox"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                        <div class="shop_biao_rightbox">
+                            <h4>商家的名称<span>发布于2017-09-21 10:2110</span></h4>
+                            <p>很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！</p>
+                            <div class="hfbtn"><a href="#">回复</a></div>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="shop_biao_leftbox"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                        <div class="shop_biao_rightbox">
+                            <h4>商家的名称<span>发布于2017-09-21 10:2110</span></h4>
+                            <p>很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！</p>
+                            <div class="hfbtn"><a href="#">回复</a></div>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="shop_biao_leftbox"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+                        <div class="shop_biao_rightbox">
+                            <h4>商家的名称<span>发布于2017-09-21 10:2110</span></h4>
+                            <p>很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！很期待能和你合作，请联系我 谢谢！</p>
+                            <div class="hfbtn"><a href="#">回复</a></div>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="clears"></div>
+            <div class="navpages">
+                <ul>
+
+
+                    <li class="curr_linkpage">1</li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+
+
+                </ul>
+            </div>
+            <div class="clears"></div>
+
+            <div class="textareabox"><textarea></textarea></div>
+            <div class="hfbtn mar20"><a href="#">回复</a></div>
+            <div class="clears"></div>
+        </div>
+        <div class="indrightbox">
+            <h1>热门互推商家</h1>
+            <p class="titleline"></p>
+            <div class="indr_siderbox">
+                <ul>
+                    <li>
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li>
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+                    <li id="noline">
+                        <div class="indr_sider_img"><a href="#" title=""><img src="images/img1.png" alt=""></a></div>
+                        <div class="indr_sider_con">
+                            <h2><a href="#" title="">这个是标题这个是标题这个是标题这个是标题</a></h2>
+                            <p>2017-08-03</p>
+                        </div>
+                        <div class="clears"></div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="clears"></div>
+    </div>
+</div><!-- contentbox over -->
+<div class="clears"></div>
+<include file="public@footer"/>
+<!-- /container -->
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+</body>
+</html>

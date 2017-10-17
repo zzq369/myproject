@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>首页 {$site_info.site_name|default=''}</title>
+    <title>商家互推 {$site_info.site_name|default=''}</title>
     <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
     <include file="public@head"/>
@@ -11,14 +11,12 @@
 <include file="public@nav"/>
 <div class="clears"></div>
 <div class="contentbox" style="padding-top: 30px;"><!-- contentbox start -->
-
     <div class="width1170 search_listbox">
         <ul>
             <li><span>资源类型：</span>
                 <a href="#">不限</a>
-                <volist name="categoryList" id="vo">
-                    <a href="#">{$vo.name}</a>
-                </volist>
+                <a href="#">线上</a>
+                <a href="#">线下</a>
             </li>
             <li><span>收费方式： </span>
                 <a href="#">不限</a>
@@ -51,7 +49,7 @@
                 <li>
                     <div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
                     <div class="hutui_right">
-                        <h2><a href="#" title="">{$vo.title}</a>
+                        <h2><a href="/portal/push/detail?id={$vo.id}" title="">{$vo.title}</a>
                             <if condition="$vo.is_top eq 1">
                             <span class="colorbg1"><a href="#">顶</a></span>
                             </if>
@@ -131,10 +129,7 @@
             </div>
         </div>
         <div class="clears"></div>
-
     </div>
-
-
 </div><!-- contentbox over -->
 <div class="clears"></div>
 <include file="public@footer"/>

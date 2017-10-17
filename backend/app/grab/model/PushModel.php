@@ -38,12 +38,22 @@ class PushModel extends Model
     }
 
     /**
+     * id获取互推详情
+     * @param $id
+     * @return array|false|\PDOStatement|string|Model
+     */
+    public function getInfoById($id){
+        $pushQuery = Db::name("push");
+        $info = $pushQuery->where('id', $id)->find();
+        return $info;
+    }
+
+    /**
      * 根据条件获取列表
      * @param $params
      */
     public function getListBy($params, $field = "*", $limit = 5){
         $pushQuery = Db::name("push");
-        $join = "left join ht_push_category as b on a.category_id = b.id";
         $list = $pushQuery->alias("a")->field($field)
             ->join("__PUSH_CATEGORY__ b","a.category_id = b.id","LEFT")
             ->where($params)->limit($limit)->order("id desc")->paginate(10);

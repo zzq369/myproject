@@ -314,4 +314,20 @@ class UserModel extends Model
         cmf_update_current_user($userInfo);
         return 0;
     }
+
+    /**
+     * 获取详情
+     * @param $id
+     * @return array|false|\PDOStatement|string|Model
+     */
+    public function getInfoById($id){
+        $userQuery = Db::name("user");
+        $params = array('a.id'=>$id);
+        $userInfo = $userQuery->alias("a")->field("a.id,a.mobile,a.user_nickname,a.avatar,ui.industry_id,ui.provice_id,ui.city_id,ui.address,us.name as industry_name")
+            ->join('__USER_INFO__ ui', 'a.id = ui.user_id', 'LEFT')
+            ->join('__USER_INDUSTRY__ us', 'ui.industry_id = us.id', 'LEFT')
+            ->where($params)
+            ->find();
+         return $userInfo;
+    }
 }
