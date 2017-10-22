@@ -330,4 +330,19 @@ class UserModel extends Model
             ->find();
          return $userInfo;
     }
+
+    /**
+     * 根据条件获取列表
+     * @param $params
+     * @return array|false|\PDOStatement|string|Model
+     */
+    public function getListBy($params,$limit = 12){
+        $userQuery = Db::name("user");
+        $userInfo = $userQuery->alias("a")->field("a.id,a.mobile,a.user_nickname,a.avatar,ui.industry_id,ui.scale,us.name as industry_name")
+            ->join('__USER_INFO__ ui', 'a.id = ui.user_id', 'LEFT')
+            ->join('__USER_INDUSTRY__ us', 'ui.industry_id = us.id', 'LEFT')
+            ->where($params)
+            ->limit($limit)->order("id desc")->paginate(10);
+        return $userInfo;
+    }
 }

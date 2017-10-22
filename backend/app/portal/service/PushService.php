@@ -105,4 +105,15 @@ class PushService
         $list = $commentModel->getListBy($params);
         return $list;
     }
+
+    /**
+     * 增加阅读量
+     * @param $id
+     * @return bool
+     */
+    public function addRead($id){
+        $pushModel = new PushModel();
+        $pushModel->where('id=' . $id)->setInc('read_count');
+        return true;
+    }
 }

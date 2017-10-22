@@ -42,6 +42,8 @@ class PushController extends HomeBaseController
         $user_id = $pushInfo['user_id'];
         //获取商家详情
         $userInfo = $service->getUserInfo($user_id);
+        //增加阅读数
+        $service->addRead($id);
 
         $this->assign('pushInfo', $pushInfo);
         $this->assign('userInfo', $userInfo);

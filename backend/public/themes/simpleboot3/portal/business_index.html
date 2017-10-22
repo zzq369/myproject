@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商家互推 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+    <hook name="before_head_end"/>
+</head>
+<body>
+<include file="public@nav"/>
+<div class="clears"></div>
+<div class="contentbox" style="padding-top: 30px;"><!-- contentbox start -->
+    <div class="width1170 search_listbox">
+        <ul>
+            <li><span>规 模：</span><a href="#">不限</a><a href="#">10人以下</a><a href="#">10-49</a><a href="#">50-100</a><a href="#">100以上</a></li>
+            <li><span>所属行业： </span>
+                <a href="#">不限</a>
+                <volist name="industryList" id="vo">
+                    <a href="#">{$vo.name}</a>
+                </volist>
+            </li>
+            <li><span>所属地区： </span>
+                <a href="#">不限</a>
+                <volist name="provinceList" id="vo">
+                    <a href="#">{$vo.name}</a>
+                </volist>
+            </li>
+        </ul>
+    </div>
+    <div class="maincontent">
+        <div class="productbox">
+            <volist name="businessList" id="vo">
+                <div class="productlist">
+                    <a href="#" title=""><img src="{$vo.avatar}" alt=""></a>
+                    <p>{$vo.user_nickname}</p>
+                    <p>企业规模：{$vo.scale}</p>
+                    <p>所属行业：{$vo.industry_name}</p>
+                </div>
+                <div class="pro_space"></div>
+            </volist>
+        </div>
+        <div class="clears"></div>
+        <div class="navpages">
+            <ul>
+                {$page}
+            </ul>
+        </div>
+        <div class="clears"></div>
+    </div>
+</div><!-- contentbox over -->
+<div class="clears"></div>
+<include file="public@footer"/>
+<!-- /container -->
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+</body>
+</html>
