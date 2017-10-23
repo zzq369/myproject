@@ -8,7 +8,7 @@
 		<!--<li><a  href="{:url('nav/edit')}" >{:lang('ADMIN_NAV_EDIT')}</a></li>-->
 	</ul>
 	<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('AdminTag/addPost')}">
-
+		<input type="hidden" class="form-control" name="uid" value="0">
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><span class="form-required">*</span>标签名称:</label>
 			<div class="col-md-6 col-sm-10">

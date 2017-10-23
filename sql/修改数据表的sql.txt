@@ -28,5 +28,7 @@ CREATE TABLE `ht_wechat_tags` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='微信公众号标签';
+/*20171021*/
+ALTER TABLE `ht_portal_tag` ADD COLUMN `uid`  int(11) NOT NULL DEFAULT 0 COMMENT '所属用户id，0为管理员添加' AFTER `name`;
 
 

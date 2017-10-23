@@ -250,9 +250,9 @@
                 },
                 showInput:function() {
                     this.inputVisible = true;
-                    this.$nextTick(_ => {
+                    this.$nextTick(function() {
                         this.$refs.saveTagInput.$refs.input.focus();
-                });
+                    });
                 },
                 handleInputConfirm:function() {
                     let inputValue = this.inputValue;
@@ -261,7 +261,7 @@
                             this.currentTypes.push(inputValue);
                             this.newTypes.push(inputValue);
                         }else{
-                            alert('请不要添加重复的类型');
+                            artdialogAlert('请不要添加重复的类型');
                             return false;
                         }
                     }
@@ -309,7 +309,7 @@
                 },
                 showInput:function() {
                     this.inputVisible = true;
-                    this.$nextTick(_ => {
+                    this.$nextTick(function() {
                         this.$refs.saveTagInput.$refs.input.focus();
                     });
                 },
@@ -320,7 +320,7 @@
                             this.currentTags.push(inputValue);
                             this.newTags.push(inputValue);
                         }else{
-                            alert('请不要添加重复的标签');
+                            artdialogAlert('请不要添加重复的标签');
                             return false;
                         }
                     }

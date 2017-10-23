@@ -25,9 +25,10 @@
         <a href="javascript:(function(){$('#saved-file{id}').remove();})();">移除</a>
     </li>
 </script>
+<link rel="stylesheet" href="__STATIC__/js/elem-ui/lib-1.4.4/index.css" />
 </head>
 <body>
-<div class="wrap js-check-wrap">
+<div class="wrap js-check-wrap" id="vue-box">
     <ul class="nav nav-tabs">
         <li><a href="{:url('AdminArticle/index')}">文章管理</a></li>
         <li class="active"><a href="{:url('AdminArticle/add')}">添加文章</a></li>
@@ -65,6 +66,33 @@
                         <th>文章来源</th>
                         <td><input class="form-control" type="text" name="post[post_source]" id="source" value=""
                                    placeholder="请输入文章来源"></td>
+                    </tr>
+                    <tr>
+                        <input id="new_tag_name" type="hidden" class="form-control" name="new_tag_name" v-model="newTags">
+                        <td>标签</td>
+                        <td>
+                            <el-tag
+                                    :key="tag"
+                                    v-for="tag in currentTags"
+                                    :closable="true"
+                                    :close-transition="false"
+                                    @close="handleClose(tag)"
+                            >
+                                {{tag}}
+                            </el-tag>
+                            <el-input
+                                    class="input-new-tag"
+                                    v-if="inputVisible"
+                                    v-model="inputValue"
+                                    ref="saveTagInput"
+                                    size="mini"
+                                    @keyup.enter.native="handleInputConfirm"
+                                    @blur="handleInputConfirm"
+                            >
+                            </el-input>
+                            <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+                            <p class="help-block">文章标签，一次添加一个，可添加多个标签</p>
+                        </td>
                     </tr>
                     <tr>
                         <th>摘要</th>
@@ -181,6 +209,8 @@
 </script>
 <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/elem-ui/vue-2.4.4.js"></script>
+<script type="text/javascript" src="__STATIC__/js/elem-ui/lib-1.4.4/index.js"></script>
 <script type="text/javascript">
     $(function () {
 
@@ -194,6 +224,53 @@
         $('.btn-cancel-thumbnail').click(function () {
             $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
             $('#thumbnail').val('');
+        });
+        //elem vue tag 组件
+        new Vue({
+            el: '#vue-box',
+            data: function () {
+                return {
+                    currentTagIds: [],
+                    delTagIds: [],
+                    currentTags: [],
+                    newTags: [],
+                    inputVisible: false,
+                    inputValue: ''
+                }
+            },
+            mounted: function () {
+
+            },
+            methods:{
+                handleClose:function(tag) {
+                    var index = this.currentTags.indexOf(tag);
+                    var deleteTagName = this.currentTags[index];
+                    if($.inArray(deleteTagName, this.newTags) > -1){
+                        this.newTags.splice($.inArray(deleteTagName,this.newTags),1);
+                    }
+                    this.currentTags.splice(index, 1);
+                },
+                showInput:function() {
+                    this.inputVisible = true;
+                    this.$nextTick(function() {
+                        this.$refs.saveTagInput.$refs.input.focus();
+                    });
+                },
+                handleInputConfirm:function() {
+                    var inputValue = this.inputValue;
+                    if (inputValue) {
+                        if($.inArray(inputValue,this.currentTags)<0){
+                            this.currentTags.push(inputValue);
+                            this.newTags.push(inputValue);
+                        }else{
+                            artdialogAlert('请不要添加重复的标签');
+                            return false;
+                        }
+                    }
+                    this.inputVisible = false;
+                    this.inputValue = '';
+                }
+            }
         });
     });
 
