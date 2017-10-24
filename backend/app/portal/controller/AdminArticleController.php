@@ -16,6 +16,7 @@ use app\portal\service\PostService;
 use app\portal\model\PortalCategoryModel;
 use think\Db;
 use app\admin\model\ThemeModel;
+use app\portal\model\PortalTagModel;
 
 class AdminArticleController extends AdminBaseController
 {
@@ -402,5 +403,11 @@ class AdminArticleController extends AdminBaseController
 
     }
 
-
+    public function ajax_get_art_tag(){
+        $tagModel = new PortalTagModel();
+        $tagArr = $tagModel->getCanUseTags();
+        if(!$tagArr){
+            $this->error('请先添加标签');
+        }
+    }
 }
