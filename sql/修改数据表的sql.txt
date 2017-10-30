@@ -30,5 +30,9 @@ CREATE TABLE `ht_wechat_tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='微信公众号标签';
 /*20171021*/
 ALTER TABLE `ht_portal_tag` ADD COLUMN `uid`  int(11) NOT NULL DEFAULT 0 COMMENT '所属用户id，0为管理员添加' AFTER `name`;
+ALTER TABLE `ht_user`
+ADD COLUMN `token`  varchar(255) NULL DEFAULT NULL COMMENT '邮箱注册时发送验证邮箱的token' AFTER `mobile`,
+ADD COLUMN `token_expire`  int(11) NOT NULL DEFAULT 0 COMMENT '邮箱注册token的到期时间' AFTER `token`,
+ADD COLUMN `is_active_account`  tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否邮件验证过邮箱' AFTER `token_expire`;
 
 

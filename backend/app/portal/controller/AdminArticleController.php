@@ -403,11 +403,17 @@ class AdminArticleController extends AdminBaseController
 
     }
 
+    /**
+     * ajax方式获取文章标签数组
+     * @author xy
+     * @since 2017/10/24 22:53
+     */
     public function ajax_get_art_tag(){
         $tagModel = new PortalTagModel();
         $tagArr = $tagModel->getCanUseTags();
         if(!$tagArr){
-            $this->error('请先添加标签');
+            $this->error(100001,null,'请先添加标签');
         }
+        $this->success(000000, null, $tagArr);
     }
 }

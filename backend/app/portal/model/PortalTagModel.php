@@ -26,10 +26,10 @@ class PortalTagModel extends Model
      * @return array|bool
      */
     public function getCanUseTags(){
-        $where = [
-            'status' => 1
-        ];
-        $array = $this->field('*, id as key, name as label')->where($where)->select()->toArray();
+        $array = $this->field('*, id as `key`, `name` as label')
+            ->where(['status' => 1])
+            ->select()
+            ->toArray();
         if(count($array) > 0){
             return $array;
         }

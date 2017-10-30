@@ -15,6 +15,9 @@ use think\Model;
 
 class UserModel extends Model
 {
+    //session 保存需要激活的账号的用户id的key
+    const SESSION_NEED_ACTIVE_ACCOUNT_UID = 'need_active_account_uid';
+
     public function doMobile($user)
     {
         $userQuery = Db::name("user");
@@ -30,6 +33,10 @@ class UserModel extends Model
             ];
             hook_one("user_login_start",$hookParam);
             if ($comparePasswordResult) {
+                //是否激活账号
+                if($result['is_active_account'] == 0){
+                    return 4;
+                }
                 //拉黑判断。
                 if($result['user_status']==0){
                     return 3;
@@ -65,6 +72,10 @@ class UserModel extends Model
             ];
             hook_one("user_login_start",$hookParam);
             if ($comparePasswordResult) {
+                //是否激活账号
+                if($result['is_active_account'] == 0){
+                    return 4;
+                }
                 //拉黑判断。
                 if($result['user_status']==0){
                     return 3;
@@ -103,7 +114,9 @@ class UserModel extends Model
             ];
             hook_one("user_login_start",$hookParam);
             if ($comparePasswordResult) {
-
+                if($result['is_active_account'] == 0){
+                    return 4;
+                }
                 //拉黑判断。
                 if($result['user_status']==0){
                     return 3;
@@ -136,7 +149,8 @@ class UserModel extends Model
         if (cmf_is_open_registration()) {
             $userStatus = 2;
         }
-
+        //生成邮件激活token
+        $token = md5(cmf_random_string(15).time());
         if (empty($result)) {
             $data   = [
                 'user_login'      => '',
@@ -149,10 +163,16 @@ class UserModel extends Model
                 'last_login_time' => time(),
                 'user_status'     => $userStatus,
                 "user_type"       => 2,
+                "token"           => $token,
+                "token_expire"    => time() + 3600, //token有效期为1小时
+                "is_active_account"  => 0,//邮箱是否验证
             ];
             $userId = $userQuery->insertGetId($data);
             $date   = $userQuery->where('id', $userId)->find();
             cmf_update_current_user($date);
+            //发送验证邮件
+            $activeUrl = url('user/register/active', ['token' => $token]);
+            send_valid_user_email($user['user_email'], $activeUrl);
             return 0;
         }
         return 1;
@@ -343,6 +363,23 @@ class UserModel extends Model
             ->join('__USER_INDUSTRY__ us', 'ui.industry_id = us.id', 'LEFT')
             ->where($params)
             ->limit($limit)->order("id desc")->paginate(10);
+        return $userInfo;
+    }
+
+    /**
+     * 通过token获取用户信息
+     * @param $token
+     * @return array|false|\PDOStatement|string|Model
+     */
+    public function getUserByToken($token){
+        $userQuery = Db::name("user");
+        $where = [
+            'token' => $token,
+        ];
+        $userInfo = $userQuery->alias("a")
+            ->field("*")
+            ->where($where)
+            ->find();
         return $userInfo;
     }
 }

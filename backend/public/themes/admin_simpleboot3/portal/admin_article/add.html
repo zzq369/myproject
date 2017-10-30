@@ -67,32 +67,32 @@
                         <td><input class="form-control" type="text" name="post[post_source]" id="source" value=""
                                    placeholder="请输入文章来源"></td>
                     </tr>
-                    <tr>
-                        <input id="new_tag_name" type="hidden" class="form-control" name="new_tag_name" v-model="value3">
-                        <th>标签</th>
-                        <td>
-                            <template>
-                                <el-transfer
-                                        v-model="value3"
-                                        filterable
-                                        :filter-method="filterMethod"
-                                        filter-placeholder="请输入标签名称"
-                                        :left-default-checked="[]"
-                                        :right-default-checked="elected_tags"
-                                        :titles="['未选标签', '已选标签']"
-                                        :button-texts="['到左边', '到右边']"
-                                        :footer-format=
-                                                "{
-                                                    noChecked: '${total}',
-                                                    hasChecked: '${checked}/${total}'
-                                                }"
-                                        @change="handleChange"
-                                        :data="un_selected_tags">
-                                </el-transfer>
-                            </template>
-                            <p class="help-block">文章标签，可添加多个标签</p>
-                        </td>
-                    </tr>
+                    <!--<tr>-->
+                        <!--<input id="select_art_tag_id" type="hidden" class="form-control" name="select_art_tag_id" v-model="selected_tags">-->
+                        <!--<th>标签</th>-->
+                        <!--<td>-->
+                            <!--<template>-->
+                                <!--<el-transfer-->
+                                        <!--v-model="selected_tags"-->
+                                        <!--filterable-->
+                                        <!--:filter-method="filterMethod"-->
+                                        <!--filter-placeholder="请输入标签名称"-->
+                                        <!--:left-default-checked="[]"-->
+                                        <!--:right-default-checked="selected_tags"-->
+                                        <!--:titles="['未选标签', '已选标签']"-->
+                                        <!--:button-texts="['到左边', '到右边']"-->
+                                        <!--:footer-format=-->
+                                                <!--"{-->
+                                                    <!--noChecked: '${total}',-->
+                                                    <!--hasChecked: '${checked}/${total}'-->
+                                                <!--}"-->
+                                        <!--@change="handleChange"-->
+                                        <!--:data="un_selected_tags">-->
+                                <!--</el-transfer>-->
+                            <!--</template>-->
+                            <!--<p class="help-block">文章标签，可添加多个标签</p>-->
+                        <!--</td>-->
+                    <!--</tr>-->
                     <tr>
                         <th>摘要</th>
                         <td>
@@ -225,12 +225,12 @@
             $('#thumbnail').val('');
         });
         //elem vue 穿梭 组件
-        new Vue({
+        /*new Vue({
             el: '#vue-box',
             data: function() {
                 return {
                     un_selected_tags: this.generateData(),
-                    selected_tags: []
+                    selected_tags: [],
                 }
             },
             mounted: function () {
@@ -240,17 +240,29 @@
             methods: {
                 generateData : function () {
                     const data = [];
-
+                    $.ajax({
+                        url : "{:url('Portal/AdminArticle/ajax_get_art_tag')}",
+                        data: [],
+                        dataType: 'json',
+                        async: false,
+                        success:function(res ){
+                            if(res.code === 000000){
+                                for(let i = 0; i<res.data.length; i++){
+                                    data.push(res.data[i]);
+                                }
+                            }
+                        }
+                    });
                     return data;
                 },
                 handleChange: function(value, direction, movedKeys) {
-                    console.log(value, direction, movedKeys);
+                    //console.log(value, direction, movedKeys);
                 },
                 filterMethod: function(query, item) {
-                    return item.pinyin.indexOf(query) > -1;
+                    return item.name.indexOf(query) > -1;
                 }
             }
-        });
+        });*/
     });
 
     function doSelectCategory() {

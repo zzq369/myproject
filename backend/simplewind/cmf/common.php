@@ -1867,3 +1867,62 @@ function generate_type_option(array $data, $idField = 'id', $nameField = 'name',
     return $html;
 }
 
+/**
+ * 发送用户激活邮箱账号邮件
+ * @author xy
+ * @since 2017/10/25 23:42
+ * @param string $address 接收邮件的地址
+ * @param string $url 激活账号的url
+ * @param string $username 用户名
+ */
+function send_valid_user_email($address, $url,$username = ''){
+    $subject = "用户帐号激活";
+    if(empty($username)){
+        $username = "用户";
+    }
+    $body = <<<html
+        亲爱的{$username}：<br/>
+            感谢您在我站注册了新帐号。<br/>请点击链接激活您的帐号。<br/> 
+            <a href='{$url}' target= 
+'_blank'>{$url}</a><br/> 
+            如果以上链接无法点击，请将它复制到你的浏览器地址栏中进入访问，该链接1小时内有效。";
+html;
+    return cmf_send_email($address, $subject,$body);
+}
+
+/**
+ * 重新发送激活账号邮件
+ * @author xy
+ * @since 2017/10/30 23:27
+ * @param array $userInfo 用户信息数组
+ * @return int 1 账号已激活， 0 无法发送激活邮件或发送激活邮件失败，
+ *             2 激活邮件已发送但保存token失败， 3 激活邮件已发送且保存token成功
+ */
+function resent_active_email(array  $userInfo ){
+    if(!empty( $userInfo['is_active_account'])){
+        return 1;
+    }
+    if(!isset($userInfo['email']) || empty($userInfo['email'])){
+        return 0;
+    }
+    $token = md5(cmf_random_string(15).time());
+    $tokenRxpire = time() + 3600;
+    //发送验证邮件
+    $activeUrl = url('user/register/active', ['token' => $token]);
+    $result = send_valid_user_email($userInfo['user_email'], $activeUrl);
+    if(isset($result['error']) && $result['error'] === 0){
+        $userModel = new \app\user\model\UserModel();
+        $flag = $userModel->save([
+            'token'  => $token,
+            'token_expire' => $tokenRxpire
+        ],['id' => $userInfo['id']]);
+        if($flag !== false){
+            return 2;
+        }else {
+            return 3;
+        }
+    }else {
+        return 0;
+    }
+}
+
