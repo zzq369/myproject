@@ -10,10 +10,10 @@
 // +----------------------------------------------------------------------
 namespace app\user\controller;
 
-use cmf\controller\HomeBaseController;
+use cmf\controller\UserBaseController;
 use think\Db;
 
-class IndexController extends HomeBaseController
+class IndexController extends UserBaseController
 {
 
     /**
@@ -21,14 +21,8 @@ class IndexController extends HomeBaseController
      */
     public function index()
     {
-        $id   = $this->request->param("id", 0, "intval");
-        $userQuery = Db::name("User");
-        $user = $userQuery->where('id',$id)->find();
-        if (empty($user)) {
-            session('user',null);
-            $this->error("查无此人！");
-        }
-        $this->assign($user);
+        $user = session('user');
+        $this->assign("user", $user);
         return $this->fetch(":index");
 
     }
@@ -52,6 +46,18 @@ class IndexController extends HomeBaseController
     {
         session("user", null);//只有前台用户退出
         return redirect($this->request->root() . "/");
+    }
+
+    /**
+     * 后台首页
+     */
+    public function main(){
+
+        return $this->fetch(":main");
+    }
+
+    public function info(){
+        return $this->fetch(":info");
     }
 
 }

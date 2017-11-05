@@ -6,61 +6,93 @@
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
     <include file="public@head"/>
     <hook name="before_head_end"/>
-    <style>
-        .register-box{
-            width: 450px;
-            margin: 100px auto;
-            border: 1px solid;
-            padding: 20px;
-        }
-        .register-box h3{
-            margin-bottom: 5px;
-            text-align: center;
-        }
-        .form-horizontal .control-group {
-            margin-bottom: 30px;
-        }
-        .form-horizontal .control-group input{
-            width: 400px;
-            height: 36px;
-            padding: 5px 8px;
-        }
-    </style>
+    <link href="__TMPL__/public/home/css/reset.css" rel="stylesheet">
+    <link href="__TMPL__/public/home/css/common.css" rel="stylesheet">
+    <link href="__TMPL__/public/home/css/login.css" rel="stylesheet">
 </head>
 <body>
 <include file="public@nav"/>
 <div class="clears"></div>
-<div class="contentbox" style="padding-top: 30px;"><!-- contentbox start -->
-    <div class="register-box">
-    <div class="tab-pane active" id="email">
-        <h3>用户注册</h3>
-        <form class="form-horizontal js-ajax-form" action="{:url('/user/Register/doRegister')}" method="post" novalidate="novalidate">
-            <div class="control-group">
-                <input type="text" name="username" placeholder="邮箱" class="span4">
-            </div>
-            <div class="control-group">
-                <input type="password" name="password" placeholder="密码" class="span4">
-            </div>
-            <div class="control-group">
-                <input type="password" name="repassword" placeholder="重复密码" class="span4">
-            </div>
-            <div class="control-group">
-                <div class="span4" style="margin-left: 0px;">
-                    <input type="text" name="captcha" placeholder="验证码" style="width:252px;">
-                    <captcha height="32" width="150" font-size="18" style="cursor: pointer; right:1px;top:1px;"/>
+<section>
+<div class="mainer">
+    <div class="mainBox">
+        <div class="vessel">
+            <div class="partBox register">
+                <h3 class="partTitle">注册新账号</h3>
+                <div class="partCon">
+                    <form class="js-ajax-form" action="{:url('user/Register/doRegister')}" method="post">
+                    <div class="myform registerForm step_1">
+                        <p class="formTip" style="display:none;"><i class="icon icon-erro"></i><span class="error_tip"></span></p>
+                        <ul>
+                            <li>
+                                <label class="formInput">
+                                    <i class="icon icon-user"></i>
+                                    <input class="reg-input" type="text" value="" name="username" placeholder="请输入手机号码" autocomplete="off">
+                                </label>
+                            </li>
+                            <li>
+                                <label class="formInput erro">
+                                    <i class="icon icon-lock"></i>
+                                    <input class="reg-input" type="password" value="" name="password" placeholder="请输入您的密码" autocomplete="off">
+                                </label>
+                            </li>
+                            <li>
+                                <label class="formInput">
+                                    <i class="icon icon-lock"></i>
+                                    <input class="reg-input" type="password" value="" name="repassword" placeholder="请再次输入密码" autocomplete="off">
+                                </label>
+                            </li>
+                            <li>
+                                <label class="formInput">
+                                    <i class="icon icon-invited"></i>
+                                    <input class="reg-input" type="text" name="invite_code" placeholder="邀请码 (可以不填)" autocomplete="off">
+                                </label>
+                            </li>
+                            <li>
+                                <label class="formInput yzmInput">
+                                    <i class="icon icon-safe"></i>
+                                    <input class="reg-input" type="text" name="captcha" placeholder="请输入验证码">
+                                    <captcha height="38" width="160" font-size="20"/>
+                                </label>
+                            </li>
+                        </ul>
+                        <div class="formBtn_box">
+                            <div class="formTerm"><label class="checkWarp on" for="term"><i class="icon i-check-box"></i><input name="term" id="term" type="checkbox" checked="checked" class="checkbox">我接受</label> <a href="https://www.jrq.com/agreement">金融圈网站服务协议</a></div>
+                            <button class="btn btn-primary btn-block js-ajax-submit" type="submit">确定注册</button>
+                        </div>
+
+                        <div class="formOther">
+                             <span class="right">
+                                 <a href="{:cmf_url('user/Login/index')}">直接登录 &gt;</a>
+                             </span>
+                        </div>
+                    </div>
+                    </form>
+                    <div class="myform registerVer step_2">
+                        <p class="formTip" style="display:none;"><i class="icon icon-erro"></i><span class="error_tip"></span></p>
+                        <ul>
+                            <li>我们已向您的手机号 <span class="red step_2_phone"></span> 发送了一条短信验证码，请查看并填写到下列输入框。</li>
+                            <li>
+                                <label class="formInput yzmInput">
+                                    <i class="icon icon-safe"></i>
+                                    <input type="text" name="sms" value="" placeholder="请输入验证码">
+                                    <a href="javascript:;" class="yzm blueBtn JS-send send_sms">发送验证码</a>
+                                    <a href="javascript:;" class="yzm grayBtn JS-gray send_sms">重新发送</a>
+                                </label>
+
+                            </li>
+                        </ul>
+                        <div class="formBtn_box">
+                            <div class="formTerm">手机号码输入错误？<a href="javascript:;" class="JS-rewrite">返回重新输入</a></div>
+                            <a href="javascript:void(0);" class="formBtn go_registe">立即注册</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="control-group">
-                <button class="btn btn-primary js-ajax-submit span4" type="submit" data-wait="1500"
-                        style="margin-left: 0px;">确定注册
-                </button>
-            </div>
-            <div class="control-group" style="text-align: center;"><p>
-                已有账号? <a href="{:url('user/login/index')}">点击此处登录</a></p></div>
-        </form>
-    </div>
+        </div>
     </div>
 </div><!-- contentbox over -->
+</section>
 <div class="clears"></div>
 <include file="public@footer"/>
 <!-- /container -->

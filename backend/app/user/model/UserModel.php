@@ -34,9 +34,9 @@ class UserModel extends Model
             hook_one("user_login_start",$hookParam);
             if ($comparePasswordResult) {
                 //是否激活账号
-                if($result['is_active_account'] == 0){
+                /*if($result['is_active_account'] == 0){
                     return 4;
-                }
+                }*/
                 //拉黑判断。
                 if($result['user_status']==0){
                     return 3;

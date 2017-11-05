@@ -1,5 +1,5 @@
 <?php	return array (
-  '运营推广/:id' => 
+  'sd/:id' => 
   array (
     0 => 'portal/Article/index?cid=1',
     1 => 
@@ -11,7 +11,7 @@
       'cid' => '\d+',
     ),
   ),
-  '运营推广' => 
+  'sd' => 
   array (
     0 => 'portal/List/index?id=1',
     1 => 

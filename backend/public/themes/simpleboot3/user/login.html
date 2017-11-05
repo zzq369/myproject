@@ -1,54 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
-<meta name="keywords" content="" />
-<meta name="description" content="">
-<include file="public@head" />
+	<title>首页 {$site_info.site_name|default=''}</title>
+	<meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+	<meta name="description" content="{$site_info.site_seo_description|default=''}">
+	<include file="public@head"/>
+	<hook name="before_head_end"/>
+	<link href="__TMPL__/public/home/css/reset.css" rel="stylesheet">
+	<link href="__TMPL__/public/home/css/common.css" rel="stylesheet">
+	<link href="__TMPL__/public/home/css/login.css" rel="stylesheet">
 </head>
-
-<body class="body-white">
-	<include file="public@nav" />
-
-	<div class="container tc-main">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<h2 class="text-center">用户登录</h2>
-				<form class="js-ajax-form" action="{:url('user/login/doLogin')}" method="post">
-					<div class="form-group">
-						<input type="text" id="input_username" name="username" placeholder="手机号/邮箱/用户名" class="form-control">
-					</div>
-
-					<div class="form-group">
-						<input type="password" id="input_password" name="password" placeholder="密码" class="form-control">
-					</div>
-
-					<div class="form-group">
-						<div style="position: relative;">
-							<input type="text" name="captcha" placeholder="验证码" class="form-control captcha" style="width: 170px;float: left;margin-right: 30px">
-							<captcha height="38" width="160" font-size="20"/>
+<body>
+<include file="public@nav"/>
+<div class="clears"></div>
+<section>
+	<div class="mainer">
+		<div class="mainBox">
+			<div class="vessel">
+				<div class="partBox login">
+					<ul class="loginTab JS-tab">
+						<li class="active"><a href="#">账号登录</a><i class="line"></i></li>
+						<li class=""><a href="#">微信登录</a></li>
+					</ul>
+					<div class="partCon">
+						<form class="js-ajax-form" action="{:url('user/login/doLogin')}" method="post">
+						<div class="tabContent myform" style="visibility: visible; left: 0px;">
+							<p class="formTip" style="display:none;">
+								<i class="icon icon-erro"></i><span class="login_error"></span>
+							</p>
+							<ul>
+								<li>
+									<label class="formInput erro">
+										<i class="icon icon-user"></i>
+										<input type="text" class="login-input phone" id="input_username" name="username" placeholder="手机号/邮箱/用户名" class="form-control">
+									</label>
+								</li>
+								<li>
+									<label class="formInput">
+										<i class="icon icon-lock"></i>
+										<input type="password" class="login-input passwd" id="input_password" name="password" placeholder="密码" class="form-control">
+									</label>
+								</li>
+								<li class="captcha">
+									<label class="formInput yzmInput">
+										<i class="icon icon-safe"></i>
+										<input type="text" name="captcha" placeholder="验证码" class="login-input input-captcha">
+										<captcha height="38" width="160" font-size="20"/>
+									</label>
+								</li>
+							</ul>
+							<div class="formBtn_box">
+								<div class="load" style="display:none;text-align:center;">
+									<img src="/img/load.gif" style="width:30px;height:30px;vertical-align:middle;">
+								</div>
+								<div class="formTerm">
+									<a href="#" target="_blank" style="cursor:pointer;" class="forget">忘记密码？</a>
+								</div>
+								<button class="btn btn-primary btn-block js-ajax-submit" type="submit" style="margin-left: 0px">确定</button>
+							</div>
+							<div class="formOther">
+								<a href="#"><i class="icon icon-sina"></i> 微博</a>
+								<span class="right">
+								<a href="#">免费注册 &gt;</a>
+								</span>
+							</div>
+						</div>
+						</form>
+						<div class="tabContent wei_Box" style="visibility: visible; left: 380px;">
+							<div class="wei_code">
+								<iframe src="https://open.weixin.qq.com/connect/qrconnect?appid=wx6c4297da30213810&amp;redirect_uri=https%3A%2F%2Fwww.jrq.com%2Fsns%2Fwxcallback&amp;response_type=code&amp;scope=snsapi_login&amp;state=a1b541c79c6d72cfc8c91e64c1d24786&amp;href=https://login.jrq.com/cn/css/code.css" class="img01" name="_login_frame_wechat_" id="_login_frame_wechat_" frameborder="no" scrolling="no" style="width:100%; height:215px;">
+								</iframe>
+								<img src="/images/wei-help.png" class="img02" style="display:none;">
+							</div>
+							<p>
+								微信扫一扫　快速登录
+							</p>
+							<p class="aHelp">
+								<a href="#" class="JS-help">使用帮助</a>
+							</p>
 						</div>
 					</div>
-
-					<div class="form-group">
-						<input type="hidden" name="redirect" value="">
-						<button class="btn btn-primary btn-block js-ajax-submit" type="submit" style="margin-left: 0px">确定</button>
-					</div>
-
-					<div class="form-group" style="text-align: center;">
-						<ul class="list-inline">
-							<li><a href="{:cmf_url('user/Register/index')}">现在注册</a></li>
-							<li><a href="{:cmf_url('user/Login/findPassword')}">忘记密码</a></li>
-						</ul>
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
-
-
 	</div>
-	<!-- /container -->
-
-	<include file="public@scripts" />
+</section>
+<div class="clears"></div>
+<include file="public@footer"/>
+<!-- /container -->
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
 </body>
 </html>
