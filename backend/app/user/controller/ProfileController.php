@@ -56,7 +56,7 @@ class ProfileController extends UserBaseController
                 'sex'     => 'number|between:0,2',
                 'birthday'   => 'dateFormat:Y-m-d|after:-88 year|before:-1 day',
                 'user_url'   => 'url|max:64',
-                'signature'   => 'chsDash|max:128',
+                //'signature'   => 'chsDash|max:128',
             ]);
             $validate->message([
                 'user_nickname.chsDash' => '昵称只能是汉字、字母、数字和下划线_及破折号-',
@@ -68,8 +68,8 @@ class ProfileController extends UserBaseController
                 'birthday.before' => '出生日期也太晚了吧？',
                 'user_url.url' => '个人网址错误',
                 'user_url.max' => '个人网址长度不得超过64个字符',
-                'signature.chsDash' => '个性签名只能是汉字、字母、数字和下划线_及破折号-',
-                'signature.max' => '个性签名长度不得超过128个字符',
+               // 'signature.chsDash' => '个性签名只能是汉字、字母、数字和下划线_及破折号-',
+               // 'signature.max' => '个性签名长度不得超过128个字符',
             ]);
 
             $data = $this->request->post();
@@ -78,7 +78,7 @@ class ProfileController extends UserBaseController
             }
             $editData = new UserModel();
             if ($editData->editData($data)) {
-                $this->success("保存成功！", "user/profile/center");
+                $this->success("保存成功！", "user/index/info");
             } else {
                 $this->error("没有新的修改信息！");
             }

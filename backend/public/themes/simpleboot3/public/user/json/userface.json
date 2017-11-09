@@ -3,15 +3,15 @@
     "msg": "",
     "data": [
         {
-        "src": "../../images/userface1.jpg"
+        "src": "/themes/simpleboot3/public/user/images/userface1.jpg"
         },{
-        "src": "../../images/userface2.jpg"
+        "src": "/themes/simpleboot3/public/user/images/userface2.jpg"
         },{
-        "src": "../../images/userface3.jpg"
+        "src": "/themes/simpleboot3/public/user/images/userface3.jpg"
         },{
-        "src": "../../images/userface4.jpg"
+        "src": "/themes/simpleboot3/public/user/images/userface4.jpg"
         },{
-        "src": "../../images/userface5.jpg"
+        "src": "/themes/simpleboot3/public/user/images/userface5.jpg"
         }
     ]
 } 

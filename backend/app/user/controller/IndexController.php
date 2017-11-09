@@ -10,6 +10,7 @@
 // +----------------------------------------------------------------------
 namespace app\user\controller;
 
+use app\user\model\UserModel;
 use cmf\controller\UserBaseController;
 use think\Db;
 
@@ -57,6 +58,10 @@ class IndexController extends UserBaseController
     }
 
     public function info(){
+        $user = session('user');
+        $userModel = new UserModel();
+        $userInfo = $userModel->getInfoById($user['id']);
+        $this->assign("user", $userInfo);
         return $this->fetch(":info");
     }
 

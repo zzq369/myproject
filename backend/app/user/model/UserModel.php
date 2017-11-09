@@ -255,7 +255,7 @@ class UserModel extends Model
         $data['sex'] = $user['sex'];
         $data['birthday'] = strtotime($user['birthday']);
         $data['user_url'] = $user['user_url'];
-        $data['signature'] = $user['signature'];
+        //$data['signature'] = $user['signature'];
         $userQuery        = Db::name("user");
         if ($userQuery->where('id', $userId)->update($data)) {
             $userInfo = $userQuery->where('id', $userId)->find();
@@ -343,7 +343,7 @@ class UserModel extends Model
     public function getInfoById($id){
         $userQuery = Db::name("user");
         $params = array('a.id'=>$id);
-        $userInfo = $userQuery->alias("a")->field("a.id,a.mobile,a.user_nickname,a.avatar,ui.industry_id,ui.provice_id,ui.city_id,ui.address,us.name as industry_name")
+        $userInfo = $userQuery->alias("a")->field("a.id,a.mobile,a.user_nickname,a.avatar,a.sex,a.user_type,a.user_url,a.birthday,ui.industry_id,ui.provice_id,ui.city_id,ui.address,us.name as industry_name")
             ->join('__USER_INFO__ ui', 'a.id = ui.user_id', 'LEFT')
             ->join('__USER_INDUSTRY__ us', 'ui.industry_id = us.id', 'LEFT')
             ->where($params)
