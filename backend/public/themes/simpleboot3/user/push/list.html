@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>我的互推消息</title>
+	<include file="public@head"/>
+	<include file="public@user_head"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+	<div class="layui-inline">
+		<div class="layui-input-inline">
+			<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
+		</div>
+		<a class="layui-btn search_btn">查询</a>
+	</div>
+	<div class="layui-inline">
+		<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+	</div>
+	<div class="layui-inline">
+		<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>
+	</div>
+	<div class="layui-inline">
+		<a class="layui-btn audit_btn">审核文章</a>
+	</div>
+	<div class="layui-inline">
+		<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
+	</div>
+	<div class="layui-inline">
+		<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
+	</div>
+</blockquote>
+<div class="layui-form news_list">
+	<ul class="hutuibox" style="margin-top: 20px;">
+		<volist name="list" id="vo">
+			<li data-id="{$vo.id}">
+				<div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
+				<div class="hutui_right" style="float: left; width: 70%;">
+					<h2><a href="/portal/push/detail?id={$vo.id}" title="">{$vo.title}</a>
+						<if condition="$vo.is_top eq 1">
+							<span class="colorbg1"><a href="#">顶</a></span>
+						</if>
+						<if condition="$vo.is_anxious eq 1">
+							<span class="colorbg2"><a href="#">急</a></span>
+						</if>
+					</h2>
+					<div class="clears"></div>
+					<div class="tui_txt1">
+						<span>合作中</span>
+						<span>合作地区：{$vo.province}{$vo.city}{$vo.area}{$vo.address}</span>
+						<span>阅读数：{$vo.read_count}</span>
+						<span>{$vo.create_time}</span>
+					</div>
+					<div class="tui_txt1">
+						<notempty name="vo.tags">
+							<volist name="vo.tags" id="tag">
+								<span>{$tag.name}</span>
+							</volist>
+						</notempty>
+					</div>
+				</div>
+				<div class="hutui_left" style="width: 15%">
+					<a href="/user/push/add?id={$vo.id}" type="button" class="btn btn-primary">编辑</a>
+					<button type="button" class="btn btn-default push_del">删除</button>
+				</div>
+				<div class="clears"></div>
+			</li>
+		</volist>
+	</ul>
+</div>
+<div id="page"></div>
+<include file="public@scripts" />
+<include file="public@user_scripts"/>
+<script type="text/javascript">
+	$(function () {
+		$(".push_del").click(function () {
+		    var id = $(this).closest("li").data("id");
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.confirm('确定删除？', {
+                    btn: ['确定', '取消']
+                }, function(index, layero){
+					$.post("/user/Push/delete",{id: id},function (r) {
+					    if(r.code == 1){
+                            layer.msg(r.msg, {
+                                time: 2000
+                            }, function(){
+                                window.location.href = r.url;
+                            });
+						}else{
+                            layer.msg(r.msg);
+						}
+                    })
+                }, function(index){
+
+                });
+            });
+
+        });
+    })
+</script>
+</body>
+</html>

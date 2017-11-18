@@ -15,15 +15,23 @@ use think\Model;
 
 class PushModel extends Model
 {
-    public function addPush($data){
+    public function savePush($data){
         $pushQuery = Db::name("push");
-        $saveData = [];
-        $saveData['user_id'] = 1;
-        $saveData['title'] = $data['title'];
-        $saveData['create_time'] = now_time();
-        $saveData['update_time'] = now_time();
-        $pushQuery->insertGetId($saveData);
-        return true;
+        $data['user_id'] = session('user.id');
+        $data['update_time'] = now_time();
+        if($data['id']){
+            $id = $data['id'];
+            unset($data['user_id'],$data['id']);
+            $pushQuery->where(array('id'=>$id,'user_id'=>session('user.id')))->update($data);
+        }else{
+            $data['create_time'] = now_time();
+            $id = $pushQuery->insertGetId($data);
+        }
+        if ($id) {
+            return $id;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -44,7 +52,9 @@ class PushModel extends Model
      */
     public function getInfoById($id){
         $pushQuery = Db::name("push");
-        $info = $pushQuery->where('id', $id)->find();
+        $info = $pushQuery
+            ->where('id', $id)
+            ->find();
         return $info;
     }
 
@@ -56,7 +66,10 @@ class PushModel extends Model
         $pushQuery = Db::name("push");
         $list = $pushQuery->alias("a")->field($field)
             ->join("__PUSH_CATEGORY__ b","a.category_id = b.id","LEFT")
-            ->where($params)->limit($limit)->order("id desc")->paginate(10);
+            ->join("__REGION__ p","a.province = p.id","LEFT")
+            ->join("__REGION__ c","a.city = c.id","LEFT")
+            ->join("__REGION__ ar","a.area = ar.id","LEFT")
+            ->where($params)->limit($limit)->order("a.update_time desc")->paginate(10);
         return $list;
     }
 }

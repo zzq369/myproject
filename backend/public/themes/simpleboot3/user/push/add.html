@@ -9,11 +9,77 @@
 </head>
 <body class="childrenBody">
 <form class="js-ajax-form" action="{:url('/User/Push/add')}" method="post">
+	<input type="hidden" name="id" value="{$info.id}" />
 	<div class="user_left">
 		<div class="layui-form-item">
-			<label class="layui-form-label">商家名称</label>
+			<label class="layui-form-label">标题</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" id="input-user_nickname" placeholder="商家名称" name="user_nickname" value="">
+				<input type="text" class="layui-input" id="input-title" placeholder="标题" name="title" value="{$info.title}">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">资源类型</label>
+			<div class="layui-input-block">
+				<php>
+					$resource_type=array("1"=>"线上","2"=>"线下");
+				</php>
+				<select class="form-control" id="input-resource_type" name="resource_type">
+					<foreach name="resource_type" item="vo">
+						<php>$resourceTypeSelected=$key==$info['resource_type']?"selected":"";</php>
+						<option value="{$key}" {$resourceTypeSelected}>{$vo}</option>
+					</foreach>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">收费方式</label>
+			<div class="layui-input-block">
+				<php>
+					$charge=array("1"=>"收费","0"=>"不收费");
+				</php>
+				<select class="form-control" id="input-charge" name="charge">
+					<foreach name="charge" item="vo">
+						<php>$chargeSelected=$key==$info['charge']?"selected":"";</php>
+						<option value="{$key}" {$chargeSelected}>{$vo}</option>
+					</foreach>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">合作地区</label>
+			<div class="layui-input-block">
+				<select class="form-control layui-input-inline" id="select-provice" data-next_id="select-city" name="province">
+					<option value="">请选择省</option>
+					<foreach name="proviceList" item="vo">
+						<option value="{$vo.Id}">{$vo.name}</option>
+					</foreach>
+				</select>
+				<select class="form-control layui-input-inline" data-next_id="select-area"  id="select-city" name="city">
+					<option value="">请选择市</option>
+				</select>
+				<select class="form-control layui-input-inline" id="select-area" name="area">
+					<option value="">请选择县/区</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">活动时间</label>
+			<div class="layui-input-block">
+				<input class="form-control js-bootstrap-date" type="text" id="input-start_time" placeholder="2017-10-01" name="start_time" value="{$info.start_time}">
+				至
+				<input class="form-control js-bootstrap-date" type="text" id="input-end_time" placeholder="2017-10-01" name="end_time" value="{$info.end_time}">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">我提供的支持</label>
+			<div class="layui-input-block">
+				<textarea placeholder="请输入内容" class="layui-textarea" name="business_offer">{$info.business_offer}</textarea>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">希望对方提供的支持</label>
+			<div class="layui-input-block">
+				<textarea placeholder="请输入内容" class="layui-textarea" name="support">{$info.support}</textarea>
 			</div>
 		</div>
 	</div>
@@ -26,6 +92,40 @@
 <include file="public@scripts" />
 <include file="public@user_scripts"/>
 <script type="text/javascript">
+    var provice = '{$info.province}';
+    var city = '{$info.city}';
+    var area = '{$info.area}';
+    var region_first = true;
+    $(function () {
+        $("#select-provice,#select-city,#select-area").change(function () {
+            var pid = $(this).val();
+            var next_id = $(this).data("next_id");
+            if(next_id) {
+                $.get("/User/Index/getNextRegion", {"pid": pid}, function (r) {
+                    if(next_id == 'select-area'){
+                        var html = '<option value="">请选择县/区</option>';
+                    }else {
+                        var html = '<option value="">请选择市</option>';
+                    }
+                    if (r.code == 0) {
+                        $(r.data).each(function () {
+                            html += '<option value="' + this.Id + '">' + this.name + '</option>';
+                        })
+                    }
+                    $("#" + next_id).html(html);
+                    if (region_first === true && next_id == 'select-city') {
+                        $("#select-city").val(city).change();
+                    }
+                    if(region_first === true && next_id == 'select-area'){
+                        $("#select-area").val(area);
+                        region_first = false;
+                    }
+                });
+            }
+        });
+
+        $("#select-provice").val(provice).change();
+    })
 </script>
 </body>
 </html>
