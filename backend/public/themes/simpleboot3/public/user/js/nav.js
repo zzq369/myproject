@@ -1,45 +1,54 @@
 var navs = [{
 	"title" : "后台首页",
 	"icon" : "icon-computer",
-	"href" : "Index/main.html",
+	"href" : "/User/Index/main.html",
 	"spread" : false
 },{
-	"title" : "文章列表",
+	"title" : "我的基本资料",
 	"icon" : "icon-text",
-	"href" : "page/news/newsList.html",
+	"href" : "/User/Index/info.html",
 	"spread" : false
 },{
-	"title" : "友情链接",
+    "title" : "我的互推信息",
+    "icon" : "&#xe61c;",
+    "href" : "",
+    "spread" : false,
+    "children" : [
+        {
+            "title" : "互推信息",
+            "icon" : "&#xe631;",
+            "href" : "/User/Push/lists",
+            "spread" : false
+        },
+        {
+            "title" : "发布互推信息",
+            "icon" : "&#xe631;",
+            "href" : "/User/Push/add.html",
+            "spread" : false
+        }
+    ]
+},{
+    "title" : "我的活动",
+    "icon" : "&#xe61c;",
+    "href" : "",
+    "spread" : false,
+    "children" : [
+        {
+            "title" : "我的活动",
+            "icon" : "&#xe631;",
+            "href" : "/User/Activity/lists",
+            "spread" : false
+        },
+        {
+            "title" : "发布优惠活动",
+            "icon" : "&#xe631;",
+            "href" : "/User/Activity/add",
+            "spread" : false
+        }
+    ]
+},{
+	"title" : "生成H5推广页",
 	"icon" : "icon-text",
-	"href" : "page/links/linksList.html",
-	"spread" : false
-},{
-	"title" : "404页面",
-	"icon" : "&#xe61c;",
-	"href" : "page/404.html",
-	"spread" : false
-},{
-	"title" : "系统基本参数",
-	"icon" : "&#xe631;",
-	"href" : "page/systemParameter/systemParameter.html",
-	"spread" : false
-},{
-	"title" : "二级菜单演示",
-	"icon" : "&#xe61c;",
 	"href" : "",
-	"spread" : false,
-	"children" : [
-		{
-			"title" : "二级菜单1",
-			"icon" : "&#xe631;",
-			"href" : "",
-			"spread" : false
-		},
-		{
-			"title" : "二级菜单2",
-			"icon" : "&#xe631;",
-			"href" : "",
-			"spread" : false
-		}
-	]
+	"spread" : false
 }]
