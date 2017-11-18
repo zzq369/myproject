@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>layui后台管理模板</title>
+	<title>会员中心</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -68,7 +68,7 @@
 						<cite><if condition="$user.user_nickname">{$user.user_nickname}<else/>{$user.mobile}</if></cite>
 					</a>
 					<dl class="layui-nav-child">
-						<dd><a href="javascript:;" data-url="Index/info.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
+						<dd><a href="javascript:;" data-url="/User/Index/info.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
 						<dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
 						<dd><a href="javascript:;"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
 					</dl>
@@ -92,7 +92,7 @@
 			</ul>
 			<div class="layui-tab-content clildFrame">
 				<div class="layui-tab-item layui-show">
-					<iframe src="Index/main.html"></iframe>
+					<iframe src="/User/Index/main"></iframe>
 				</div>
 			</div>
 		</div>
@@ -101,17 +101,6 @@
 	<div class="layui-footer footer">
 		<p>copyright @2017 nightkid 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>　　<a onclick="donation()" class="layui-btn layui-btn-danger l·ayui-btn-small">捐赠作者</a></p>
 	</div>
-</div>
-
-<!-- 锁屏 -->
-<div class="admin-header-lock" id="lock-box" style="display: none;">
-	<div class="admin-header-lock-img"><img src="__TMPL__/public/user/images/face.jpg"/></div>
-	<div class="admin-header-lock-name" id="lockUserName"><if condition="$user.user_nickname">{$user.user_nickname}<else/>{$user.mobile}</if></div>
-	<div class="input_btn">
-		<input type="password" class="admin-header-lock-input layui-input" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />
-		<button class="layui-btn" id="unlock">解锁</button>
-	</div>
-	<p>请输入“123456”，否则不会解锁成功哦！！！</p>
 </div>
 <!-- 移动导航 -->
 <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>

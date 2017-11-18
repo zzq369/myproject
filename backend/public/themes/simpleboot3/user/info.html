@@ -11,21 +11,55 @@
 <form class="js-ajax-form" action="{:url('user/profile/editPost')}" method="post">
     <div class="user_left">
         <div class="layui-form-item">
-            <label class="layui-form-label">昵称</label>
+            <label class="layui-form-label">商家名称</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" id="input-user_nickname" placeholder="昵称" name="user_nickname" value="{$user.user_nickname}">
+                <input type="text" class="layui-input" id="input-user_nickname" placeholder="商家名称" name="user_nickname" value="{$user.user_nickname}">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">手机号码</label>
-            <div class="layui-input-block">
-                {$user.mobile}
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户类型</label>
+            <label class="layui-form-label">商家类型</label>
             <div class="layui-input-block">
                 <if condition="$user.user_type eq 2">个人会员<elseif condition="$user.user_type eq 3"/>企业会员</if>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属行业</label>
+            <div class="layui-input-block">
+                <select class="form-control" id="input-industry" name="industry">
+                    <foreach name="industryList" item="vo">
+                        <php>$sexselected=$vo['id']==$user['industry_id']?"selected":"";</php>
+                        <option value="{$vo.id}" {$sexselected}>{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属地区</label>
+            <div class="layui-input-block">
+                <select class="form-control layui-input-inline" id="select-provice" data-next_id="select-city" name="provice">
+                    <option value="">请选择省</option>
+                    <foreach name="proviceList" item="vo">
+                        <option value="{$vo.Id}">{$vo.name}</option>
+                    </foreach>
+                </select>
+                <select class="form-control layui-input-inline" data-next_id="select-area"  id="select-city" name="city">
+                    <option value="">请选择市</option>
+                </select>
+                <select class="form-control layui-input-inline" id="select-area" name="area">
+                    <option value="">请选择县/区</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;</label>
+            <div class="layui-input-block">
+                <input class="layui-input" type="text" id="input-address" placeholder="请输入地址" name="address" value="{$user.address}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-block">
+                {$user.mobile}
             </div>
         </div>
         <div class="layui-form-item">
@@ -54,6 +88,12 @@
                 <input class="form-control js-bootstrap-date" type="text" id="input-birthday" placeholder="2013-01-04" name="birthday" value="{:date('Y-m-d',$user.birthday)}">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">介绍</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea" name="describe"></textarea>
+            </div>
+        </div>
     </div>
     <div class="user_right">
         <input type="file" name="avatar" class="layui-upload-file" lay-title="掐指一算，我要换一个头像了">
@@ -67,5 +107,41 @@
 </form>
 <include file="public@scripts" />
 <include file="public@user_scripts"/>
+<script type="text/javascript">
+    var provice = '{$user.provice_id}';
+    var city = '{$user.city_id}';
+    var area = '{$user.area_id}';
+    var region_first = true;
+    $(function () {
+        $("#select-provice,#select-city,#select-area").change(function () {
+            var pid = $(this).val();
+            var next_id = $(this).data("next_id");
+            if(next_id) {
+                $.get("/User/Index/getNextRegion", {"pid": pid}, function (r) {
+                    if(next_id == 'select-area'){
+                        var html = '<option value="">请选择县/区</option>';
+                    }else {
+                        var html = '<option value="">请选择市</option>';
+                    }
+                    if (r.code == 0) {
+                        $(r.data).each(function () {
+                            html += '<option value="' + this.Id + '">' + this.name + '</option>';
+                        })
+                    }
+                    $("#" + next_id).html(html);
+                    if (region_first === true && next_id == 'select-city') {
+                        $("#select-city").val(city).change();
+                    }
+                    if(region_first === true && next_id == 'select-area'){
+                        $("#select-area").val(area);
+                        region_first = false;
+                    }
+                });
+            }
+        });
+
+        $("#select-provice").val(provice).change();
+    })
+</script>
 </body>
 </html>

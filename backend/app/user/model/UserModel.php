@@ -256,9 +256,27 @@ class UserModel extends Model
         $data['birthday'] = strtotime($user['birthday']);
         $data['user_url'] = $user['user_url'];
         //$data['signature'] = $user['signature'];
-        $userQuery        = Db::name("user");
-        if ($userQuery->where('id', $userId)->update($data)) {
-            $userInfo = $userQuery->where('id', $userId)->find();
+        $userQuery = Db::name("user");
+        $userInfoQuery = Db::name("user_info");
+        $returnUser = $userQuery->where('id', $userId)->update($data);
+        $dataInfo = [];
+        $dataInfo['industry_id'] = $user['industry'];
+        $dataInfo['provice_id'] = $user['provice'];
+        $dataInfo['city_id'] = $user['city'];
+        $dataInfo['area_id'] = $user['area'];
+        $dataInfo['address'] = $user['address'];
+        $dataInfo['describe'] = $user['describe'];
+
+        //判断是否存在详情
+        if($userInfoQuery->where("user_id", $userId)->find()){
+            $returnUserInfo = $userInfoQuery->where("user_id", $userId)->update($dataInfo);
+        }else{
+            $dataInfo['user_id'] = $userId;
+            $returnUserInfo = $userInfoQuery->insert($dataInfo);
+        }
+
+        if ($returnUser || $returnUserInfo) {
+            $userInfo = $this->getInfoById($userId);
             cmf_update_current_user($userInfo);
             return 1;
         }
@@ -343,7 +361,7 @@ class UserModel extends Model
     public function getInfoById($id){
         $userQuery = Db::name("user");
         $params = array('a.id'=>$id);
-        $userInfo = $userQuery->alias("a")->field("a.id,a.mobile,a.user_nickname,a.avatar,a.sex,a.user_type,a.user_url,a.birthday,ui.industry_id,ui.provice_id,ui.city_id,ui.address,us.name as industry_name")
+        $userInfo = $userQuery->alias("a")->field("a.id,a.mobile,a.user_nickname,a.avatar,a.sex,a.user_type,a.user_url,a.birthday,ui.industry_id,ui.provice_id,ui.city_id,ui.area_id,ui.address,us.name as industry_name")
             ->join('__USER_INFO__ ui', 'a.id = ui.user_id', 'LEFT')
             ->join('__USER_INDUSTRY__ us', 'ui.industry_id = us.id', 'LEFT')
             ->where($params)

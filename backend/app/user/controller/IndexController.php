@@ -10,6 +10,8 @@
 // +----------------------------------------------------------------------
 namespace app\user\controller;
 
+use app\portal\model\UserIndustryModel;
+use app\user\model\RegionModel;
 use app\user\model\UserModel;
 use cmf\controller\UserBaseController;
 use think\Db;
@@ -56,13 +58,35 @@ class IndexController extends UserBaseController
 
         return $this->fetch(":main");
     }
-
+    //用户详情
     public function info(){
         $user = session('user');
         $userModel = new UserModel();
         $userInfo = $userModel->getInfoById($user['id']);
+        //行业
+        $industryModel = new UserIndustryModel();
+        $industryList = $industryModel->getList(['status'=>1]);
+        //地区
+        $regionModel = new RegionModel();
+        $params['pid'] = 0;
+        $proviceList = $regionModel->getListsBy($params);
+
+        $this->assign("proviceList", $proviceList);
+        $this->assign("industryList", $industryList);
         $this->assign("user", $userInfo);
         return $this->fetch(":info");
+    }
+
+    //获取下级地区
+    public function getNextRegion(){
+        $pid = $this->request->get('pid');
+        if(empty($pid))
+            $this->error("参数不正确");
+
+        $regionModel = new RegionModel();
+        $params['pid'] = $pid;
+        $regionList = $regionModel->getListsBy($params);
+        $this->result($regionList);
     }
 
 }
