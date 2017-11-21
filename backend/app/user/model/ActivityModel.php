@@ -15,42 +15,58 @@ use think\Model;
 
 class ActivityModel extends Model
 {
-    /**
-     * 根据主键获取会员发布的活动
-     * @author xy
-     * @since 2017/11/19 16:51
-     * @param int $activityId 活动id
-     * @return array|bool|false|\PDOStatement|string|Model
-     */
-    public function getActivityByPk($activityId){
-        $query = Db::name('activity');
-        $activity = $query->where(['activity_id' => $activityId])->find();
-        if($activity){
-            return $activity;
-        }
-        return false;
-    }
-
     public function saveActivity($data){
-        $query = Db::name('activity');
-        $data['content'] = htmlspecialchars($data['content']);
-        if(!empty($data['activity_id'])){
-            $activity = $this->getActivityByPk($data['activity_id']);
-            if($activity['user_id'] != session('user.id')){
-                $this->error = '修改的活动不属于当前会员';
-                return false;
-            }
-            $data['update_time'] = now_time();
-            $result = $query->where(['activity_id' => $data['activity_id']])->update($data);
+        $query = Db::name("activity");
+        $data['user_id'] = session('user.id');
+        $data['update_time'] = now_time();
+        if($data['id']){
+            $id = $data['id'];
+            unset($data['user_id'],$data['id']);
+            $query->where(array('id'=>$id,'user_id'=>session('user.id')))->update($data);
         }else{
             $data['create_time'] = now_time();
-            $result = $query->insertGetId($data);
+            $id = $query->insertGetId($data);
         }
-        if ($result) {
-            return true;
+        if ($id) {
+            return $id;
         } else {
             return false;
         }
     }
 
+    /**
+     * title获取互推详情
+     * @param $title
+     * @return array|false|\PDOStatement|string|Model
+     */
+    public function getInfoByTitle($title){
+        $query = Db::name("activity");
+        $info = $query->where('title', $title)->find();
+        return $info;
+    }
+
+    /**
+     * id获取互推详情
+     * @param $id
+     * @return array|false|\PDOStatement|string|Model
+     */
+    public function getInfoById($id){
+        $query = Db::name("activity");
+        $info = $query
+            ->where('id', $id)
+            ->find();
+        return $info;
+    }
+
+    /**
+     * 根据条件获取列表
+     * @param $params
+     */
+    public function getListBy($params, $field = "*", $limit = 5){
+        $query = Db::name("activity");
+        $list = $query->alias("a")->field($field)
+            ->where($params)->limit($limit)->order("a.update_time desc")->paginate(10);
+        return $list;
+    }
 }
+

@@ -1,32 +1,38 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: admin
- * Date: 2017/11/19
- * Time: 16:34
+ * 商家活动
  */
-
 namespace app\user\controller;
 
-
 use app\user\model\ActivityModel;
-use cmf\controller\UserBaseController;
-use think\Request;
 use think\Validate;
+use cmf\controller\UserBaseController;
 
 class ActivityController extends UserBaseController
 {
-    public function activity_list(){
+    //列表
+    public function lists(){
+        $pushModel = new ActivityModel();
+        $params = array(
+            'user_id' => session("user.id"),
+            'status' => 0
+        );
+        $field = "a.*";
+        $result = $pushModel->getListBy($params,$field,10);
+        $list = $result->items();
 
+        $this->assign('list', $list);
+        $this->assign('page', $result->render());
+        return $this->fetch("list");
     }
+    //添加
     public function add(){
-        if(Request::instance()->isAjax()){
+        if($this->request->isPost()){
             $validate = new Validate([
-                'title' => 'require|chsDash|max:100',
-                'start_time'   => 'dateFormat:Y-m-d H:i:s',
-                'end_time'   => 'dateFormat:Y-m-d H:i:s',
+                'title' => 'require|chsDash|max:200',
+                'start_time'   => 'dateFormat:Y-m-d',
+                'end_time'   => 'dateFormat:Y-m-d',
                 'content' => 'require',
-                'image' => 'require'
             ]);
             $validate->message([
                 'title.require' => '标题不能为空',
@@ -34,94 +40,62 @@ class ActivityController extends UserBaseController
                 'title.max' => '标题最大长度为32个字符',
                 'start_time.dateFormat' => '活动开始时间格式不正确',
                 'end_time.dateFormat' => '活动结束时间格式不正确',
-                'content.require' => '活动内容不能为空',
-                'image.require' => '请上传活动图片',
+                'content.require' => '活动规则不能为空',
             ]);
+
             $data = $this->request->post();
-            if(!$validate->check($data)){
+            if (!$validate->check($data)) {
                 $this->error($validate->getError());
             }
             $activityModel = new ActivityModel();
-            if(!$activityModel->saveActivity($data)){
-                $this->error($activityModel->getError());
+            if ($activityModel->saveActivity($data)) {
+                $this->success("保存成功！", "user/Activity/lists");
+            } else {
+                $this->error("没有新的修改信息！");
             }
-            $this->success('添加成功');
         }else{
-            $activity = [
-                'activity_id' => '',
+            $info = array(
+                'id' => '',
                 'title' => '',
-                'start_time' => now_time(),
-                'end_time' => now_time(),
-                'content' => '',
-                'image' => '',
-            ];
-            $activityId = input('param.activity_id', 0, 'intval');
-            if($activityId){
+                'start_time' => date("Y-m-d"),
+                'end_time' => date("Y-m-d"),
+                'content' => ''
+            );
+            $id = $this->request->get("id");
+            if($id){
                 $activityModel = new ActivityModel();
-                $activity = $activityModel->getActivityByPk($activityId);
-                if(!$activity){
-                    $this->error('未找到对应的数据');
-                }
-                if($activity['user_id'] != session('user.id')){
-                    $this->error('此活动不属于当前会员');
-                }
+                $info = $activityModel->getInfoById($id);
             }
-            $this->assign([
-                'activity' => $activity,
-            ]);
-            return $this->fetch('add');
+
+            $this->assign('info', $info);
+            return $this->fetch("add");
         }
     }
 
+    //删除
     public function delete(){
-        $activityId = input('param.activity_id', 0, 'intval');
-        if($activityId){
+        if ($this->request->isPost()) {
+            $validate = new Validate([
+                'id' => 'require',
+            ]);
+            $validate->message([
+                'id.require' => '参数非法'
+            ]);
+            $data = $this->request->post();
+            if (!$validate->check($data)) {
+                $this->error($validate->getError());
+            }
+            $newData = array(
+                'id'=> $data['id'],
+                'status' => 2
+            );
             $activityModel = new ActivityModel();
-            $activity = $activityModel->getActivityByPk($activityId);
-            if(!$activity){
-                $this->error('未找到对应的数据');
+            if ($activityModel->saveActivity($newData)) {
+                $this->success("删除成功！", "user/Activity/lists");
+            } else {
+                $this->error("删除失败！");
             }
-            if($activity['user_id'] != session('user.id')){
-                $this->error('此活动不属于当前会员');
-            }
-            $data['is_delete'] = 1;
-            $result = $activity->save($data);
-            if($result){
-                $this->success('删除成功');
-            }else{
-                $this->error('删除失败');
-            }
-        }else {
-            $this->error('参数错误');
         }
     }
 
-    public function show(){
-        $activityId = input('param.activity_id', 0, 'intval');
-        if($activityId){
-            $activityModel = new ActivityModel();
-            $activity = $activityModel->getActivityByPk($activityId);
-            if(!$activity){
-                $this->error('未找到对应的数据');
-            }
-            if($activity['user_id'] != session('user.id')){
-                $this->error('此活动不属于当前会员');
-            }
-            if($activity['is_show'] == 1){
-                $data['is_show'] = 0;
-                $message = '下架成功';
-            }else {
-                $data['is_show'] = 1;
-                $message = '发布成功';
-            }
-            $result = $activity->save($data);
-            if($result){
-                $this->success($message);
-            }else{
-                $this->error('操作失败');
-            }
-        }else {
-            $this->error('参数错误');
-        }
-    }
 }
