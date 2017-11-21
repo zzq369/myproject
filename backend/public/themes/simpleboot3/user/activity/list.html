@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>我的互推消息</title>
+	<title>我的活动</title>
 	<include file="public@head"/>
 	<include file="public@user_head"/>
 </head>
@@ -15,13 +15,13 @@
 		<a class="layui-btn search_btn">查询</a>
 	</div>
 	<div class="layui-inline">
-		<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+		<a class="layui-btn layui-btn-normal newsAdd_btn">添加活动</a>
 	</div>
 	<div class="layui-inline">
-		<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>
+		<a class="layui-btn recommend" style="background-color:#5FB878">推荐活动</a>
 	</div>
 	<div class="layui-inline">
-		<a class="layui-btn audit_btn">审核文章</a>
+		<a class="layui-btn audit_btn">审核活动</a>
 	</div>
 	<div class="layui-inline">
 		<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
@@ -36,32 +36,26 @@
 			<li data-id="{$vo.id}">
 				<div class="hutui_left"><a href="#"><img src="images/tuiimg.png" alt=""></a></div>
 				<div class="hutui_right" style="float: left; width: 70%;">
-					<h2><a href="/portal/push/detail?id={$vo.id}" title="">{$vo.title}</a>
-						<if condition="$vo.is_top eq 1">
-							<span class="colorbg1"><a href="#">顶</a></span>
-						</if>
-						<if condition="$vo.is_anxious eq 1">
-							<span class="colorbg2"><a href="#">急</a></span>
-						</if>
+					<h2>
+						<a href="/portal/business/detail?id={$vo.id}" title="">{$vo.title}</a>
 					</h2>
 					<div class="clears"></div>
 					<div class="tui_txt1">
-						<span>合作中</span>
-						<span>合作地区：{$vo.province}{$vo.city}{$vo.area}{$vo.address}</span>
-						<span>阅读数：{$vo.read_count}</span>
+						<span>活动状态：{$vo.activity_status}</span>
+						<span>活动时间：{$vo.start_time} - {$vo.end_time}</span>
 						<span>{$vo.create_time}</span>
-					</div>
-					<div class="tui_txt1">
-						<notempty name="vo.tags">
-							<volist name="vo.tags" id="tag">
-								<span>{$tag.name}</span>
-							</volist>
-						</notempty>
 					</div>
 				</div>
 				<div class="hutui_left" style="width: 15%">
-					<a href="/user/push/add?id={$vo.id}" type="button" class="btn btn-primary">编辑</a>
-					<button type="button" class="btn btn-default push_del">删除</button>
+					<a href="/user/activity/add?id={$vo.id}" type="button" class="btn btn-primary">编辑</a>
+					<button type="button" class="btn btn-default activity_publish">
+						<if condition="$vo.is_publish eq 1">
+							下架
+							<else />
+							发布
+						</if>
+					</button>
+					<button type="button" class="btn btn-default activity_del">删除</button>
 				</div>
 				<div class="clears"></div>
 			</li>
@@ -73,31 +67,47 @@
 <include file="public@user_scripts"/>
 <script type="text/javascript">
 	$(function () {
-		$(".push_del").click(function () {
-		    var id = $(this).closest("li").data("id");
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.confirm('确定删除？', {
-                    btn: ['确定', '取消']
-                }, function(index, layero){
-					$.post("/user/Push/delete",{id: id},function (r) {
-					    if(r.code == 1){
-                            layer.msg(r.msg, {
-                                time: 2000
-                            }, function(){
-                                window.location.href = r.url;
-                            });
-						}else{
-                            layer.msg(r.msg);
-						}
-                    })
-                }, function(index){
+		$(".activity_del").click(function () {
+            var id = $(this).closest("li").data("id");
+            var url = "{:url('user/activity/delete')}";
+            var param = {
+                id: id
+            };
+            layer_show('确定删除？', url, param);
+        });
 
-                });
-            });
-
+        $(".activity_publish").click(function () {
+            var id = $(this).closest("li").data("id");
+            var url = "{:url('user/activity/publish')}";
+            var param = {
+              	id: id
+			};
+            layer_show('确定执行此操作？', url, param);
         });
     })
+
+	function layer_show(message, url, param) {
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.confirm(message, {
+                btn: ['确定', '取消']
+            }, function(index, layero){
+                $.post(url, param,function (r) {
+                    if(r.code == 1){
+                        layer.msg(r.msg, {
+                            time: 2000
+                        }, function(){
+                            window.location.href = r.url;
+                        });
+                    }else{
+                        layer.msg(r.msg);
+                    }
+                })
+            }, function(index){
+
+            });
+        });
+    }
 </script>
 </body>
 </html>

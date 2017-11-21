@@ -12,10 +12,11 @@ ALTER TABLE `ht_push`
 ADD COLUMN `status`  tinyint(1) NOT NULL DEFAULT 0 COMMENT '0正常 ， 2删除' AFTER `is_process`;
 
 ALTER TABLE `ht_activity`
-ADD COLUMN `start_time`  datetime NULL COMMENT '开始时间' AFTER `update_time`,
-ADD COLUMN `end_time`  datetime NULL COMMENT '结束时间' AFTER `start_time`,
-ADD COLUMN `content`  datetime NULL COMMENT '活动规则' AFTER `end_time`,
-ADD COLUMN `status`  tinyint NULL DEFAULT 0 COMMENT '0 正常 2 删除' AFTER `content`;
+ADD COLUMN `start_time`  date NULL COMMENT '开始时间' AFTER `update_time`,
+ADD COLUMN `end_time`  date NULL COMMENT '结束时间' AFTER `start_time`,
+ADD COLUMN `content`  text NULL COMMENT '活动规则' AFTER `end_time`,
+ADD COLUMN `status`  tinyint NULL DEFAULT 0 COMMENT '0 正常 2 删除' AFTER `content`,
+ADD COLUMN `is_publish` tinyint(1) DEFAULT 0 COMMENT '0不发布，1发布' AFTER `status`;
 
 
 
