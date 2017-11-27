@@ -17,6 +17,7 @@ class ActivityModel extends Model
 {
     public function saveActivity($data){
         $query = Db::name("activity");
+        $data['content'] = htmlspecialchars($data['content']);
         $data['user_id'] = session('user.id');
         $data['update_time'] = now_time();
         if($data['id']){

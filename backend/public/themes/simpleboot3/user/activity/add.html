@@ -6,6 +6,8 @@
 	<include file="public@head"/>
 	<include file="public@user_head"/>
 	<link rel="stylesheet" href="__TMPL__/public/user/css/user.css" media="all" />
+	<link rel="stylesheet" href="__STATIC__/js/webuploader/webuploader.css" media="all" />
+
 </head>
 <body class="childrenBody">
 <form class="js-ajax-form" action="{:url('/user/Activity/add')}" method="post">
@@ -29,9 +31,25 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">活动规则</label>
 			<div class="layui-input-block">
-				<textarea placeholder="请输入内容" class="layui-textarea" name="content">{$info.content}</textarea>
+				<textarea placeholder="请输入内容" class="layui-textarea" name="content" id="content">{$info.content|htmlspecialchars_decode}</textarea>
 			</div>
 		</div>
+		<div id="uploader" class="layui-form-item">
+			<label class="layui-form-label">广告图片</label>
+			<div class="layui-input-block">
+				<!--用来存放文件信息-->
+				<div id="image-list" class="uploader-list">
+					<notempty name="info.image">
+						<img src="{$info.image}" alt="广告图片">
+					</notempty>
+				</div>
+				<div class="btns">
+					<div id="picker" class="btn">选择文件</div>
+					<div id="uploadBtn" class="btn btn-default">开始上传</div>
+				</div>
+			</div>
+		</div>
+		初始化
 	</div>
 	<div class="layui-form-item" style="margin-left: 5%;">
 		<div class="layui-input-block">
@@ -41,7 +59,116 @@
 </form>
 <include file="public@scripts" />
 <include file="public@user_scripts"/>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/webuploader/webuploader.min.js"></script>
 <script type="text/javascript">
+    $(function () {
+        var editor = new baidu.editor.ui.Editor();
+        editor.render('content');
+        try {
+            editor.sync();
+        } catch (err) {
+        }
+    });
+	//webupload上传广告图片
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+        // 选完文件后，是否自动上传。
+        auto: false,
+        // swf文件路径
+        swf:  '__STATIC__/js/webuploader/Uploader.swf',
+
+        // 文件接收服务端。
+        server: "{:url('user/activity/upload')}",
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#picker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: '图片类型',
+            extensions: 'jpg,jpeg,bmp,png',
+            mimeTypes: 'image/jpg,image/jpeg,image/bmp,image/png'
+        },
+        fileSizeLimit: 2 * 1024 * 1024,
+        fileNumLimit: 1,
+
+    });
+    // 点击上传
+    $('#uploadBtn').click(function () {
+        uploader.upload();
+    });
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var $li = $(
+                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+                '<div class="info">' + file.name + '</div>' +
+                '</div>'
+            ),
+            $img = $li.find('img');
+		var $list = $('#image-list');
+
+        // $list为容器jQuery实例
+        $list.append( $li );
+        var thumbImageWidth = 400;
+        var thumbImageHeight = 200;
+
+        // 创建缩略图
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 100 x 100
+        uploader.makeThumb( file, function( error, src ) {
+            if ( error ) {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'src', src );
+        }, thumbImageWidth, thumbImageHeight );
+    });
+    // 文件上传过程中创建进度条实时显示。
+    uploader.on( 'uploadProgress', function( file, percentage ) {
+        var $li = $( '#'+file.id ),
+            $percent = $li.find('.progress span');
+
+        // 避免重复创建
+        if ( !$percent.length ) {
+            $percent = $('<p class="progress"><span></span></p>')
+                .appendTo( $li )
+                .find('span');
+        }
+
+        $percent.css( 'width', percentage * 100 + '%' );
+    });
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader.on( 'uploadAccept', function( file, data ) {
+        console.log(data);
+        //$( '#'+file.id ).find('.progress').remove();
+    });
+    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+    uploader.on( 'uploadSuccess', function( file ) {
+        $( '#'+file.id ).addClass('upload-state-done');
+
+    });
+
+    // 文件上传失败，显示上传出错。
+    uploader.on( 'uploadError', function( file ) {
+        var $li = $( '#'+file.id ),
+            $error = $li.find('div.error');
+
+        // 避免重复创建
+        if ( !$error.length ) {
+            $error = $('<div class="error"></div>').appendTo( $li );
+        }
+
+        $error.text('上传失败');
+    });
+
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader.on( 'uploadComplete', function( file ) {
+        $( '#'+file.id ).find('.progress').remove();
+    });
 </script>
 </body>
 </html>

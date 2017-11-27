@@ -353,7 +353,7 @@ class File extends SplFileObject
                         } elseif (is_callable($this->rule)) {
                             $savename = call_user_func($this->rule);
                         } else {
-                            $savename = date('Ymd') . DS . md5(microtime(true));
+                            $savename = $this->rule . DS . md5(microtime(true));
                         }
                 }
             }

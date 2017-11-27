@@ -7,6 +7,7 @@ namespace app\user\controller;
 use app\user\model\ActivityModel;
 use think\Validate;
 use cmf\controller\UserBaseController;
+use think\Config;
 
 class ActivityController extends UserBaseController
 {
@@ -74,7 +75,8 @@ class ActivityController extends UserBaseController
                 'title' => '',
                 'start_time' => date("Y-m-d"),
                 'end_time' => date("Y-m-d"),
-                'content' => ''
+                'content' => '',
+                'image' => '',
             );
             $id = $this->request->get("id");
             if($id){
@@ -148,6 +150,41 @@ class ActivityController extends UserBaseController
             }
         }else {
             $this->error('参数错误');
+        }
+    }
+
+    /**
+     * 上传广告图片
+     * @author xy
+     * @since 2017/11/26 17:17
+     */
+    public function upload(){
+        // 获取表单上传文件 'file'为uploader上传图片的表单名称
+        $file = request()->file('file');
+        $config = Config::get('user_activity_image');
+        $validRule = [
+            'size' => $config['size'],
+            'ext' => $config['ext'],
+        ];
+        $userId = session('user.id');
+        if (empty($userId)) {
+            $returnArr = json_output(true, '', '请先登录');
+            echo json_encode($returnArr);
+            die;
+        }
+        $path = $config['path'];
+        // 移动到框架应用根目录/public/uploads/activity_image/用户id 目录下
+        $info = $file->validate($validRule)->rule($userId)->move($path);
+        if ($info) {
+            $data = ['filename' => $info->getFilename()];
+            $returnArr = json_output(false, '', '上传成功', $data);
+            echo json_encode($returnArr);
+            die;
+        } else {
+            // 上传失败获取错误信息
+            $returnArr = json_output(true, '', $file->getError());
+            echo json_encode($returnArr);
+            die;
         }
     }
 }

@@ -1926,3 +1926,25 @@ function resent_active_email(array  $userInfo ){
     }
 }
 
+
+/**
+ * 设置已json格式输出结果的数组
+ * @author xy
+ * @since 2017/11/26 18:36
+ * @param bool $error
+ * @param $code
+ * @param $detail
+ * @param null $data
+ * @return array
+ */
+function json_output($error = true, $code, $detail, $data = null)
+{
+    $JsonData = array();
+    $JsonData['error'] = $error;
+    $JsonData['code'] = $code;
+    $JsonData['detail'] = $detail;
+    if($data || $data=='0'){
+        $JsonData['data'] = $data;
+    }
+    return $JsonData;
+}

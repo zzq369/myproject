@@ -13,6 +13,13 @@ if (file_exists(CMF_ROOT . "data/conf/config.php")) {
 } else {
     $runtimeConfig = [];
 }
+//用户上传文件相关配置
+if (file_exists(CMF_ROOT . "app/upload.php")) {
+    $uploadConfigs = include CMF_ROOT . "app/upload.php";
+} else {
+    $uploadConfigs = [];
+}
+
 $configs = [
     // +----------------------------------------------------------------------
     // | 应用设置
@@ -227,4 +234,4 @@ $configs = [
     'cmf_admin_theme_path'    => 'themes/',
     'cmf_admin_default_theme' => 'admin_simpleboot3',
 ];
-return array_merge($configs, $runtimeConfig);
+return array_merge($configs, $runtimeConfig, $uploadConfigs);
