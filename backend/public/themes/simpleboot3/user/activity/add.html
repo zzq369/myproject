@@ -7,7 +7,22 @@
 	<include file="public@user_head"/>
 	<link rel="stylesheet" href="__TMPL__/public/user/css/user.css" media="all" />
 	<link rel="stylesheet" href="__STATIC__/js/webuploader/webuploader.css" media="all" />
-
+	<style>
+		#uploader .webuploader-pick{
+			padding: 7px 15px;
+		}
+		/*上传图片的进度条样式*/
+		#uploader .upload-progress{
+			height: 5px;
+			margin-top: 5px;
+		}
+		#uploader .upload-progress span{
+			display: block;
+			width: 100%;
+			background-color: #5fb878;
+			height: 5px;
+		}
+	</style>
 </head>
 <body class="childrenBody">
 <form class="js-ajax-form" action="{:url('/user/Activity/add')}" method="post">
@@ -39,8 +54,8 @@
 			<div class="layui-input-block">
 				<!--用来存放文件信息-->
 				<div id="image-list" class="uploader-list">
-					<notempty name="info.image">
-						<img src="{$info.image}" alt="广告图片">
+					<notempty name="info.image_path">
+						<img src="{$info.image_path}" alt="广告图片">
 					</notempty>
 				</div>
 				<div class="btns">
@@ -51,6 +66,7 @@
 		</div>
 		初始化
 	</div>
+	<input type="hidden" id="activity_image" name="image" value="{$info.image}" />
 	<div class="layui-form-item" style="margin-left: 5%;">
 		<div class="layui-input-block">
 			<button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
@@ -83,7 +99,10 @@
         server: "{:url('user/activity/upload')}",
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick: '#picker',
+        pick: {
+            id:'#picker',
+            multiple: false
+        },
 
         // 只允许选择图片文件。
         accept: {
@@ -111,7 +130,7 @@
 		var $list = $('#image-list');
 
         // $list为容器jQuery实例
-        $list.append( $li );
+        $list.empty().append( $li );
         var thumbImageWidth = 400;
         var thumbImageHeight = 200;
 
@@ -123,40 +142,39 @@
                 $img.replaceWith('<span>不能预览</span>');
                 return;
             }
-
             $img.attr( 'src', src );
         }, thumbImageWidth, thumbImageHeight );
     });
     // 文件上传过程中创建进度条实时显示。
     uploader.on( 'uploadProgress', function( file, percentage ) {
         var $li = $( '#'+file.id ),
-            $percent = $li.find('.progress span');
+            $percent = $li.find('.upload-progress span');
 
         // 避免重复创建
         if ( !$percent.length ) {
-            $percent = $('<p class="progress"><span></span></p>')
+            $percent = $('<p class="upload-progress"><span></span></p>')
                 .appendTo( $li )
                 .find('span');
         }
-
         $percent.css( 'width', percentage * 100 + '%' );
     });
     // 完成上传完了，成功或者失败，先删除进度条。
     uploader.on( 'uploadAccept', function( file, data ) {
         console.log(data);
-        //$( '#'+file.id ).find('.progress').remove();
+        $('#activity_image').val(data.data.filename);
+        $( '#'+file.id ).find('.upload-progress').remove();
     });
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file ) {
         $( '#'+file.id ).addClass('upload-state-done');
-
+        var $success = '<div class="success-info" style="text-align: right; color: #5fb878;">success</div>';
+        $( '#'+file.id ).append($success);
     });
 
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {
         var $li = $( '#'+file.id ),
             $error = $li.find('div.error');
-
         // 避免重复创建
         if ( !$error.length ) {
             $error = $('<div class="error"></div>').appendTo( $li );
@@ -167,7 +185,7 @@
 
     // 完成上传完了，成功或者失败，先删除进度条。
     uploader.on( 'uploadComplete', function( file ) {
-        $( '#'+file.id ).find('.progress').remove();
+        $( '#'+file.id ).find('.upload-progress').remove();
     });
 </script>
 </body>

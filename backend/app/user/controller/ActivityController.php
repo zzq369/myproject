@@ -49,6 +49,7 @@ class ActivityController extends UserBaseController
                 'start_time'   => 'dateFormat:Y-m-d',
                 'end_time'   => 'dateFormat:Y-m-d',
                 'content' => 'require',
+                //'image' => 'require'
             ]);
             $validate->message([
                 'title.require' => '标题不能为空',
@@ -57,9 +58,13 @@ class ActivityController extends UserBaseController
                 'start_time.dateFormat' => '活动开始时间格式不正确',
                 'end_time.dateFormat' => '活动结束时间格式不正确',
                 'content.require' => '活动规则不能为空',
+                //'image' => '请上传活动图片'
             ]);
 
             $data = $this->request->post();
+            if(isset($data['file'])){
+                unset($data['file']);
+            }
             if (!$validate->check($data)) {
                 $this->error($validate->getError());
             }
@@ -77,6 +82,7 @@ class ActivityController extends UserBaseController
                 'end_time' => date("Y-m-d"),
                 'content' => '',
                 'image' => '',
+                'image_path' => ''
             );
             $id = $this->request->get("id");
             if($id){
@@ -172,9 +178,9 @@ class ActivityController extends UserBaseController
             echo json_encode($returnArr);
             die;
         }
-        $path = $config['path'];
+        $dir = $config['dir'];
         // 移动到框架应用根目录/public/uploads/activity_image/用户id 目录下
-        $info = $file->validate($validRule)->rule($userId)->move($path);
+        $info = $file->validate($validRule)->rule($userId)->move($dir);
         if ($info) {
             $data = ['filename' => $info->getFilename()];
             $returnArr = json_output(false, '', '上传成功', $data);
