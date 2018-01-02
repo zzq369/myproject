@@ -71,6 +71,10 @@ class IndexController extends UserBaseController
         $params['pid'] = 0;
         $proviceList = $regionModel->getListsBy($params);
 
+        //规模
+        $scaleList = $userModel->scale;
+
+        $this->assign('scaleList', $scaleList);
         $this->assign("proviceList", $proviceList);
         $this->assign("industryList", $industryList);
         $this->assign("user", $userInfo);

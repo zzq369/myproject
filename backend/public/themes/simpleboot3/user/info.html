@@ -34,6 +34,17 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">企业规模</label>
+            <div class="layui-input-block">
+                <select class="form-control" id="input-scale" name="scale">
+                    <volist name="scaleList" id="vo" key="k">
+                        <php>$scaleselected=$k==$user['scale']?"selected":"";</php>
+                        <option value="{$k}" {$scaleselected}>{$vo}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">所属地区</label>
             <div class="layui-input-block">
                 <select class="form-control layui-input-inline" id="select-provice" data-next_id="select-city" name="provice">

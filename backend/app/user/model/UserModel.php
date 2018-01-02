@@ -17,7 +17,13 @@ class UserModel extends Model
 {
     //session 保存需要激活的账号的用户id的key
     const SESSION_NEED_ACTIVE_ACCOUNT_UID = 'need_active_account_uid';
-
+    public $scale = [
+        '1' => '不限',
+        '2' => '10人以下',
+        '3' => '10-49',
+        '4' => '50-100',
+        '5' => '100以上'
+    ];
     public function doMobile($user)
     {
         $userQuery = Db::name("user");
@@ -73,9 +79,9 @@ class UserModel extends Model
             hook_one("user_login_start",$hookParam);
             if ($comparePasswordResult) {
                 //是否激活账号
-                if($result['is_active_account'] == 0){
+                /*if($result['is_active_account'] == 0){
                     return 4;
-                }
+                }*/
                 //拉黑判断。
                 if($result['user_status']==0){
                     return 3;
@@ -266,6 +272,7 @@ class UserModel extends Model
         $dataInfo['area_id'] = $user['area'];
         $dataInfo['address'] = $user['address'];
         $dataInfo['describe'] = $user['describe'];
+        $dataInfo['scale'] = $user['scale'];
 
         //判断是否存在详情
         if($userInfoQuery->where("user_id", $userId)->find()){
@@ -361,7 +368,7 @@ class UserModel extends Model
     public function getInfoById($id){
         $userQuery = Db::name("user");
         $params = array('a.id'=>$id);
-        $userInfo = $userQuery->alias("a")->field("a.id,a.mobile,a.user_nickname,a.avatar,a.sex,a.user_type,a.user_url,a.birthday,ui.industry_id,ui.provice_id,ui.city_id,ui.area_id,ui.address,us.name as industry_name")
+        $userInfo = $userQuery->alias("a")->field("a.id,a.mobile,a.user_nickname,a.avatar,a.sex,a.user_type,a.user_url,a.birthday,ui.industry_id,ui.provice_id,ui.city_id,ui.area_id,ui.address,ui.scale,us.name as industry_name")
             ->join('__USER_INFO__ ui', 'a.id = ui.user_id', 'LEFT')
             ->join('__USER_INDUSTRY__ us', 'ui.industry_id = us.id', 'LEFT')
             ->where($params)

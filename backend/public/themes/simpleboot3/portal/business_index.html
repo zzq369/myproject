@@ -13,17 +13,21 @@
 <div class="contentbox" style="padding-top: 30px;"><!-- contentbox start -->
     <div class="width1170 search_listbox">
         <ul>
-            <li><span>规 模：</span><a href="#">不限</a><a href="#">10人以下</a><a href="#">10-49</a><a href="#">50-100</a><a href="#">100以上</a></li>
-            <li><span>所属行业： </span>
-                <a href="#">不限</a>
-                <volist name="industryList" id="vo">
-                    <a href="#">{$vo.name}</a>
+            <li id="scale"><span>规 模：</span>
+                <volist name="scaleList" id="vo" key="k">
+                <a href="javascript:void(0);" data-val="{$k}">{$vo}</a>
                 </volist>
             </li>
-            <li><span>所属地区： </span>
-                <a href="#">不限</a>
+            <li id="industry_id"><span>所属行业： </span>
+                <a href="javascript:void(0);" data-val="-1">不限</a>
+                <volist name="industryList" id="vo">
+                    <a href="javascript:void(0);" data-val="{$vo.id}">{$vo.name}</a>
+                </volist>
+            </li>
+            <li id="provice_id"><span>所属地区： </span>
+                <a href="javascript:void(0);" data-val="-1">不限</a>
                 <volist name="provinceList" id="vo">
-                    <a href="#">{$vo.name}</a>
+                    <a href="javascript:void(0);" data-val="{$vo.Id}">{$vo.name}</a>
                 </volist>
             </li>
         </ul>
@@ -53,6 +57,29 @@
 <include file="public@footer"/>
 <!-- /container -->
 <include file="public@scripts"/>
+<script type="text/javascript">
+    $(function () {
+        var href = this.location.href;
+        $("#scale a").click(function () {
+            var val = $(this).data('val');
+            href = href.replace(/&scale=(-|\+)?\d+/, "")
+            var url = href + "&scale=" + val;
+            window.location.href = url;
+        })
+        $("#industry_id a").click(function () {
+            var val = $(this).data('val');
+            href = href.replace(/&industry_id=(-|\+)?\d+/, "")
+            var url = href + "&industry_id=" + val;
+            window.location.href = url;
+        })
+        $("#provice_id a").click(function () {
+            var val = $(this).data('val');
+            href = href.replace(/&provice_id=(-|\+)?\d+/, "")
+            var url = href + "&provice_id=" + val;
+            window.location.href = url;
+        })
+    })
+</script>
 <hook name="before_body_end"/>
 </body>
 </html>

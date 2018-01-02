@@ -69,7 +69,7 @@ class PushModel extends Model
             ->join("__REGION__ p","a.province = p.id","LEFT")
             ->join("__REGION__ c","a.city = c.id","LEFT")
             ->join("__REGION__ ar","a.area = ar.id","LEFT")
-            ->where($params)->limit($limit)->order("a.update_time desc")->paginate(10);
+            ->where($params)->limit($limit)->order("a.update_time desc")->paginate($limit);
         return $list;
     }
 }

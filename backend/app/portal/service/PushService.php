@@ -12,6 +12,7 @@ use app\grab\model\PushModel;
 use app\portal\model\PushCommentsModel;
 use app\portal\model\PushTagsModel;
 use app\portal\model\UserIndustryModel;
+use app\user\model\RegionModel;
 use app\user\model\UserModel;
 
 class PushService
@@ -30,7 +31,17 @@ class PushService
 
         $pushModel = new PushModel();
         $params = array(
+            'status' => 0
         );
+        if (isset($_GET['resource_type']) && $_GET['resource_type'] != -1) {
+            $params['a.resource_type'] = $_GET['resource_type'];
+        }
+        if (isset($_GET['charge']) && $_GET['charge'] != -1) {
+            $params['a.charge'] = $_GET['charge'];
+        }
+        if (isset($_GET['province']) && $_GET['province'] != -1) {
+            $params['a.province'] = $_GET['province'];
+        }
         $field = "a.id,a.title,a.create_time,a.is_top,a.is_anxious,a.read_count,a.address,b.name as cate_name";
         $result = $pushModel->getListBy($params,$field, 10);
         $list = $result->items();
@@ -67,8 +78,11 @@ class PushService
      * @return false|\PDOStatement|string|\think\Collection
      */
     public function getProvinceList(){
-        $provinceModel = new ProvinceModel();
-        $list = $provinceModel->getList();
+        $provinceModel = new RegionModel();
+        $params = [
+            'pid' => 0
+        ];
+        $list = $provinceModel->getListsBy($params);
         return $list;
     }
 

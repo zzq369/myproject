@@ -6,6 +6,7 @@ namespace app\portal\controller;
 
 use app\portal\service\BusinessService;
 use app\portal\service\PushService;
+use app\user\model\UserModel;
 use cmf\controller\HomeBaseController;
 
 class BusinessController extends HomeBaseController
@@ -18,10 +19,13 @@ class BusinessController extends HomeBaseController
     {
         $service = new BusinessService();
         $pushService = new PushService();
+        $userModel = new UserModel();
         $businessList = $service->getBusinessList();
         $industryList = $pushService->getIndustry();
         $provinceList = $pushService->getProvinceList();
+        $scaleList = $userModel->scale;
 
+        $this->assign('scaleList', $scaleList);
         $this->assign('businessList', $businessList['list']);
         $this->assign('page', $businessList['page']);
         $this->assign("industryList", $industryList);

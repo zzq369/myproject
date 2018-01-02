@@ -7,7 +7,7 @@
 	<include file="public@user_head"/>
 </head>
 <body class="childrenBody">
-<blockquote class="layui-elem-quote news_search">
+<!--<blockquote class="layui-elem-quote news_search">
 	<div class="layui-inline">
 		<div class="layui-input-inline">
 			<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
@@ -29,7 +29,7 @@
 	<div class="layui-inline">
 		<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
 	</div>
-</blockquote>
+</blockquote>-->
 <div class="layui-form news_list">
 	<ul class="hutuibox" style="margin-top: 20px;">
 		<volist name="list" id="vo">
@@ -62,7 +62,7 @@
 		</volist>
 	</ul>
 </div>
-<div id="page"></div>
+<div id="page" class="layui-laypage">{$page}</div>
 <include file="public@scripts" />
 <include file="public@user_scripts"/>
 <script type="text/javascript">

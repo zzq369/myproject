@@ -13,31 +13,26 @@
 <div class="contentbox" style="padding-top: 30px;"><!-- contentbox start -->
     <div class="width1170 search_listbox">
         <ul>
-            <li><span>资源类型：</span>
-                <a href="#">不限</a>
-                <a href="#">线上</a>
-                <a href="#">线下</a>
+            <li id="resource_type"><span>资源类型：</span>
+                <a href="javascript:void(0);" data-val="-1">不限</a>
+                <a href="javascript:void(0);" data-val="1">线上</a>
+                <a href="javascript:void(0);" data-val="2">线下</a>
             </li>
-            <li><span>收费方式： </span>
-                <a href="#">不限</a>
-                <a href="#">免费</a>
-                <a href="#">收费</a>
+            <li id="charge"><span>收费方式： </span>
+                <a href="javascript:void(0);" data-val="-1">不限</a>
+                <a href="javascript:void(0);" data-val="0">免费</a>
+                <a href="javascript:void(0);" data-val="1">收费</a>
             </li>
-            <li><span>发  布  人： </span>
-                <a href="#">不限</a>
-                <a href="#">人</a>
-                <a href="#">企业</a>
-            </li>
-            <li><span>所属行业： </span>
+            <!--<li><span>所属行业： </span>
                 <a href="#">不限</a>
                 <volist name="industryList" id="vo">
                 <a href="#">{$vo.name}</a>
                 </volist>
-            </li>
-            <li><span>所属地区： </span>
-                <a href="#">不限</a>
+            </li>-->
+            <li id="province"><span>所属地区： </span>
+                <a href="javascript:void(0);" data-val="-1">不限</a>
                 <volist name="provinceList" id="vo">
-                <a href="#">{$vo.name}</a>
+                    <a href="javascript:void(0);" data-val="{$vo.id}">{$vo.name}</a>
                 </volist>
             </li>
         </ul>
@@ -140,6 +135,29 @@
 <include file="public@footer"/>
 <!-- /container -->
 <include file="public@scripts"/>
+<script type="text/javascript">
+    $(function () {
+        var href = this.location.href;
+        $("#resource_type a").click(function () {
+            var val = $(this).data('val');
+            href = href.replace(/&resource_type=(-|\+)?\d+/, "")
+            var url = href + "&resource_type=" + val;
+            window.location.href = url;
+        })
+        $("#charge a").click(function () {
+            var val = $(this).data('val');
+            href = href.replace(/&charge=(-|\+)?\d+/, "")
+            var url = href + "&charge=" + val;
+            window.location.href = url;
+        })
+        $("#province a").click(function () {
+            var val = $(this).data('val');
+            href = href.replace(/&province=(-|\+)?\d+/, "")
+            var url = href + "&province=" + val;
+            window.location.href = url;
+        })
+    })
+</script>
 <hook name="before_body_end"/>
 </body>
 </html>
